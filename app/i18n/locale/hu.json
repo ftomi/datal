@@ -1,0 +1,80 @@
+{
+  "helloWorld": "Hello World",
+  "common": {
+    "ok": "Ok",
+    "success": "siker",
+    "send": "Küldés",
+    "cancel": "Mégsem",
+    "offline": "Nincs internet kapcsolat"
+  },
+  "auth": {
+    "signUp": "Regisztráció",
+    "signIn": "Bejelentkezés",
+    "enterFirstName": "Keresztnév",
+    "enterLastName": "Vezetéknév",
+    "enterEmail": "Email",
+    "enterPassword": "Jelszó",
+    "confirmPassword": "Jelszó újra",
+    "passwordsMustMatch": "A jelszavaknak egyezniük kell",
+    "changePass": "Jelszó váltóztatás",
+    "haveAccountLogIn": "Van fiókód? Bejelentkezés!",
+    "enterNewPass": "Új jelszó",
+    "confirmPass": "Jelszó megerősítés",
+    "passwordSuccessfullyChanged": "Jelszó váltás sikeres",
+    "invalidCredentials": "Email/jelszó nem helyes.",
+    "emailDoesNotExist": "Nem létező email cím",
+    "sendEmail": "Email küldés",
+    "forgotPasswordSuccess": "Jelszó emlékeztető linket kiküldtük!",
+    "resetPassword": "Jelszó emlékeztető",
+    "invalidToken": "Helytelen vagy lejárt token",
+    "passwordResetSucces": "A jelszó sikeresen megváltozott"
+  },
+  "validation": {
+    "firstNameIsRequired": "Keresztnév kötelező.",
+    "lastNameIsRequired": "Vezetéknév kötelező.",
+    "emailIsRequired": "Email kötelező.",
+    "passwordIsRequired": "Jelszó kötelező.",
+    "confirmPasswordIsRequired": "Jelszó megerősítés kötelező.",
+    "currentPasswordIsRequired": "Jelenlegi jelszó kötelező.",
+    "newPasswordIsRequired": "Új jelszó kötelező.",
+    "newPasswordConfirmationIsRequired": "Új jelszó megerősítése kötelező",
+
+    "mustBeValidEmail": "Email formátum nem helyes.",
+    "passwordsMustMatch": "A jelszavaknak egyezniük kell.",
+    "passwordMinCharacters": "A jelszónak legalább 8 karakternek kell lennie",
+    "confirmPasswordMinCharacters": "A jelszónak megerősítésnek legalább 8 karakternek kell lennie",
+    "currentPasswordMinCharacters": "A jelenlegi jelszónak legalább 8 karakternek kell lennie",
+    "newPasswordMinCharacters": "Az új jelszónak legalább 8 karakternek kell lennie",
+    "newPasswordConfirmationMinCharacters": "Az új jelszó megerősítésnek legalább 8 karakternek kell lennie"
+  },
+  "error": {
+    "somethingWrong": "Valami NOK",
+    "doYouWantToRestart": "Szeretnéd újraindítani az alkalmazást?",
+    "restart": "Újraindítás",
+    "cancel": "Mégsem",
+    "socialLoginError": "Social login hiba",
+    "close": "Bezárás"
+  },
+  "profile": {
+    "changePassword": {
+      "changePassword": "Jelszó váltóztatás",
+      "currentPassword": "Jelenlegi jelszó",
+      "newPassword": "Új jelszó",
+      "confirmNewPassword": "Új jelszó megerősítése",
+      "change": "Váltóztatás",
+      "invalidOldPassword": "A régi jelszó nem helyes.",
+      "passwordChanged": "Jelszó megváltozott!",
+      "passwordChangedSuccess": "Jelszó váltás sikeres!"
+    },
+    "updateUser": {
+      "updateProfile": "Profil frissítése",
+      "firstName": "Keresztnév",
+      "lastName": "Vezetéknév",
+      "update": "Mentés",
+      "importImage": "Kép választása",
+      "importFromGallery": "Kép választása galériából",
+      "takePicture": "Fotó készítése",
+      "noPermissions": "Nincs jogosultság"
+    }
+  }
+}
