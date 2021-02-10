@@ -1,23 +1,23 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from "redux-saga/effects";
 
-import authService from '../../services/AuthService';
-import NavigationService from '../../services/NavigationService';
-import { profileService } from '../../services/ProfileService';
+// import authService from '../../services/AuthService';
+// import NavigationService from '../../services/NavigationService';
+// import { profileService } from '../../services/ProfileService';
 import {
   setForgotPasswordError,
   setGlobalError,
   setResetPasswordError,
   setSignInError,
   setSignUpErrors,
-  setSocialLoginError
-} from '../error';
-import { setLoader } from '../loader';
-import { resetState } from '../shared';
+  setSocialLoginError,
+} from "../error";
+import { setLoader } from "../loader";
+import { resetState } from "../shared";
 import {
   setChangePasswordSuccess,
   setUpdatedUser,
-  setActiveUser
-} from './actions';
+  setActiveUser,
+} from "./actions";
 
 import {
   CHANGE_PASSWORD,
@@ -29,16 +29,16 @@ import {
   LOGOUT,
   RESET_PASSWORD,
   SIGN_UP,
-  UPDATE_USER
-} from './actionTypes';
+  UPDATE_USER,
+} from "./actionTypes";
 
 function* login({ payload }) {
   try {
     yield put(setSignInError(false));
     yield put(setLoader(true));
 
-    yield call(authService.login, payload);
-    NavigationService.navigate('AuthLoading');
+    // yield call(authService.login, payload);
+    // NavigationService.navigate('AuthLoading');
   } catch (error) {
     if (error.response.status === 401) {
       yield put(setSignInError(true));
@@ -53,10 +53,10 @@ function* login({ payload }) {
 function* loginWithFacebook() {
   try {
     yield put(setLoader(true));
-    yield call(authService.loginWithFacebook);
-    NavigationService.navigate('AuthLoading');
+    // yield call(authService.loginWithFacebook);
+    // NavigationService.navigate('AuthLoading');
   } catch (error) {
-    if (error.message !== 'cancel') {
+    if (error.message !== "cancel") {
       if (error.response.status === 422) {
         yield put(setSocialLoginError(error.response.data.error));
       } else {
@@ -71,10 +71,10 @@ function* loginWithFacebook() {
 function* loginWithGoogle() {
   try {
     yield put(setLoader(true));
-    yield call(authService.loginWithGoogle);
-    NavigationService.navigate('AuthLoading');
+    // yield call(authService.loginWithGoogle);
+    // NavigationService.navigate('AuthLoading');
   } catch (error) {
-    if (error.message !== 'cancel') {
+    if (error.message !== "cancel") {
       if (error.response.status === 422) {
         yield put(setSocialLoginError(error.response.data.error));
       } else {
@@ -90,8 +90,8 @@ function* signUp({ payload }) {
   try {
     yield put(setSignUpErrors({}));
     yield put(setLoader(true));
-    yield call(authService.signup, payload);
-    NavigationService.navigate('AuthLoading');
+    //yield call(authService.signup, payload);
+    //NavigationService.navigate('AuthLoading');
   } catch (error) {
     if (error.response.status === 422) {
       yield put(setSignUpErrors(error.response.data.errors));
@@ -106,9 +106,9 @@ function* signUp({ payload }) {
 function* logout() {
   try {
     yield put(setLoader(true));
-    yield call(authService.logout);
-    yield put(resetState());
-    NavigationService.navigate('AuthLoading');
+    //yield call(authService.logout);
+    //yield put(resetState());
+    //NavigationService.navigate('AuthLoading');
   } catch (error) {
   } finally {
     yield put(setLoader(false));
@@ -119,8 +119,8 @@ function* forgotPassword({ payload }) {
   try {
     yield put(setForgotPasswordError(false));
     yield put(setLoader(true));
-    yield call(authService.forgotPassword, payload);
-    NavigationService.navigate('ForgotPasswordSuccess');
+    //yield call(authService.forgotPassword, payload);
+    //NavigationService.navigate('ForgotPasswordSuccess');
   } catch (error) {
     if (error.response.status === 422) {
       yield put(setForgotPasswordError(true));
@@ -135,8 +135,8 @@ function* forgotPassword({ payload }) {
 function* resetPassword({ payload }) {
   try {
     yield put(setLoader(true));
-    yield call(authService.resetPassword, payload);
-    NavigationService.navigate('ResetPasswordSuccess');
+    //yield call(authService.resetPassword, payload);
+    //NavigationService.navigate('ResetPasswordSuccess');
   } catch (error) {
     if (error.response.status === 422) {
       yield put(setResetPasswordError(true));
@@ -163,9 +163,9 @@ function* getActiveUser() {
 function* changePassword({ payload }) {
   try {
     yield put(setLoader(true));
-    yield call(profileService.changePassword, payload);
+    //yield call(profileService.changePassword, payload);
     yield put(setChangePasswordSuccess(true));
-    NavigationService.goBack();
+    //NavigationService.goBack();
   } catch (error) {
     if (error.response.status === 422) {
       yield put(setChangePasswordError(true));
@@ -180,9 +180,9 @@ function* changePassword({ payload }) {
 function* updateUser({ payload }) {
   try {
     yield put(setLoader(true));
-    const { data } = yield call(profileService.updateUser, payload);
+    //const { data } = yield call(profileService.updateUser, payload);
     yield put(setUpdatedUser(data));
-    NavigationService.goBack();
+    //NavigationService.goBack();
   } catch (error) {
     yield put(setGlobalError(true));
   } finally {
