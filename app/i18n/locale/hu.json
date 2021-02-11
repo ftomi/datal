@@ -9,15 +9,17 @@
   },
   "auth": {
     "signUp": "Regisztráció",
-    "signIn": "Bejelentkezés",
+    "signIn": "Belépés",
     "enterFirstName": "Keresztnév",
     "enterLastName": "Vezetéknév",
     "enterEmail": "Email",
+    "userName": "Felhasználónév",
+    "password": "Jelszó",
     "enterPassword": "Jelszó",
     "confirmPassword": "Jelszó újra",
     "passwordsMustMatch": "A jelszavaknak egyezniük kell",
     "changePass": "Jelszó váltóztatás",
-    "haveAccountLogIn": "Van fiókód? Bejelentkezés!",
+    "haveAccountLogIn": "Van fiókód? Belépés!",
     "enterNewPass": "Új jelszó",
     "confirmPass": "Jelszó megerősítés",
     "passwordSuccessfullyChanged": "Jelszó váltás sikeres",
@@ -27,7 +29,8 @@
     "forgotPasswordSuccess": "Jelszó emlékeztető linket kiküldtük!",
     "resetPassword": "Jelszó emlékeztető",
     "invalidToken": "Helytelen vagy lejárt token",
-    "passwordResetSucces": "A jelszó sikeresen megváltozott"
+    "passwordResetSucces": "A jelszó sikeresen megváltozott",
+    "storeSelector": "Boltválasztás"
   },
   "validation": {
     "firstNameIsRequired": "Keresztnév kötelező.",

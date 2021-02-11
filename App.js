@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 import SvgUri from "expo-svg-uri";
 import * as SplashScreen from "expo-splash-screen";
-import LoginScreen from "./app/screens/LoginScreen";
+import AppLoading from "expo-app-loading";
+
+import AuthNavigator from "./app/navigation/AuthNavigator";
+import AppNavigator from "./app/navigation/AppNavigator";
+import AuthContext from "./app/auth/context";
 import {
   DefaultTheme,
   Provider as PaperProvider,
@@ -12,6 +16,7 @@ import {
 
 // STATE RELATED STUFF
 import { Provider as StoreProvider } from "react-redux";
+import store from "./app/store";
 import ParamsContext from "./app/context/params/context";
 import paramsStorage from "./app/context/params/storage";
 
@@ -26,6 +31,7 @@ const theme = {
 };
 
 const App = () => {
+  const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
   const [baseUrl, setBaseUrl] = useState("");
 
@@ -35,7 +41,15 @@ const App = () => {
     },
     [isReady]
   );
-
+  const restoreData = async () => {
+    // todo: check if tables exists (create them if they not)
+    const user = await authStorage.getUser();
+    const baseUrl = await paramsStorage.getBaseUrl();
+    if (baseUrl) {
+      setBaseUrl(baseUrl);
+    }
+    if (user) setUser(user);
+  };
   _cacheResourcesAsync = async () => {
     SplashScreen.hideAsync();
     // FOR DEMO PURPOSES
@@ -52,6 +66,11 @@ const App = () => {
 
   if (!isReady) {
     return (
+      // <AppLoading
+      //   startAsync={restoreData}
+      //   onFinish={() => setIsReady(true)}
+      //   onError={console.warn}
+      // />
       <View
         style={{
           flex: 1,
@@ -86,13 +105,18 @@ const App = () => {
   }
 
   return (
-    // <StoreProvider store={store}>
-    <PaperProvider theme={theme}>
-      <ParamsContext.Provider value={{ baseUrl, setBaseUrl }}>
-        <LoginScreen />
-      </ParamsContext.Provider>
-    </PaperProvider>
-    // </StoreProvider>
+    <StoreProvider store={store}>
+      <PaperProvider theme={theme}>
+        <ParamsContext.Provider value={{ baseUrl, setBaseUrl }}>
+          <AuthContext.Provider value={{ user, setUser }}>
+            <NavigationContainer>
+              {user ? <AppNavigator /> : <AuthNavigator />}
+              {/* <AppNavigator />*/}
+            </NavigationContainer>
+          </AuthContext.Provider>
+        </ParamsContext.Provider>
+      </PaperProvider>
+    </StoreProvider>
   );
 };
 const timeout = (ms) => {
@@ -103,7 +127,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
   },

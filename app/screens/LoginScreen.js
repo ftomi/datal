@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  ToastAndroid,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Image, ToastAndroid } from "react-native";
 import { TextInput, Title, Text, Button, useTheme } from "react-native-paper";
-import { BarCodeScanner } from "expo-barcode-scanner";
-import { Camera } from "expo-camera";
+import { useDispatch, useSelector } from "react-redux";
 import Btn from "../components/Btn";
+import Circle from "../components/Circle";
+import StoreSelector from "../components/StoreSelector";
+import { storeSelector } from "../store/store";
+import { setStore } from "../store/store";
 
 import Screen from "../components/Screen";
 import SvgUri from "expo-svg-uri";
 
-// import useAuth from "../auth/useAuth";
+import useAuth from "../auth/useAuth";
 import useParams from "../context/params/useParams";
-const Circle = () => {
-  return <View style={styles.circle} />;
-};
+import $t from "../i18n";
 
 const LoginScreen = (props) => {
-  //   const auth = useAuth();
+  const auth = useAuth();
+  const dispatch = useDispatch();
+  const store = useSelector(storeSelector());
+
   const params = useParams();
   const [email, setEmail] = React.useState("");
   // const [connection, setConnection] = React.useState("");
@@ -34,109 +31,38 @@ const LoginScreen = (props) => {
 
   useEffect(() => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
+    dispatch(setStore(`${data}`));
     setScanned(true);
     setToggleVisibility(false);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
-  // useEffect(() => {
-  //   if (params.store) setConnection(params.baseUrl);
-  // }, []);
   const { colors } = useTheme();
+
   const handleSubmit = () => {
-    //auth.logIn({ email, password });
-    // auth.logIn({ email, password });
+    auth.logIn({ email, password });
     ToastAndroid.show(email, ToastAndroid.SHORT);
+  };
+
+  const handleToggleVisibility = (visible) => {
+    setToggleVisibility(visible);
   };
 
   if (toggleVisibility) {
     return (
-      <Screen style={[styles.container]}>
-        <Camera
-          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-          style={{ flex: 1, padding: 0, margin: -70 }}
-          flashMode={flash}
-        />
-        <View
-          style={{
-            position: "absolute",
-            top: 20,
-            width: "100%",
-          }}
-        >
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <Text
-              style={{
-                width: "10%",
-                color: "white",
-                marginLeft: 20,
-                fontSize: 20,
-                textAlign: "left",
-              }}
-              onPress={() => setToggleVisibility(false)}
-            >
-              &lt;
-            </Text>
-            <Text
-              style={{
-                width: "70%",
-                color: "white",
-                marginLeft: 20,
-                fontSize: 20,
-                textAlign: "center",
-              }}
-            >
-              Vonalkódolvasó
-            </Text>
-          </View>
-
-          <Text
-            style={{
-              width: "100%",
-              color: "white",
-              marginLeft: 20,
-              paddingHorizontal: 30,
-              marginTop: 50,
-              fontSize: 16,
-              textAlign: "center",
-            }}
-          >
-            Olvassa be a csatlakozáshoz szükséges QR kódot!
-          </Text>
-        </View>
-        <View
-          style={{
-            width: "100%",
-            bottom: 30,
-          }}
-        >
-          <Text
-            style={{
-              width: "100%",
-              color: "white",
-              fontSize: 16,
-              textAlign: "center",
-            }}
-            onPress={() => {
-              if (flash === "torch") {
-                setFlash("off");
-                console.warn("off");
-              } else {
-                setFlash("torch");
-                console.warn("torch");
-              }
-            }}
-          >
-            Vaku be
-          </Text>
-        </View>
-      </Screen>
+      <StoreSelector
+        scanned={scanned}
+        handleBarCodeScanned={handleBarCodeScanned}
+        flash={flash}
+        setFlash={setFlash}
+        handleToggleVisibility={handleToggleVisibility}
+      />
     );
   }
 
@@ -163,21 +89,20 @@ const LoginScreen = (props) => {
           borderRadius: 25,
         }}
       >
-        <Title style={[styles.subtitle]}>Belépés</Title>
+        <Title style={[styles.subtitle]}>{$t("auth.signIn")}</Title>
         <TextInput
-          label="Felhasználónév"
+          label={$t("auth.userName")}
           value={email}
           style={[styles.input]}
           onChangeText={(email) => setEmail(email)}
         />
         <TextInput
-          label="Jelszó"
+          label={$t("auth.password")}
           secureTextEntry={true}
           value={password}
           style={[styles.input]}
           onChangeText={(password) => setPassword(password)}
         />
-
         <Button
           style={styles.loginButton}
           onPress={() => {
@@ -195,12 +120,22 @@ const LoginScreen = (props) => {
               color: colors.primary,
             }}
           >
-            Adatbázis kapcsolat
+            {$t("auth.storeSelector")}
           </Text>
         </Button>
-        <Btn mode="contained" onPress={() => handleSubmit}>
+        <Text
+          style={{
+            color: "#AAAAAA",
+            fontSize: 12,
+            alignSelf: "center",
+            paddingBottom: 20,
+          }}
+        >
+          {store && store}
+        </Text>
+        <Btn mode="contained" onPress={handleSubmit}>
           <Text style={{ textTransform: "capitalize", color: "white" }}>
-            Belépés
+            {$t("auth.signIn")}
           </Text>
         </Btn>
       </View>
@@ -253,14 +188,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginVertical: 50,
     fontSize: 24,
-  },
-  circle: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
-    backgroundColor: "#F79E1B",
-    position: "absolute",
-    top: -70,
   },
   logo: {
     position: "absolute",

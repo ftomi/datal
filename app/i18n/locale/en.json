@@ -13,6 +13,8 @@
     "enterFirstName": "Enter your first name",
     "enterLastName": "Enter your last name",
     "enterEmail": "Enter your email",
+    "userName": "Username",
+    "password": "Password",
     "enterPassword": "Enter your password",
     "confirmPassword": "Confirm your password",
     "passwordsMustMatch": "Passwords must match",
@@ -27,7 +29,8 @@
     "forgotPasswordSuccess": "Email with reset password link has been sent to you",
     "resetPassword": "Reset password",
     "invalidToken": "Invalid or expired token",
-    "passwordResetSucces": "Your password has been successfully reseted"
+    "passwordResetSucces": "Your password has been successfully reseted",
+    "storeSelector": "Select store"
   },
   "validation": {
     "firstNameIsRequired": "First name is required.",
