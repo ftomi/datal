@@ -16,7 +16,6 @@ const NotesNavigator = () => (
     <Stack.Screen
       name="NoteAdd"
       component={NoteAddScreen}
-      options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );

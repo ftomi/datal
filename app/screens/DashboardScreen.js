@@ -1,10 +1,12 @@
 import React from "react";
-import { StyleSheet, Image, View } from "react-native";
+import { StyleSheet, Image, View, ScrollView } from "react-native";
 import { Text, IconButton, Colors } from "react-native-paper";
 import SvgUri from "expo-svg-uri";
+import $t from "../i18n";
 
 import Screen from "../components/Screen";
 import Btn from "../components/Btn";
+import FunctionButton from "../components/FunctionButton";
 
 const DashboardScreen = ({ navigation }) => {
   return (
@@ -78,26 +80,60 @@ const DashboardScreen = ({ navigation }) => {
             height: 80,
             zIndex: 999,
             backgroundColor: Colors.white,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+
+            elevation: 5,
           }}
         >
           <Text>tabnotifications</Text>
         </View>
       </View>
-      <View
+      <ScrollView
         style={{
-          flex: 1,
           borderRadius: 15,
           marginTop: -25,
-          marginHorizontal: -40,
-          paddingHorizontal: 40,
+          marginHorizontal: -100,
+          paddingHorizontal: 80,
           paddingTop: 70,
+          marginBottom: -70,
           backgroundColor: "#D9E2E9",
+          height: 1500,
         }}
       >
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-          <Btn onPress={() => navigation.navigate("NoteList")}>Notes</Btn>
-        </Text>
-      </View>
+        <View style={{
+          flexDirection: "row"
+        }}>
+
+          {/* <Btn onPress={() => navigation.navigate("NoteList")}>Notes</Btn> */}
+          <View style={{
+            flexDirection: "column"
+          }}>
+            <Text style={{
+              paddingLeft: 10,
+              fontSize: 18,
+              fontWeight: "bold",
+              paddingBottom: 10
+            }}>Válassz funkciót!</Text>
+            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={"Jegyzetek"} route="NoteList" ></FunctionButton>
+            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={"Jegyzetek"} route="NoteList" ></FunctionButton>
+            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton>
+          </View>
+          <View style={{
+            flexDirection: "column"
+          }}>
+            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton>
+            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton>
+            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton>
+            {/* <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton> */}
+          </View>
+        </View>
+      </ScrollView>
     </Screen>
   );
 };

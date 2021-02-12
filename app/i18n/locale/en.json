@@ -79,5 +79,8 @@
       "takePicture": "Take picture",
       "noPermissions": "No permissions"
     }
+  },
+  "functions": {
+    "notes": "Notes"
   }
 }

@@ -79,5 +79,8 @@
       "takePicture": "Fotó készítése",
       "noPermissions": "Nincs jogosultság"
     }
+  },
+  "functions": {
+    "notes": "Jegyzetek"
   }
 }
