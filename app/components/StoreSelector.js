@@ -89,7 +89,7 @@ const StoreSelector = ({
             }}
           >
             <SvgUri
-              style={{ textAlign: "center", alignSelf: "center" }}
+              style={{ alignSelf: "center" }}              
               source={require("../../assets/svg/zap.svg")}
               onLoad={_cacheResourcesAsync}
             />

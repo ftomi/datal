@@ -5,15 +5,27 @@ import { useDispatch, useSelector } from "react-redux";
 import Btn from "../components/Btn";
 import Circle from "../components/Circle";
 import StoreSelector from "../components/StoreSelector";
+import { Camera } from "expo-camera";
 import { storeSelector } from "../store/store";
 import { setStore } from "../store/store";
-
+import {
+  ErrorMessage,
+  Form,
+  FormField,
+  SubmitButton,
+} from "../components/forms";
 import Screen from "../components/Screen";
 import SvgUri from "expo-svg-uri";
 
 import useAuth from "../auth/useAuth";
 import useParams from "../context/params/useParams";
 import $t from "../i18n";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required($t("auth.usernameRequired")).min(4).label("Username"),
+  password: Yup.string().required($t("auth.usernameRequired")).min(4).label("Password"),
+});
 
 const LoginScreen = (props) => {
   const auth = useAuth();
@@ -21,10 +33,9 @@ const LoginScreen = (props) => {
   const store = useSelector(storeSelector());
 
   const params = useParams();
-  const [email, setEmail] = React.useState("");
   // const [connection, setConnection] = React.useState("");
   const [toggleVisibility, setToggleVisibility] = React.useState(false);
-  const [password, setPassword] = React.useState("");
+  const [loginFailed, setLoginFailed] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [flash, setFlash] = useState("off");
@@ -45,9 +56,13 @@ const LoginScreen = (props) => {
 
   const { colors } = useTheme();
 
-  const handleSubmit = () => {
-    auth.logIn({ email, password });
-    ToastAndroid.show(email, ToastAndroid.SHORT);
+  // const handleSubmit = () => {
+  //   auth.logIn({ email, password });
+  //   ToastAndroid.show(email, ToastAndroid.SHORT);
+  // };
+  const handleSubmit = async ({ username, password }) => {
+    auth.logIn({ username, password });
+    ToastAndroid.show(username, ToastAndroid.SHORT);
   };
 
   const handleToggleVisibility = (visible) => {
@@ -55,6 +70,12 @@ const LoginScreen = (props) => {
   };
 
   if (toggleVisibility) {
+    if (hasPermission === null) {
+      return <View />;
+    }
+    if (hasPermission === false) {
+      return <Text>No access to camera</Text>;
+    }
     return (
       <StoreSelector
         scanned={scanned}
@@ -75,7 +96,6 @@ const LoginScreen = (props) => {
       />
       <View style={{ marginTop: -90, marginBottom: 90, alignItems: "center" }}>
         <SvgUri
-          style={{ textAlign: "center" }}
           source={require("../../assets/svg/Logo.svg")}
           onLoad={_cacheResourcesAsync}
         />
@@ -90,59 +110,72 @@ const LoginScreen = (props) => {
         }}
       >
         <Title style={[styles.subtitle]}>{$t("auth.signIn")}</Title>
-        <TextInput
-          label={$t("auth.userName")}
-          value={email}
-          style={[styles.input]}
-          onChangeText={(email) => setEmail(email)}
-        />
-        <TextInput
-          label={$t("auth.password")}
-          secureTextEntry={true}
-          value={password}
-          style={[styles.input]}
-          onChangeText={(password) => setPassword(password)}
-        />
-        <Button
-          style={styles.loginButton}
-          onPress={() => {
-            setToggleVisibility(!toggleVisibility);
-            setScanned(false);
-            if (toggleVisibility) {
-              params.saveApiBase(connection);
-            }
-          }}
+
+        <Form
+          initialValues={{ username: "", password: "" }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
         >
-          <Text
-            style={{
-              textDecorationLine: "underline",
-              textTransform: "capitalize",
-              color: colors.primary,
+          <ErrorMessage
+            error={$t("auth.invalidUsernameOrPwd")}
+            visible={loginFailed}
+          />
+          <FormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            name="username"
+            placeholder={$t("auth.userName")}
+            style={[styles.input]}
+          />
+          <FormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            name="password"
+            placeholder={$t("auth.password")}
+            secureTextEntry
+            style={[styles.input]}
+            textContentType="password"
+          />
+          <Button
+            style={styles.loginButton}
+            onPress={() => {
+              setToggleVisibility(!toggleVisibility);
+              setScanned(false);
+              if (toggleVisibility) {
+                params.saveApiBase(connection);
+              }
             }}
           >
-            {$t("auth.storeSelector")}
+            <Text
+              style={{
+                textDecorationLine: "underline",
+                textTransform: "capitalize",
+                color: colors.primary,
+              }}
+            >
+              {$t("auth.storeSelector")}
+            </Text>
+          </Button>
+          <Text
+            style={{
+              color: "#AAAAAA",
+              fontSize: 12,
+              alignSelf: "center",
+              paddingBottom: 20,
+            }}
+          >
+            {store && store}
           </Text>
-        </Button>
-        <Text
-          style={{
-            color: "#AAAAAA",
-            fontSize: 12,
-            alignSelf: "center",
-            paddingBottom: 20,
-          }}
-        >
-          {store && store}
-        </Text>
-        <Btn mode="contained" onPress={handleSubmit}>
-          <Text style={{ textTransform: "capitalize", color: "white" }}>
-            {$t("auth.signIn")}
-          </Text>
-        </Btn>
+          <SubmitButton >
+            <Text style={{ textTransform: "capitalize", color: "white" }}>
+              {$t("auth.signIn")}
+            </Text>
+          </SubmitButton>
+        </Form>
       </View>
 
       <SvgUri
         style={{
-          textAlign: "center",
           position: "absolute",
           bottom: 50,
           alignSelf: "center",
