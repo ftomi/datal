@@ -19,6 +19,7 @@ import { Provider as StoreProvider } from "react-redux";
 import store from "./app/store";
 import ParamsContext from "./app/context/params/context";
 import paramsStorage from "./app/context/params/storage";
+import Constants from "expo-constants";
 
 const theme = {
   ...DefaultTheme,
@@ -98,7 +99,7 @@ const App = () => {
             color: "white",
           }}
         >
-          1.0.0.1555
+          {Constants.nativeBuildVersion}
         </Text>
       </View>
     );

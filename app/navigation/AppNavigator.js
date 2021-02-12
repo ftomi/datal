@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { TextInput, Title, Text, Button, useTheme } from "react-native-paper";
-import { StyleSheet, View, Image } from "react-native";
+import { TextInput, Text, useTheme } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
 
 import DashboardScreen from "../screens/DashboardScreen";
 import DropDown from "react-native-paper-dropdown";
 import useAuth from "../auth/useAuth";
+import Constants from "expo-constants";
 
 const Circle = () => {
   return <View style={styles.circle} />;
@@ -86,7 +87,7 @@ function CustomDrawerContent({ navigation }) {
             fontWeight: "bold",
           }}
         >
-          ver: 1.0.7
+          {Constants.nativeBuildVersion}
         </Text>
       </View>
     </View>
