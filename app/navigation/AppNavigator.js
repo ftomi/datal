@@ -7,6 +7,8 @@ import DashboardScreen from "../screens/DashboardScreen";
 import DropDown from "react-native-paper-dropdown";
 import useAuth from "../auth/useAuth";
 import Constants from "expo-constants";
+import NoteListScreen from "./../screens/NoteListScreen";
+import NoteAddScreen from "./../screens/NoteAddScreen";
 
 const Circle = () => {
   return <View style={styles.circle} />;
@@ -99,6 +101,8 @@ const AppNavigator = () => (
     drawerContent={(props) => <CustomDrawerContent {...props} />}
   >
     <Drawer.Screen name="Dashboard" component={DashboardScreen} />
+    <Drawer.Screen name="NoteList" component={NoteListScreen} />
+    <Drawer.Screen name="NoteAdd" component={NoteAddScreen} />
   </Drawer.Navigator>
 );
 

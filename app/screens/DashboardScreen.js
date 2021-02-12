@@ -4,6 +4,7 @@ import { Text, IconButton, Colors } from "react-native-paper";
 import SvgUri from "expo-svg-uri";
 
 import Screen from "../components/Screen";
+import Btn from "../components/Btn";
 
 const DashboardScreen = ({ navigation }) => {
   return (
@@ -94,7 +95,7 @@ const DashboardScreen = ({ navigation }) => {
         }}
       >
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>
-          Válassz funkciót!
+          <Btn onPress={() => navigation.navigate("NoteList")}>Notes</Btn>
         </Text>
       </View>
     </Screen>
