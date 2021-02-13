@@ -11,6 +11,7 @@ function AppFormField({ name, width, ...otherProps }) {
     errors,
     touched,
     values,
+    lines = 1
   } = useFormikContext();
 
   return (

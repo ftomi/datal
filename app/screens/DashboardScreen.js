@@ -5,10 +5,16 @@ import SvgUri from "expo-svg-uri";
 import $t from "../i18n";
 
 import Screen from "../components/Screen";
-import Btn from "../components/Btn";
 import FunctionButton from "../components/FunctionButton";
 
 const DashboardScreen = ({ navigation }) => {
+
+  //<FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={"Jegyzetek"} route="NoteList" ></FunctionButton>
+  // const functions = [{
+  //   icon: require(`../../assets/svg/notes.svg`),
+  //   title: "Jegyzetek",
+  //   route: "NoteList"
+  // }];
   return (
     <Screen
       style={[
@@ -23,7 +29,7 @@ const DashboardScreen = ({ navigation }) => {
           color={Colors.white}
           icon="menu"
           size={30}
-          style={{ position: "absolute", top: 10, left: -30 }}
+          style={{ position: "absolute", top: 10 }}
           onPress={() => navigation.toggleDrawer()}
         />
         <SvgUri
@@ -45,6 +51,7 @@ const DashboardScreen = ({ navigation }) => {
           style={{
             position: "absolute",
             top: 80,
+            paddingLeft: 20,
             zIndex: 999,
             borderEndColor: "red",
           }}
@@ -71,11 +78,12 @@ const DashboardScreen = ({ navigation }) => {
         </View>
         <View
           style={{
-            width: "100%",
+            width: "90%",
             position: "absolute",
             borderRadius: 20,
             paddingTop: 10,
             bottom: -20,
+            marginHorizontal: 20,
             paddingHorizontal: 20,
             height: 80,
             zIndex: 999,
@@ -95,19 +103,18 @@ const DashboardScreen = ({ navigation }) => {
         </View>
       </View>
       <ScrollView
+        showsHorizontalScrollIndicator={false}
         style={{
           borderRadius: 15,
           marginTop: -25,
-          marginHorizontal: -100,
-          paddingHorizontal: 80,
           paddingTop: 70,
-          marginBottom: -70,
-          backgroundColor: "#D9E2E9",
-          height: 1500,
+          backgroundColor: "#D9E2E9"
         }}
       >
         <View style={{
-          flexDirection: "row"
+          marginBottom: 70,
+          flexDirection: "row",
+          justifyContent: "center"
         }}>
 
           {/* <Btn onPress={() => navigation.navigate("NoteList")}>Notes</Btn> */}
@@ -134,20 +141,20 @@ const DashboardScreen = ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-    </Screen>
+    </Screen >
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    padding: 20,
+    paddingTop: 20,
+
     flex: 1,
   },
   backgroundImage: {
     zIndex: -1,
     height: 200,
-    marginLeft: -50,
     marginTop: -20,
     resizeMode: "cover", // or 'stretch'
   },
