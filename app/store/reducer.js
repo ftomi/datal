@@ -5,6 +5,8 @@ import { reducer as errorReducer } from "./error";
 import { reducer as activeUserReducer } from "./auth";
 import { reducer as activeStoreReducer } from "./store";
 
+import { reducer as noteReducer } from "./note";
+
 import { RESET_STATE } from "./shared";
 
 const reducer = combineReducers({
@@ -12,6 +14,7 @@ const reducer = combineReducers({
   error: errorReducer,
   // activeUser: activeUserReducer
   activeStore: activeStoreReducer,
+  note: noteReducer
 });
 
 export default function(state, action) {
