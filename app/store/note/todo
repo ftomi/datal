@@ -1,3 +1,3 @@
-- add note
-- remove note
-- list notes
+- add note (type, action, reducer)
+- remove note (type, action, reducer)
+- list notes (type, action, reducer + selector)
