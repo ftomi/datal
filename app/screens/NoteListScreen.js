@@ -1,52 +1,14 @@
 import React from "react";
 import { StyleSheet, View, ScrollView, Text } from "react-native";
 import { IconButton, Colors, FAB } from "react-native-paper";
+import { useSelector } from "react-redux";
 
+import { notesSelector } from "../store/note";
 import Screen from "../components/Screen";
 import NoteItem from "../components/NoteItem";
 
 const NoteListScreen = ({ navigation }) => {
-  const notes = [{
-    id: 1,
-    date: "01 Jan 2021",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris placerat ex eu rhoncus malesuada. Mauris ut sollicitudin arcu.. ",
-    theme: "ssyxcxy",
-    isPrivate: true
-  },
-  {
-    id: 2,
-    date: "10 Jan 2021",
-    message: "Lorem ipsum dolor sit amet, consec teturconsecte turcons ecteturconsectetur consectetur consectetur consectetur adipiscing elit. Mauris placerat ex eu rhoncus malesuada. Mauris ut sollicitudin arcu.. ",
-    theme: "yxcyxc",
-    private: true
-  },
-  {
-    id: 3,
-    date: "25 Febr 2021",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris placerat ex eu rhoncus malesuada. Mauris ut sollicitudin arcu.. ",
-    theme: "b vcfbd",
-    private: false
-  }, {
-    id: 4,
-    date: "01 Jan 2021",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris placerat ex eu rhoncus malesuada. Mauris ut sollicitudin arcu.. ",
-    theme: "ssyxcxy",
-    isPrivate: true
-  },
-  {
-    id: 5,
-    date: "10 Jan 2021",
-    message: "Lorem ipsum dolor sit amet, consec teturconsecte turcons ecteturconsectetur consectetur consectetur consectetur adipiscing elit. Mauris placerat ex eu rhoncus malesuada. Mauris ut sollicitudin arcu.. ",
-    theme: "yxcyxc",
-    private: true
-  },
-  {
-    id: 6,
-    date: "25 Febr 2021",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris placerat ex eu rhoncus malesuada. Mauris ut sollicitudin arcu.. ",
-    theme: "b vcfbd",
-    private: false
-  }];
+  const notes = useSelector(notesSelector());
 
   return <Screen style={styles.container}>
     <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 26, marginBottom: 20 }}>

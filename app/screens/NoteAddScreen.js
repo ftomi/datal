@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { IconButton, Colors, FAB } from "react-native-paper";
 import $t from "../i18n";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addNote } from "../store/note";
 import {
   ErrorMessage,
   Form,
@@ -13,7 +15,19 @@ import {
 import Screen from "../components/Screen";
 
 const NoteAddScreen = ({ navigation }) => {
-  const handleSubmit = async ({ message, password }) => {
+  const [isPrivate, setIsPrivate] = useState(false);
+  const dispatch = useDispatch();
+  const handleSubmit = async ({ message }, { resetForm }) => {
+    dispatch(addNote({
+      date: "10 Jan 2021",
+      message,
+      theme: "yxcyxc",
+      private: isPrivate
+    }));
+
+    resetForm({});
+
+    navigation.goBack();
   };
   return <Screen styles={{
     backgroundColor: Colors.black
@@ -47,13 +61,13 @@ const NoteAddScreen = ({ navigation }) => {
         </Text>
         <IconButton
           color={Colors.black}
-          icon="lock-outline"
+          icon={isPrivate ? "lock" : "lock-outline"}
           size={30}
-          onPress={() => navigation.goBack()}
+          onPress={() => setIsPrivate(!isPrivate)}
         />
       </View>
       <Form
-        initialValues={{ message: "", password: "" }}
+        initialValues={{ message: "" }}
         onSubmit={handleSubmit}
       >
         <FormField

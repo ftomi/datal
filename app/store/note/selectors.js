@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-const notesSelector = state => state.note;
+const notesStateSelector = state => state.note;
 
 export const notesSelector = () =>
-  createSelector(notesSelector, state => state.notes);
+  createSelector(notesStateSelector, state => state.notes);
