@@ -2,13 +2,15 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 const FunctionButton = ({ date, message, theme, isPrivate }) => {
-    const [day, month, year] = date.split(" ");
+    // const [day, month, year] = date.split(" ");
     return (
         <View style={styles.container}>
             <View style={{ marginLeft: 30, marginRight: 5, flex: 15 }}>
-                <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{day}</Text>
+                {/* <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{day}</Text>
                 <Text style={styles.message, { textAlign: "center" }}>{month}</Text>
-                <Text style={styles.message, { textAlign: "center" }}>{year}</Text>
+                <Text style={styles.message, { textAlign: "center" }}>{year}</Text> */}
+
+                <Text style={styles.message, { textAlign: "center" }}>{date}</Text>
             </View>
             <View style={{ flex: 1, borderLeftColor: "#7B034D", borderLeftWidth: 1, height: 39, marginHorizontal: 10, marginTop: 5 }}>
 

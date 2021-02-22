@@ -1,7 +1,7 @@
-import * as authSagas from "./auth/sagas";
+import * as noteSagas from "./note/sagas";
 
 const sagas = {
-  //...authSagas
+  ...noteSagas
 };
 
 export default sagas;

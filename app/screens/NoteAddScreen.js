@@ -4,7 +4,7 @@ import { IconButton, Colors, FAB } from "react-native-paper";
 import $t from "../i18n";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { addNote } from "../store/note";
+import { saveNote } from "../store/note";
 import {
   ErrorMessage,
   Form,
@@ -18,10 +18,10 @@ const NoteAddScreen = ({ navigation }) => {
   const [isPrivate, setIsPrivate] = useState(false);
   const dispatch = useDispatch();
   const handleSubmit = async ({ message }, { resetForm }) => {
-    dispatch(addNote({
-      date: "10 Jan 2021",
+    dispatch(saveNote({
       message,
       theme: "yxcyxc",
+      date: new Date(),
       private: isPrivate
     }));
 

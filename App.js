@@ -20,6 +20,7 @@ import store from "./app/store";
 import ParamsContext from "./app/context/params/context";
 import paramsStorage from "./app/context/params/storage";
 import Constants from "expo-constants";
+import Note from "./app/models/Note";
 
 const theme = {
   ...DefaultTheme,
@@ -38,6 +39,7 @@ const App = () => {
 
   useEffect(
     () => {
+      (async () => await Note.createTable())();
       SplashScreen.preventAutoHideAsync();
     },
     [isReady]
