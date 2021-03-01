@@ -1,0 +1,33 @@
+<svg width="58" height="50" viewBox="0 0 58 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="7" y="0" width="44" height="50">
+<path d="M7 10C7 4.47715 11.4772 0 17 0H41C46.5228 0 51 4.47715 51 10V50H7V10Z" fill="#C4C4C4"/>
+</mask>
+<g mask="url(#mask0)">
+<line x1="8.5" x2="8.5" y2="50" stroke="black"/>
+<line x1="12.0397" x2="12.0397" y2="43.3333" stroke="black" stroke-width="3"/>
+<line x1="44.6905" x2="44.6905" y2="43.3333" stroke="black" stroke-width="3"/>
+<line x1="49" x2="49" y2="50" stroke="black" stroke-width="2"/>
+<line x1="29.3175" x2="29.3175" y2="50" stroke="black" stroke-width="2"/>
+<line x1="18.5238" x2="18.5238" y2="43.3333" stroke="black" stroke-width="2"/>
+<line x1="21.8333" x2="21.8333" y2="43.3333" stroke="black"/>
+<line x1="24.8333" x2="24.8333" y2="43.3333" stroke="black"/>
+<line x1="35.0714" x2="35.0714" y2="43.3333" stroke="black"/>
+<line x1="32.0714" x2="32.0714" y2="43.3333" stroke="black"/>
+<line x1="41.0714" x2="41.0714" y2="43.3333" stroke="black"/>
+<line x1="37.8412" x2="37.8412" y2="43.3333" stroke="black" stroke-width="2"/>
+</g>
+<g filter="url(#filter0_d)">
+<line x1="4" y1="26" x2="54" y2="26" stroke="#F79E1B" stroke-width="2"/>
+</g>
+<defs>
+<filter id="filter0_d" x="0" y="25" width="58" height="10" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.831373 0 0 0 0 0.207843 0 0 0 0 0.0862745 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+</defs>
+</svg>

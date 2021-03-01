@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Image, View, ScrollView } from "react-native";
 import { Text, IconButton, Colors } from "react-native-paper";
 import SvgUri from "expo-svg-uri";
@@ -6,15 +6,27 @@ import $t from "../i18n";
 
 import Screen from "../components/Screen";
 import FunctionButton from "../components/FunctionButton";
-
+import { useSelector } from "react-redux";
+import { activeUserSelector } from "../store/auth";
+import {
+  Tabs,
+  TabScreen,
+  useTabIndex,
+  useTabNavigation,
+} from 'react-native-paper-tabs';
 const DashboardScreen = ({ navigation }) => {
+  const [selectedTab, setSelectedTab] = useState(0);
+  const user = useSelector(activeUserSelector());
 
-  //<FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={"Jegyzetek"} route="NoteList" ></FunctionButton>
-  // const functions = [{
-  //   icon: require(`../../assets/svg/notes.svg`),
-  //   title: "Jegyzetek",
-  //   route: "NoteList"
-  // }];
+  /*
+  useEffect(() => {
+    if (user && Object.keys(user).length !== 0) {
+      console.warn(user);
+      auth.logIn(user);
+    }
+  }, [user])
+*/
+
   return (
     <Screen
       style={[
@@ -50,7 +62,7 @@ const DashboardScreen = ({ navigation }) => {
         <View
           style={{
             position: "absolute",
-            top: 80,
+            top: 70,
             paddingLeft: 20,
             zIndex: 999,
             borderEndColor: "red",
@@ -64,7 +76,7 @@ const DashboardScreen = ({ navigation }) => {
             }}
           >
             Üdvözöljük{" "}
-            <Text
+            {user && <Text
               style={{
                 fontSize: 18,
 
@@ -72,8 +84,8 @@ const DashboardScreen = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              Alex
-            </Text>
+              {user.firstname}
+            </Text>}
           </Text>
         </View>
         <View
@@ -82,10 +94,10 @@ const DashboardScreen = ({ navigation }) => {
             position: "absolute",
             borderRadius: 20,
             paddingTop: 10,
-            bottom: -20,
+            bottom: -30,
             marginHorizontal: 20,
-            paddingHorizontal: 20,
-            height: 80,
+            paddingHorizontal: 10,
+            height: 100,
             zIndex: 999,
             backgroundColor: Colors.white,
             shadowColor: "#000",
@@ -99,9 +111,44 @@ const DashboardScreen = ({ navigation }) => {
             elevation: 5,
           }}
         >
-          <Text>tabnotifications</Text>
+          <Tabs
+            // defaultIndex={0} // default = 0
+            uppercase={false} // true/false | default=true | labels are uppercase
+            // showTextLabel={false} // true/false | default=false (KEEP PROVIDING LABEL WE USE IT AS KEY INTERNALLY + SCREEN READERS)
+            // iconPosition // leading, top | default=leading
+            style={{
+              backgroundColor: "white",
+              color: "black",
+              fontSize: 14,
+              shadowOffset: {
+                width: 0,
+                height: 0,
+              },
+              shadowColor: "#fff",
+              shadowOpacity: 0,
+              elevation: 0
+            }} // works the same as AppBar in react-native-paper
+            // dark={false} // works the same as AppBar in react-native-paper
+            // theme={} // works the same as AppBar in react-native-paper
+            // mode="scrollable" // fixed, scrollable | default=fixed
+            onChangeIndex={(newIndex) => {
+              setSelectedTab(newIndex);
+            }}
+
+          // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
+          >
+            <TabScreen label={$t("dashboard.tab.lastFunction")}>
+              <View>{selectedTab === 0 && <Text>...</Text>}</View>
+            </TabScreen>
+            <TabScreen label={$t("dashboard.tab.actualWarehouse")}>
+              <View>{selectedTab === 1 && <Text>...</Text>}</View>
+            </TabScreen>
+            <TabScreen label={$t("dashboard.tab.error")}>
+              <View>{selectedTab === 2 && <Text>...</Text>}</View>
+            </TabScreen>
+          </Tabs>
         </View>
-      </View>
+      </View >
       <ScrollView
         showsHorizontalScrollIndicator={false}
         style={{
@@ -127,7 +174,7 @@ const DashboardScreen = ({ navigation }) => {
               fontWeight: "bold",
               paddingBottom: 10
             }}>Válassz funkciót!</Text>
-            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={"Jegyzetek"} route="NoteList" ></FunctionButton>
+            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/price-check.svg`)} title={$t("functions.priceCheck")} route="PriceCheck" ></FunctionButton>
             <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={"Jegyzetek"} route="NoteList" ></FunctionButton>
             <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton>
           </View>

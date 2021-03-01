@@ -32,8 +32,10 @@ const NoteListScreen = ({ navigation }) => {
     return <Screen style={styles.container}><Text>Loading...</Text></Screen>
   }
 
+  console.warn(noteList);
+
   return <Screen style={styles.container}>
-    <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 26, marginBottom: 20 }}>
+    <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 20 }}>
       <IconButton
         color={Colors.black}
         icon="chevron-left"
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#D9E2E9"
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     alignSelf: "center"
   },

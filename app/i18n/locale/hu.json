@@ -81,6 +81,18 @@
     }
   },
   "functions": {
-    "notes": "Jegyzetek"
+    "notes": "Jegyzetek",
+    "priceCheck": "Árellenőrzés"
+  },
+  "dashboard": {
+    "tab": {
+      "lastFunction": "Utolsó funkció",
+      "actualWarehouse": "Aktuális raktár",
+      "error": "Hiba"
+    }
+  },
+  "notes": {
+    "message": "Memo",
+    "send": "Küldés"
   }
 }

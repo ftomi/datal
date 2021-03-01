@@ -21,10 +21,10 @@ const NoteAddScreen = ({ navigation }) => {
     dispatch(saveNote({
       message,
       theme: "yxcyxc",
-      date: new Date(),
-      private: isPrivate
+      date: Date(),
+      isPrivate: isPrivate
     }));
-
+    setIsPrivate(false);
     resetForm({});
 
     navigation.goBack();

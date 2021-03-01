@@ -12,12 +12,12 @@ import { RESET_STATE } from "./shared";
 const reducer = combineReducers({
   loader: loaderReducer,
   error: errorReducer,
-  // activeUser: activeUserReducer
+  activeUser: activeUserReducer,
   activeStore: activeStoreReducer,
   note: noteReducer
 });
 
-export default function(state, action) {
+export default function (state, action) {
   if (action.type === RESET_STATE) {
     state = undefined;
   }

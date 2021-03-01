@@ -1,22 +1,27 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import moment from "moment";
+import { useTheme } from "react-native-paper";
 
 const FunctionButton = ({ date, message, theme, isPrivate }) => {
+    const { colors } = useTheme();
     // const [day, month, year] = date.split(" ");
+    const day = moment(date).format("DD");
+    const month = moment(date).format("MM");
+    const year = moment(date).format("YYYY");
+    console.warn(isPrivate);
     return (
         <View style={styles.container}>
             <View style={{ marginLeft: 30, marginRight: 5, flex: 15 }}>
-                {/* <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center" }}>{day}</Text>
+                <Text style={{ fontSize: 18, fontWeight: "bold", textAlign: "center", color: colors.primary }}>{day}</Text>
                 <Text style={styles.message, { textAlign: "center" }}>{month}</Text>
-                <Text style={styles.message, { textAlign: "center" }}>{year}</Text> */}
-
-                <Text style={styles.message, { textAlign: "center" }}>{date}</Text>
+                <Text style={styles.message, { textAlign: "center" }}>{year}</Text>
             </View>
             <View style={{ flex: 1, borderLeftColor: "#7B034D", borderLeftWidth: 1, height: 39, marginHorizontal: 10, marginTop: 5 }}>
 
             </View>
             <View style={{ marginLeft: 5, marginRight: 30, flex: 90 }}>
-                <Text style={styles.message}>{message}</Text>
+                <Text style={styles.message, { color: isPrivate ? colors.primary : "black" }}>{message}</Text>
                 <View>
                     <Text style={[styles.message, styles.theme]}># {theme}</Text>
                 </View>

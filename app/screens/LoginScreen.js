@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Image, ToastAndroid } from "react-native";
+import { StyleSheet, View, ImageBackground, ToastAndroid } from "react-native";
 import { TextInput, Title, Text, Button, useTheme } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import Btn from "../components/Btn";
@@ -7,7 +7,10 @@ import Circle from "../components/Circle";
 import StoreSelector from "../components/StoreSelector";
 import { Camera } from "expo-camera";
 import { storeSelector } from "../store/store";
+import { activeUserSelector } from "../store/auth";
 import { setStore } from "../store/store";
+import { login } from "../store/auth";
+import AuthContext from "../auth/context";
 import {
   ErrorMessage,
   Form,
@@ -21,6 +24,7 @@ import useAuth from "../auth/useAuth";
 import useParams from "../context/params/useParams";
 import $t from "../i18n";
 import * as Yup from "yup";
+import Note from "../models/Note";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required($t("auth.usernameRequired")).min(4).label("Username"),
@@ -31,6 +35,7 @@ const LoginScreen = (props) => {
   const auth = useAuth();
   const dispatch = useDispatch();
   const store = useSelector(storeSelector());
+  const user = useSelector(activeUserSelector());
 
   const params = useParams();
   // const [connection, setConnection] = React.useState("");
@@ -45,7 +50,19 @@ const LoginScreen = (props) => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
+    // Note.destroyAll();
+
   }, []);
+
+  useEffect(() => {
+    if (user && Object.keys(user).length !== 0) {
+      console.warn(user);
+      auth.logIn(user);
+    }
+    else if (!user) {
+      ToastAndroid.show("Email vagy jelszó nem helyes...", ToastAndroid.SHORT);
+    }
+  }, [user])
 
   const handleBarCodeScanned = ({ type, data }) => {
     dispatch(setStore(`${data}`));
@@ -61,8 +78,8 @@ const LoginScreen = (props) => {
   //   ToastAndroid.show(email, ToastAndroid.SHORT);
   // };
   const handleSubmit = async ({ username, password }) => {
-    auth.logIn({ username, password });
-    ToastAndroid.show(username, ToastAndroid.SHORT);
+    // auth.logIn({ username, password });
+    dispatch(login({ username, password }));
   };
 
   const handleToggleVisibility = (visible) => {
@@ -90,21 +107,31 @@ const LoginScreen = (props) => {
   return (
     <Screen style={styles.container}>
       <Circle />
-      <Image
+      {/* <Image
         source={require("../../assets/bg.png")}
         style={styles.backgroundImage}
-      />
-      <View style={{ marginTop: -90, marginBottom: 90, alignItems: "center" }}>
+      /> */}
+      <ImageBackground source={require("../../assets/bg.png")} style={{
+        flex: 2,
+        zIndex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: -20,
+        marginHorizontal: -40,
+      }}>
         <SvgUri
           source={require("../../assets/svg/Logo.svg")}
           onLoad={_cacheResourcesAsync}
         />
-      </View>
+      </ImageBackground>
       <View
         style={{
+          flex: 5,
           zIndex: 1,
           backgroundColor: "white",
           marginHorizontal: -40,
+          marginTop: -20,
           paddingHorizontal: 40,
           borderRadius: 25,
         }}
@@ -112,7 +139,7 @@ const LoginScreen = (props) => {
         <Title style={[styles.subtitle]}>{$t("auth.signIn")}</Title>
 
         <Form
-          initialValues={{ username: "", password: "" }}
+          initialValues={{ username: "1111", password: "1111" }}
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
@@ -177,7 +204,8 @@ const LoginScreen = (props) => {
       <SvgUri
         style={{
           position: "absolute",
-          bottom: 50,
+          bottom: 30,
+          zIndex: 2,
           alignSelf: "center",
         }}
         source={require("../../assets/svg/szlogoGray.svg")}
@@ -191,6 +219,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     padding: 20,
+    backgroundColor: "white"
   },
   backgroundImage: {
     position: "absolute",

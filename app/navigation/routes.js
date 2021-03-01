@@ -2,6 +2,7 @@ export default Object.freeze({
   DASHBOARD: "Dashboard",
   LOGIN: "Login",
   NOTE_LIST: "NoteList",
-  NOTE_ADD: "NoteAdd"
+  NOTE_ADD: "NoteAdd",
+  PRICE_CHECK: "PriceCheck"
   // REGISTER: "Register",
 });

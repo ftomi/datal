@@ -21,6 +21,7 @@ import ParamsContext from "./app/context/params/context";
 import paramsStorage from "./app/context/params/storage";
 import Constants from "expo-constants";
 import Note from "./app/models/Note";
+import User from "./app/models/User";
 
 const theme = {
   ...DefaultTheme,
@@ -39,7 +40,21 @@ const App = () => {
 
   useEffect(
     () => {
-      (async () => await Note.createTable())();
+      (async () => {
+        await Note.createTable();
+        await User.createTable();
+        // create dummy user
+        const firstUser = await User.findBy({ username_eq: "1111" });
+        if (!firstUser) {
+          const props = {
+            username: "1111",
+            password: "1111",
+            firstname: "Tomi",
+            lastname: "Farkas"
+          }
+          await User.create(props);
+        }
+      })();
       SplashScreen.preventAutoHideAsync();
     },
     [isReady]
