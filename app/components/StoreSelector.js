@@ -81,15 +81,13 @@ const StoreSelector = ({
             onPress={() => {
               if (flash === "torch") {
                 setFlash("off");
-                console.warn("off");
               } else {
                 setFlash("torch");
-                console.warn("torch");
               }
             }}
           >
             <SvgUri
-              style={{ alignSelf: "center" }}              
+              style={{ alignSelf: "center" }}
               source={require("../../assets/svg/zap.svg")}
               onLoad={_cacheResourcesAsync}
             />

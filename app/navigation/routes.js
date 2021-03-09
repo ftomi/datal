@@ -3,6 +3,7 @@ export default Object.freeze({
   LOGIN: "Login",
   NOTE_LIST: "NoteList",
   NOTE_ADD: "NoteAdd",
-  PRICE_CHECK: "PriceCheck"
+  PRICE_CHECK: "PriceCheck",
+  PRODUCT_SEARCH: "ProductSearch"
   // REGISTER: "Register",
 });

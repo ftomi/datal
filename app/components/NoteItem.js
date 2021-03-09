@@ -9,7 +9,6 @@ const FunctionButton = ({ date, message, theme, isPrivate }) => {
     const day = moment(date).format("DD");
     const month = moment(date).format("MM");
     const year = moment(date).format("YYYY");
-    console.warn(isPrivate);
     return (
         <View style={styles.container}>
             <View style={{ marginLeft: 30, marginRight: 5, flex: 15 }}>

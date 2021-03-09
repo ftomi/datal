@@ -10,6 +10,7 @@ import Constants from "expo-constants";
 import NoteListScreen from "./../screens/NoteListScreen";
 import PriceCheckScreen from "./../screens/PriceCheckScreen";
 import NoteAddScreen from "./../screens/NoteAddScreen";
+import ProductSearchScreen from "../screens/ProductSearchScreen";
 
 const Circle = () => {
   return <View style={styles.circle} />;
@@ -104,6 +105,7 @@ const AppNavigator = () => (
     <Drawer.Screen name="Dashboard" component={DashboardScreen} />
     <Drawer.Screen name="NoteList" component={NoteListScreen} />
     <Drawer.Screen name="PriceCheck" component={PriceCheckScreen} />
+    <Drawer.Screen name="ProductSearch" component={ProductSearchScreen} />
     <Drawer.Screen name="NoteAdd" component={NoteAddScreen} />
   </Drawer.Navigator>
 );

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, Text } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { IconButton, Colors, FAB, TextInput, Icon } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import ArticleDetailsRow from "../components/article-search/ArticleDetailsRow";
 import ArticleName from "../components/article-search/ArticleName";
 import ArticlePrice from "../components/article-search/ArticlePrice";
+import SvgUri from "expo-svg-uri";
 
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
+import IconNavButton from "../components/IconNavButton";
 
 const PriceCheckScreen = ({ navigation }) => {
 
@@ -76,9 +78,6 @@ const PriceCheckScreen = ({ navigation }) => {
             />
         </View>
         <View style={styles.searchBox}>
-            {/*
-                Csere form-ra
-            */}
             <TextInput
                 placeholder={'Vonalkód'}
                 style={{ width: '100%' }}
@@ -98,6 +97,13 @@ const PriceCheckScreen = ({ navigation }) => {
                 <ArticleDetailsRow title={'Áfa'} content={article.vat} />
                 <ArticleDetailsRow title={'Készlet'} content={`${article.stock}: ${article.salesUnitType}`} />
             </View>}
+        </View>
+        <View style={{ position: "absolute", bottom: 0, height: 50, width: "100%" }}>
+
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }} >
+                <IconNavButton title={"Termékkereső"} icon={require(`../../assets/svg/search_main.svg`)} navigation={navigation} route={"ProductSearch"} active />
+                <IconNavButton title={"Cikkszállító"} icon={require(`../../assets/svg/truck.svg`)} navigation={navigation} route={"ProductSearch"} />
+            </View>
         </View>
     </Screen>
 };

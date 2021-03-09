@@ -32,8 +32,6 @@ const NoteListScreen = ({ navigation }) => {
     return <Screen style={styles.container}><Text>Loading...</Text></Screen>
   }
 
-  console.warn(noteList);
-
   return <Screen style={styles.container}>
     <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 20 }}>
       <IconButton

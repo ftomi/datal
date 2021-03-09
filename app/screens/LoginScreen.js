@@ -56,7 +56,6 @@ const LoginScreen = (props) => {
 
   useEffect(() => {
     if (user && Object.keys(user).length !== 0) {
-      console.warn(user);
       auth.logIn(user);
     }
     else if (!user) {
