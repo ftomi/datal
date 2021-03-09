@@ -12,11 +12,12 @@ import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
 import IconNavButton from "../components/IconNavButton";
 
-const PriceCheckScreen = ({ navigation }) => {
+const PriceCheckScreen = ({ route, navigation }) => {
 
     const loading = useSelector(loaderSelector());
     const [text, setText] = useState("")
     const [article, setArticle] = useState(null);
+    const { params } = route;
     /*
         const [article, setArticle] = useState({
             barcode: "1111"
@@ -52,8 +53,10 @@ const PriceCheckScreen = ({ navigation }) => {
     }, [text])
 
     useEffect(() => {
-
-    }, [loading])
+        if (params && params.barcode) {
+            setText(params.barcode);
+        }
+    }, [params])
 
 
     if (loading) {
