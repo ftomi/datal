@@ -11,7 +11,7 @@ const ListDetailToggle = ({ detailedSearch, setDetailedSearch }) => {
                     height="25"
                     fill={detailedSearch ? "#7b034d" : "#AAAAAA"}
                     style={{ paddingBottom: 10 }}
-                    source={require(`../../assets/svg/list.svg`)}
+                    source={require(`../../../assets/svg/list.svg`)}
                 />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setDetailedSearch(false)}>
@@ -20,7 +20,7 @@ const ListDetailToggle = ({ detailedSearch, setDetailedSearch }) => {
                     height="25"
                     fill={!detailedSearch ? "#7b034d" : "#AAAAAA"}
                     style={{ paddingBottom: 10 }}
-                    source={require(`../../assets/svg/list-detailed.svg`)}
+                    source={require(`../../../assets/svg/list-detailed.svg`)}
                 />
             </TouchableOpacity>
         </View>

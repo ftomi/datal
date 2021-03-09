@@ -10,8 +10,8 @@ import SvgUri from "expo-svg-uri";
 
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
-import ListDetailToggle from "../components/ListDetailToggle";
-import SortHeader from "../components/SortHeader";
+import ListDetailToggle from "../components/grid/ListDetailToggle";
+import SortHeader from "../components/grid/SortHeader";
 import ProductListRow from "../components/ProductSearch/ProductListRow";
 const ProductSearchScreen = ({ navigation }) => {
     const [detailedSearch, setDetailedSearch] = useState(true)
