@@ -143,7 +143,7 @@ const App = () => {
           let props = {
             code: "1271031596",
             productId: product.id,
-            default: true,
+            defaultBarcode: true,
           };
 
           await Barcode.create(props);
@@ -151,7 +151,7 @@ const App = () => {
           props = {
             code: "1111",
             productId: product.id,
-            default: false,
+            defaultBarcode: false,
           };
 
           await Barcode.create(props);
@@ -160,7 +160,7 @@ const App = () => {
           props = {
             code: "2222",
             productId: product.id,
-            default: true,
+            defaultBarcode: true,
           };
 
           await Barcode.create(props);
@@ -169,7 +169,7 @@ const App = () => {
           props = {
             code: "3333",
             productId: product.id,
-            default: true,
+            defaultBarcode: true,
           };
 
           await Barcode.create(props);
@@ -177,7 +177,7 @@ const App = () => {
           props = {
             code: "3443",
             productId: product.id,
-            default: false,
+            defaultBarcode: false,
           };
 
           await Barcode.create(props);
@@ -185,7 +185,7 @@ const App = () => {
           props = {
             code: "3553",
             productId: product.id,
-            default: false,
+            defaultBarcode: false,
           };
 
           await Barcode.create(props);
