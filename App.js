@@ -22,6 +22,12 @@ import paramsStorage from "./app/context/params/storage";
 import Constants from "expo-constants";
 import Note from "./app/models/Note";
 import User from "./app/models/User";
+import Barcode from "./app/models/Barcode";
+import Partner from "./app/models/Partner";
+import Product from "./app/models/Product";
+import Stock from "./app/models/Stock";
+import Store from "./app/models/Store";
+import Storage from "./app/models/Storage";
 
 const theme = {
   ...DefaultTheme,
@@ -43,6 +49,12 @@ const App = () => {
       (async () => {
         await Note.createTable();
         await User.createTable();
+        await Barcode.createTable();
+        await Partner.createTable();
+        await Product.createTable();
+        await Stock.createTable();
+        await Store.createTable();
+        await Storage.createTable();
         // create dummy user
         const firstUser = await User.findBy({ username_eq: "1111" });
         if (!firstUser) {
@@ -50,9 +62,136 @@ const App = () => {
             username: "1111",
             password: "1111",
             firstname: "Tomi",
-            lastname: "Farkas"
-          }
+            lastname: "Farkas",
+          };
           await User.create(props);
+        }
+
+        const firstProduct = await Product.findBy({ code_eq: "TEST00001" });
+        if (!firstProduct) {
+          let props = {
+            code: "TEST00001",
+            name: "Kék kis lavór",
+            unitOfMeasure: "db",
+            packagingUnit: "db",
+            vatPercentage: 27,
+            vatCode: "C",
+            status: true,
+            normalNetUnitPrice: 1999,
+            normalGrossUnitPrice: 3000,
+            onSaleNetUnitPrice: 2500,
+            onSaleGrossUnitPrice: 3500,
+          };
+
+          await Product.create(props);
+
+          props = {
+            code: "TEST00002",
+            name: "Sárga bögre",
+            unitOfMeasure: "db",
+            packagingUnit: "db",
+            vatPercentage: 27,
+            vatCode: "C",
+            status: true,
+            normalNetUnitPrice: 2999,
+            normalGrossUnitPrice: 4000,
+            onSaleNetUnitPrice: 3500,
+            onSaleGrossUnitPrice: 4500,
+          };
+
+          await Product.create(props);
+
+          props = {
+            code: "TEST00003",
+            name: "Sárga bögre XL",
+            unitOfMeasure: "db",
+            packagingUnit: "db",
+            vatPercentage: 27,
+            vatCode: "C",
+            status: true,
+            normalNetUnitPrice: 19990,
+            normalGrossUnitPrice: 30000,
+            onSaleNetUnitPrice: 25000,
+            onSaleGrossUnitPrice: 35000,
+          };
+
+          await Product.create(props);
+
+          props = {
+            code: "TEST00003",
+            name: "Sárga bögre XXL",
+            unitOfMeasure: "db",
+            packagingUnit: "db",
+            vatPercentage: 27,
+            vatCode: "C",
+            status: true,
+            normalNetUnitPrice: 199900,
+            normalGrossUnitPrice: 300000,
+            onSaleNetUnitPrice: 250000,
+            onSaleGrossUnitPrice: 350000,
+          };
+
+          await Product.create(props);
+
+          const products = await Product.query();
+          console.log({ products });
+        }
+
+        const firstBarcode = await Barcode.findBy({ code_eq: "1271031596" });
+        if (!firstBarcode) {
+          let product = await Product.findBy({ code_eq: "TEST00001" });
+          let props = {
+            code: "1271031596",
+            productId: product.id,
+            default: true,
+          };
+
+          await Barcode.create(props);
+
+          props = {
+            code: "1111",
+            productId: product.id,
+            default: false,
+          };
+
+          await Barcode.create(props);
+
+          product = await Product.findBy({ code_eq: "TEST00002" });
+          props = {
+            code: "2222",
+            productId: product.id,
+            default: true,
+          };
+
+          await Barcode.create(props);
+
+          product = await Product.findBy({ code_eq: "TEST00003" });
+          props = {
+            code: "3333",
+            productId: product.id,
+            default: true,
+          };
+
+          await Barcode.create(props);
+
+          props = {
+            code: "3443",
+            productId: product.id,
+            default: false,
+          };
+
+          await Barcode.create(props);
+
+          props = {
+            code: "3553",
+            productId: product.id,
+            default: false,
+          };
+
+          await Barcode.create(props);
+
+          const barcodes = await Barcode.query();
+          console.log({ barcodes });
         }
       })();
       SplashScreen.preventAutoHideAsync();
