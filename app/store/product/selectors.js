@@ -1,14 +1,12 @@
 import { createSelector } from "reselect";
 
-const productsStateSelector = (state) => state.products;
+const productsStateSelector = (state) => state.product;
 
 export const productsSelector = () =>
   createSelector(productsStateSelector, (state) => state.products);
 
-const selectedProductStateSelector = (state) => state.selectedProduct;
-
 export const selectedProductSelector = () =>
   createSelector(
-    selectedProductStateSelector,
+    productsStateSelector,
     (state) => state.selectedProduct
   );

@@ -4,6 +4,7 @@ import {
   SEARCH_PRODUCT_BY_BARCODE,
   SET_SELECTED_PRODUCT,
   GET_PRODUCT,
+  ADD_PRODUCTS
 } from "./actionTypes";
 
 export function loadProducts() {
@@ -28,6 +29,12 @@ export function setSelectedProduct(product) {
   return {
     type: SET_SELECTED_PRODUCT,
     payload: product,
+  };
+}
+export function addProducts(products) {
+  return {
+    type: ADD_PRODUCTS,
+    payload: products,
   };
 }
 

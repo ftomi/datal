@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, GET_PRODUCT, SET_SELECTED_PRODUCT } from "./actionTypes";
+import { GET_PRODUCTS, GET_PRODUCT, SET_SELECTED_PRODUCT, ADD_PRODUCTS } from "./actionTypes";
 
 const initialState = {
   products: [],
@@ -12,7 +12,7 @@ function reducer(state = initialState, { type, payload }) {
     case GET_PRODUCT:
       return state.selectedProduct;
     case SET_SELECTED_PRODUCT:
-      return { ...state, selectedProduct: [...payload] };
+      return { ...state, selectedProduct: payload };
     case ADD_PRODUCTS:
       return { ...state, products: [...payload] };
     default:

@@ -3,53 +3,38 @@ import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { IconButton, Colors, FAB, TextInput, Icon } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+
 import ArticleDetailsRow from "../components/article-search/ArticleDetailsRow";
 import ArticleName from "../components/article-search/ArticleName";
 import ArticlePrice from "../components/article-search/ArticlePrice";
 import SvgUri from "expo-svg-uri";
 
+import { searchProductByBarcode } from "../store/product";
+import { selectedProductSelector } from "../store/product";
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
 import IconNavButton from "../components/IconNavButton";
 
 const PriceCheckScreen = ({ route, navigation }) => {
-
+    const [product, setProduct] = useState(null);
+    const dispatch = useDispatch();
+    const productSelector = useSelector(selectedProductSelector());
     const loading = useSelector(loaderSelector());
     const [text, setText] = useState("")
     const [article, setArticle] = useState(null);
     const { params } = route;
-    /*
-        const [article, setArticle] = useState({
-            barcode: "1111"
-            name: "Alumínium létra 4 fokos",
-            range: "2021.01.15-2021.03.14",
-            price: 1649,
-            oldPrice: 1749,
-            articleNumber: "PL638648",
-            vat: "27%",
-            stock: 323,
-            salesUnitType: "db"
-        });
-    */
+
+
     useEffect(() => {
-        if (text === "1111") {
-            setArticle({
-                barcode: "1111",
-                name: "Alumínium létra 4 fokos",
-                range: "2021.01.15-2021.03.14",
-                price: 1649,
-                oldPrice: 1749,
-                articleNumber: "PL638648",
-                vat: "27%",
-                stock: 323,
-                salesUnitType: "db"
-            });
-            setText("");
+        if (Object.entries(productSelector).length !== 0 && !loading) {
+            console.warn('selected: ', productSelector);
+            setProduct(productSelector);
         }
-        else if (text === "2222") {
-            setArticle(null);
-            setText("");
-        }
+    }, [loading])
+
+    useEffect(() => {
+        if (text)
+            dispatch(searchProductByBarcode(text));
     }, [text])
 
     useEffect(() => {
@@ -58,12 +43,11 @@ const PriceCheckScreen = ({ route, navigation }) => {
         }
     }, [params])
 
-
-    if (loading) {
-        return <Screen style={styles.container}><Text>Loading...</Text></Screen>
-    }
-
-
+    /*
+        if (loading) {
+            return <Screen style={styles.container}><Text>Loading...</Text></Screen>
+        }
+    */
     return <Screen style={styles.container}>
         <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 20 }}>
             <IconButton
@@ -93,12 +77,12 @@ const PriceCheckScreen = ({ route, navigation }) => {
                     />
                 }
             />
-            {article && <View>
-                <ArticleName articleName={article.name} />
-                <ArticlePrice title={'Akciós ár'} subTitle={'régi ár'} range={article.range} price={article.price} oldPrice={article.oldPrice} />
-                <ArticleDetailsRow title={'Cikkszám'} content={article.articleNumber} />
-                <ArticleDetailsRow title={'Áfa'} content={article.vat} />
-                <ArticleDetailsRow title={'Készlet'} content={`${article.stock}: ${article.salesUnitType}`} />
+            {!loading && product && <View>
+                <ArticleName articleName={product.name} />
+                <ArticlePrice title={'Akciós ár'} subTitle={'régi ár'} range={'2021. 03. 10. - 2021. 12. 12.'} price={product.onSaleGrossUnitPrice} oldPrice={product.normalGrossUnitPrice} />
+                <ArticleDetailsRow title={'Cikkszám'} content={product.code} />
+                <ArticleDetailsRow title={'Áfa'} content={product.vatPercentage} />
+                <ArticleDetailsRow title={'Készlet'} content={`100 ${product.unitOfMeasure}`} />
             </View>}
         </View>
         <View style={{ position: "absolute", bottom: 0, height: 50, width: "100%" }}>

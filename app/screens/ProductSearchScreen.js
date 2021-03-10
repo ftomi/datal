@@ -14,9 +14,10 @@ import ListDetailToggle from "../components/grid/ListDetailToggle";
 import SortHeader from "../components/grid/SortHeader";
 import ProductListRow from "../components/ProductSearch/ProductListRow";
 const ProductSearchScreen = ({ navigation }) => {
-    const [detailedSearch, setDetailedSearch] = useState(true)
-    const [ascending, setAscending] = useState(true)
-    const [text, setText] = useState("")
+    // const [products, setProducts] = useState(null);
+    const [detailedSearch, setDetailedSearch] = useState(true);
+    const [ascending, setAscending] = useState(true);
+    const [text, setText] = useState("");
 
     const products = [{
         id: 1,

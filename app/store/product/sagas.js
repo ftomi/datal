@@ -8,13 +8,16 @@ import { setLoader } from "../loader";
 import { addProducts, setSelectedProduct } from "../product";
 import { LOAD_PRODUCTS, SEARCH_PRODUCT_BY_BARCODE } from "./actionTypes";
 
-function* searchProductByBarcode({ barcode }) {
+function* searchProductByBarcode({ payload }) {
   try {
     yield put(setLoader(true));
-    const data = yield call(getProductByBarcode, barcode);
-    yield put(setSelectedProduct(data));
+    const data = yield call(getProductByBarcode, payload);
+    if (data)
+      yield put(setSelectedProduct(data));
+    console.warn('data', data)
     // NavigationService.navigate('AuthLoading');
   } catch (error) {
+    console.warn('error', error)
     if (error.response.status === 401) {
       yield put(setSignInError(true));
     } else {
