@@ -1,15 +1,18 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { addNoteToDb, getNotesFromDb } from "../../services/notesService";
+import {
+  getProductsFromDb,
+  getProductByBarcode,
+} from "../../services/productService";
 import { setGlobalError, setSignInError } from "../error";
 import { setLoader } from "../loader";
-import { addNote, addNotes } from "../note";
-import { LOAD_NOTES, SAVE_NOTE } from "./actionTypes";
+import { addProducts, setSelectedProduct } from "../product";
+import { LOAD_PRODUCTS, SEARCH_PRODUCT_BY_BARCODE } from "./actionTypes";
 
-function* saveNote({ payload }) {
+function* searchProductByBarcode({ barcode }) {
   try {
     yield put(setLoader(true));
-    const data = yield call(addNoteToDb, payload);
-    yield put(addNote(data));
+    const data = yield call(getProductByBarcode, barcode);
+    yield put(setSelectedProduct(data));
     // NavigationService.navigate('AuthLoading');
   } catch (error) {
     if (error.response.status === 401) {
@@ -22,11 +25,11 @@ function* saveNote({ payload }) {
   }
 }
 
-function* loadNotes() {
+function* loadProducts() {
   try {
     yield put(setLoader(true));
-    const data = yield call(getNotesFromDb);
-    yield put(addNotes(data));
+    const data = yield call(getProductsFromDb);
+    yield put(addProducts(data));
     // NavigationService.navigate('AuthLoading');
   } catch (error) {
     console.error("error: ", error);
@@ -40,10 +43,10 @@ function* loadNotes() {
   }
 }
 
-export function* watchLoadNotes() {
-  yield takeLatest(LOAD_NOTES, loadNotes);
+export function* watchLoadProducts() {
+  yield takeLatest(LOAD_PRODUCTS, loadProducts);
 }
 
-export function* watchSaveNote() {
-  yield takeLatest(SAVE_NOTE, saveNote);
+export function* watchSearchProductByBarcode() {
+  yield takeLatest(SEARCH_PRODUCT_BY_BARCODE, searchProductByBarcode);
 }
