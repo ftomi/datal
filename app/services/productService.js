@@ -3,6 +3,14 @@ import Barcode from "../models/Barcode";
 
 const getProductsFromDb = async () => {
   const data = await Product.query();
+  const bc = await Barcode.query();
+  if (data) {
+    for (let row of data) {
+      const barcodes = await Barcode.query({ where: { productId_eq: row.id } });
+      console.warn(row.id, barcodes);
+      row.barcodes = barcodes;
+    };
+  }
   return data;
 };
 

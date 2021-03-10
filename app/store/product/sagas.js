@@ -14,8 +14,6 @@ function* searchProductByBarcode({ payload }) {
     const data = yield call(getProductByBarcode, payload);
     if (data)
       yield put(setSelectedProduct(data));
-    console.warn('data', data)
-    // NavigationService.navigate('AuthLoading');
   } catch (error) {
     console.warn('error', error)
     if (error.response.status === 401) {
@@ -32,6 +30,7 @@ function* loadProducts() {
   try {
     yield put(setLoader(true));
     const data = yield call(getProductsFromDb);
+
     yield put(addProducts(data));
     // NavigationService.navigate('AuthLoading');
   } catch (error) {

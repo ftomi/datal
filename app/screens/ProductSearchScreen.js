@@ -8,252 +8,37 @@ import ArticleName from "../components/article-search/ArticleName";
 import ArticlePrice from "../components/article-search/ArticlePrice";
 import SvgUri from "expo-svg-uri";
 
+import { loadProducts } from "../store/product";
+import { productsSelector } from "../store/product";
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
 import ListDetailToggle from "../components/grid/ListDetailToggle";
 import SortHeader from "../components/grid/SortHeader";
 import ProductListRow from "../components/ProductSearch/ProductListRow";
 const ProductSearchScreen = ({ navigation }) => {
-    // const [products, setProducts] = useState(null);
+    const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
     const [detailedSearch, setDetailedSearch] = useState(true);
     const [ascending, setAscending] = useState(true);
     const [text, setText] = useState("");
+    const productsSelected = useSelector(productsSelector());
+    const loading = useSelector(loaderSelector());
 
-    const products = [{
-        id: 1,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 2,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 3,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 4,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 5,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 6,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 7,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 8,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 9,
-        name: "Zfficia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 10,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 11,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 12,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 13,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 14,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 15,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 16,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 17,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 18,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 19,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 20,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 21,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 22,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 23,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 24,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 25,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 26,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 27,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 28,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 29,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 30,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 31,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 32,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 33,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 34,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 35,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 36,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 37,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 38,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }, {
-        id: 39,
-        name: "Officia ullamco quis",
-        price: 1999,
-        barcode: "1846454989",
-        supplierCode: "44654545646"
-    }]
+    useEffect(() => {
+        dispatch(loadProducts());
+    }, [])
+
+    useEffect(() => {
+        if (productsSelected && !loading) {
+            setProducts(productsSelected);
+            console.warn({ products });
+        }
+    }, [loading])
+
+
+    if (loading) {
+        return <Screen style={styles.container}><Text>Loading...</Text></Screen>
+    }
 
     return <Screen styles={{
         flex: 1,
@@ -292,10 +77,12 @@ const ProductSearchScreen = ({ navigation }) => {
         <ScrollView>
             {products && products.sort((a, b) =>
                 ascending ? ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) : ((b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0))
-            ).map(product =>
-                <ProductListRow onPress={() => navigation.navigate("PriceCheck", {
-                    barcode: "1111"
-                })} key={product.id} product={product} detailedSearch={detailedSearch} />)}
+            )
+                .filter(x => x.name.toUpperCase().includes(text.toUpperCase()))
+                .map(product =>
+                    <ProductListRow onPress={() => navigation.navigate("PriceCheck", {
+                        barcode: product.barcodes.filter(x => x.defaultBarcode)[0].code
+                    })} key={product.id} product={product} detailedSearch={detailedSearch} />)}
         </ScrollView>
     </Screen>
 }

@@ -27,7 +27,6 @@ const PriceCheckScreen = ({ route, navigation }) => {
 
     useEffect(() => {
         if (Object.entries(productSelector).length !== 0 && !loading) {
-            console.warn('selected: ', productSelector);
             setProduct(productSelector);
         }
     }, [loading])

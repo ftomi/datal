@@ -47,6 +47,8 @@ const App = () => {
   useEffect(
     () => {
       (async () => {
+        // await Barcode.dropTable()
+        // await Product.dropTable();
         await Note.createTable();
         await User.createTable();
         await Barcode.createTable();
@@ -118,7 +120,7 @@ const App = () => {
           await Product.create(props);
 
           props = {
-            code: "TEST00003",
+            code: "TEST00004",
             name: "Sárga bögre XXL",
             unitOfMeasure: "db",
             packagingUnit: "db",
@@ -139,6 +141,7 @@ const App = () => {
 
         const firstBarcode = await Barcode.findBy({ code_eq: "1271031596" });
         if (!firstBarcode) {
+          console.warn("OK")
           let product = await Product.findBy({ code_eq: "TEST00001" });
           let props = {
             code: "1271031596",
@@ -181,11 +184,11 @@ const App = () => {
           };
 
           await Barcode.create(props);
-
+          product = await Product.findBy({ code_eq: "TEST00004" });
           props = {
-            code: "3553",
+            code: "4334",
             productId: product.id,
-            defaultBarcode: false,
+            defaultBarcode: true,
           };
 
           await Barcode.create(props);
