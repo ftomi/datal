@@ -5,8 +5,9 @@ import Screen from "./Screen";
 import { Text, IconButton, Colors } from "react-native-paper";
 import SvgUri from "expo-svg-uri";
 
-const StoreSelector = ({
+const BarcodeReader = ({
   scanned,
+  displayText,
   handleBarCodeScanned,
   flash,
   setFlash,
@@ -156,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StoreSelector;
+export default BarcodeReader;

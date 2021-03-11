@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     paddingTop: 20,
-
     flex: 1,
   },
   backgroundImage: {

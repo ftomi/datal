@@ -8,12 +8,13 @@ import ArticleDetailsRow from "../components/article-search/ArticleDetailsRow";
 import ArticleName from "../components/article-search/ArticleName";
 import ArticlePrice from "../components/article-search/ArticlePrice";
 import SvgUri from "expo-svg-uri";
-
+import { NavigationActions, StackActions } from 'react-navigation';
 import { searchProductByBarcode } from "../store/product";
 import { selectedProductSelector } from "../store/product";
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
 import IconNavButton from "../components/IconNavButton";
+import BarcodeReader from "../components/BarcodeReader";
 
 const PriceCheckScreen = ({ route, navigation }) => {
     const [product, setProduct] = useState(null);
@@ -21,9 +22,18 @@ const PriceCheckScreen = ({ route, navigation }) => {
     const productSelector = useSelector(selectedProductSelector());
     const loading = useSelector(loaderSelector());
     const [text, setText] = useState("")
-    const [article, setArticle] = useState(null);
     const { params } = route;
+    const [toggleVisibility, setToggleVisibility] = React.useState(false);
+    const [hasPermission, setHasPermission] = useState(null);
+    const [scanned, setScanned] = useState(false);
+    const [flash, setFlash] = useState("off");
 
+    // useEffect(() => {
+    //     return () => {
+    //         setProduct(null);
+    //         setText("");
+    //     }
+    // }, [])
 
     useEffect(() => {
         if (Object.entries(productSelector).length !== 0 && !loading) {
@@ -47,6 +57,37 @@ const PriceCheckScreen = ({ route, navigation }) => {
             return <Screen style={styles.container}><Text>Loading...</Text></Screen>
         }
     */
+
+
+    const handleBarCodeScanned = ({ type, data }) => {
+        setText(data);
+        setScanned(true);
+        setToggleVisibility(false);
+        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    };
+    const handleToggleVisibility = (visible) => {
+        setToggleVisibility(visible);
+    };
+
+
+    if (toggleVisibility) {
+        return (
+            <BarcodeReader
+                scanned={scanned}
+                displayText={"Kérem olvassa be a termék vonalkódját!"}
+                handleBarCodeScanned={handleBarCodeScanned}
+                flash={flash}
+                setFlash={setFlash}
+                handleToggleVisibility={handleToggleVisibility}
+            />
+        );
+    }
+
+    const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: "Dashboard" })],
+    });
+
     return <Screen style={styles.container}>
         <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 20 }}>
             <IconButton
@@ -60,7 +101,13 @@ const PriceCheckScreen = ({ route, navigation }) => {
                 color={Colors.black}
                 icon="camera-outline"
                 size={30}
-                onPress={() => navigation.goBack()}
+                onPress={() => {
+                    setToggleVisibility(!toggleVisibility);
+                    setScanned(false);
+                    if (toggleVisibility) {
+                        params.saveApiBase(connection);
+                    }
+                }}
             />
         </View>
         <View style={styles.searchBox}>

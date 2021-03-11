@@ -25,6 +25,7 @@ import useParams from "../context/params/useParams";
 import $t from "../i18n";
 import * as Yup from "yup";
 import Note from "../models/Note";
+import BarcodeReader from "../components/BarcodeReader";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required($t("auth.usernameRequired")).min(4).label("Username"),
@@ -93,7 +94,8 @@ const LoginScreen = (props) => {
       return <Text>No access to camera</Text>;
     }
     return (
-      <StoreSelector
+      <BarcodeReader
+        displayText={'Olvassa be a csatlakozáshoz szükséges QR kódot!'}
         scanned={scanned}
         handleBarCodeScanned={handleBarCodeScanned}
         flash={flash}

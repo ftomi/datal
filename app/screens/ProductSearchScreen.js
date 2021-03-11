@@ -26,6 +26,12 @@ const ProductSearchScreen = ({ navigation }) => {
 
     useEffect(() => {
         dispatch(loadProducts());
+        // return () => {
+        //     setProducts([]);
+        //     setDetailedSearch(true);
+        //     setAscending(true);
+        //     setText("");
+        // }
     }, [])
 
     useEffect(() => {
@@ -34,6 +40,7 @@ const ProductSearchScreen = ({ navigation }) => {
             console.warn({ products });
         }
     }, [loading])
+
 
 
     if (loading) {
