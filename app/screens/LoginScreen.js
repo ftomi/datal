@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, ImageBackground, ToastAndroid } from "react-native";
+import { StyleSheet, View, ImageBackground, ToastAndroid, Image } from "react-native";
 import { TextInput, Title, Text, Button, useTheme } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import Btn from "../components/Btn";
@@ -202,7 +202,7 @@ const LoginScreen = (props) => {
         </Form>
       </View>
 
-      <SvgUri
+      {/* <SvgUri
         style={{
           position: "absolute",
           bottom: 30,
@@ -211,6 +211,15 @@ const LoginScreen = (props) => {
         }}
         source={require("../../assets/svg/szlogoGray.svg")}
         onLoad={_cacheResourcesAsync}
+      /> */}
+      <Image
+        style={{
+          position: "absolute",
+          bottom: 30,
+          zIndex: 2,
+          alignSelf: "center",
+        }}
+        source={require("../../assets/szlogo_gray.png")}
       />
     </Screen>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import SvgUri from "expo-svg-uri";
 import * as SplashScreen from "expo-splash-screen";
@@ -243,13 +243,20 @@ const App = () => {
           source={require("./assets/svg/Logo.svg")}
           onLoad={_cacheResourcesAsync}
         />
-        <SvgUri
+        {/* <SvgUri
           style={{
             position: "absolute",
             bottom: 90,
           }}
           source={require("./assets/svg/Szint.svg")}
           onLoad={_cacheResourcesAsync}
+        /> */}
+        <Image
+          style={{
+            position: "absolute",
+            bottom: 90,
+          }}
+          source={require("./assets/szlogo_white.png")}
         />
         <Text
           style={{
@@ -258,7 +265,7 @@ const App = () => {
             color: "white",
           }}
         >
-          {Constants.nativeBuildVersion}
+          {Constants.manifest.version}
         </Text>
       </View>
     );

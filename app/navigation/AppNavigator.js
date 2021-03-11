@@ -91,7 +91,7 @@ function CustomDrawerContent({ navigation }) {
             fontWeight: "bold",
           }}
         >
-          {Constants.nativeBuildVersion}
+          {Constants.manifest.version}
         </Text>
       </View>
     </View>
