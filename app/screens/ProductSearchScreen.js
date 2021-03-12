@@ -47,6 +47,15 @@ const ProductSearchScreen = ({ navigation }) => {
         return <Screen style={styles.container}><Text>Loading...</Text></Screen>
     }
 
+
+    const cleanup = () => {
+        setProducts([]);
+        setDetailedSearch(true);
+        setAscending(true);
+        setText("");
+    }
+
+
     return <Screen styles={{
         flex: 1,
         paddingTop: 20,
@@ -87,9 +96,12 @@ const ProductSearchScreen = ({ navigation }) => {
             )
                 .filter(x => x.name.toUpperCase().includes(text.toUpperCase()))
                 .map(product =>
-                    <ProductListRow onPress={() => navigation.navigate("PriceCheck", {
-                        barcode: product.barcodes.filter(x => x.defaultBarcode)[0].code
-                    })} key={product.id} product={product} detailedSearch={detailedSearch} />)}
+                    <ProductListRow onPress={() => {
+                        cleanup();
+                        navigation.navigate("PriceCheck", {
+                            barcode: product.barcodes.filter(x => x.defaultBarcode)[0].code
+                        });
+                    }} key={product.id} product={product} detailedSearch={detailedSearch} />)}
         </ScrollView>
     </Screen>
 }

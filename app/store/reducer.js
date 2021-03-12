@@ -5,6 +5,7 @@ import { reducer as errorReducer } from "./error";
 import { reducer as activeUserReducer } from "./auth";
 import { reducer as activeStoreReducer } from "./store";
 import { reducer as productReducer } from "./product";
+import { reducer as partnerReducer } from "./partner";
 
 import { reducer as noteReducer } from "./note";
 
@@ -17,9 +18,10 @@ const reducer = combineReducers({
   activeStore: activeStoreReducer,
   note: noteReducer,
   product: productReducer,
+  partner: productReducer,
 });
 
-export default function(state, action) {
+export default function (state, action) {
   if (action.type === RESET_STATE) {
     state = undefined;
   }

@@ -52,9 +52,6 @@ const SupplierSearchScreen = ({ navigation }) => {
     </Screen>
 }
 
-export default SupplierSearchScreen;
-
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -69,3 +66,5 @@ const styles = StyleSheet.create({
     },
 
 });
+
+export default SupplierSearchScreen;

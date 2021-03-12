@@ -57,7 +57,10 @@ const PriceCheckScreen = ({ route, navigation }) => {
             return <Screen style={styles.container}><Text>Loading...</Text></Screen>
         }
     */
-
+    const cleanup = () => {
+        setProduct(null);
+        setText("");
+    }
 
     const handleBarCodeScanned = ({ type, data }) => {
         setText(data);
@@ -94,7 +97,10 @@ const PriceCheckScreen = ({ route, navigation }) => {
                 color={Colors.black}
                 icon="chevron-left"
                 size={30}
-                onPress={() => navigation.goBack()}
+                onPress={() => {
+                    cleanup();
+                    navigation.goBack();
+                }}
             />
             <Text style={styles.headerText}>Olvassa le a termék vonalkódját</Text>
             <IconButton

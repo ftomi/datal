@@ -98,6 +98,7 @@ function CustomDrawerContent({ navigation }) {
   );
 }
 const AppNavigator = () => (
+
   <Drawer.Navigator
     initialRouteName="Dashboard"
     drawerContent={(props) => <CustomDrawerContent {...props} />}
