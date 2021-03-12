@@ -27,5 +27,5 @@ function* loadSuppliers() {
 }
 
 export function* watchLoadSuppliers() {
-  yield takeLatest(LOAD_SUPPLIERS, Suppliers);
+  yield takeLatest(LOAD_SUPPLIERS, loadSuppliers);
 }
