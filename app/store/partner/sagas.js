@@ -7,11 +7,11 @@ import { setLoader } from "../loader";
 import { addSuppliers } from "../partner";
 import { LOAD_SUPPLIERS } from "./actionTypes";
 
-function* loadSuppliers() {
+function* loadSuppliers({ payload }) {
   try {
     yield put(setLoader(true));
-    const data = yield call(getSuppliersFromDb);
-
+    const data = yield call(getSuppliersFromDb, payload);
+    console.warn("suppliers: ", data);
     yield put(addSuppliers(data));
     // NavigationService.navigate('AuthLoading');
   } catch (error) {

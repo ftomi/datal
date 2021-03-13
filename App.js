@@ -49,6 +49,7 @@ const App = () => {
       (async () => {
         // await Barcode.dropTable()
         // await Product.dropTable();
+        await Partner.dropTable();
         await Note.createTable();
         await User.createTable();
         await Barcode.createTable();
@@ -195,6 +196,114 @@ const App = () => {
 
           const barcodes = await Barcode.query();
           console.log({ barcodes });
+        }
+
+        const firstPartner = await Partner.findBy({ code_eq: "11111111" });
+        if (!firstPartner) {
+          let product = await Product.findBy({ code_eq: "TEST00001" });
+          let props = {
+            code: "1271031596",
+            productId: product.id,
+            name: "Coca cola Hungary",
+            supplier: true,
+            customer: false
+          };
+
+          await Partner.create(props);
+
+          props = {
+            code: "1271031596",
+            productId: product.id,
+            name: "Coca cola Hungary",
+            supplier: true,
+            customer: false
+          };
+
+          await Partner.create(props);
+
+          product = await Product.findBy({ code_eq: "TEST00002" });
+          props = {
+            code: "2222",
+            productId: product.id,
+            name: "Száll. 001",
+            supplier: true,
+            customer: false
+          };
+          await Partner.create(props);
+
+          props = {
+            code: "22fs22",
+            productId: product.id,
+            name: "Száll. 005",
+            supplier: true,
+            customer: false
+          };
+          await Partner.create(props);
+
+          props = {
+            code: "222w42",
+            productId: product.id,
+            name: "Száll. 006",
+            supplier: true,
+            customer: false
+          };
+
+          await Partner.create(props);
+          props = {
+            code: "22fdfg22",
+            productId: product.id,
+            name: "Száll. 007",
+            supplier: false,
+            customer: true
+          };
+
+          await Partner.create(props);
+
+          product = await Product.findBy({ code_eq: "TEST00003" });
+          props = {
+            code: "3333",
+            name: "Száll. 002",
+            supplier: true,
+            customer: false
+          };
+
+          await Partner.create(props);
+
+          props = {
+            code: "3443",
+            name: "Száll. 003",
+            supplier: true,
+            customer: false
+          };
+
+          await Partner.create(props);
+          product = await Product.findBy({ code_eq: "TEST00004" });
+          props = {
+            code: "3443dd",
+            name: "Száll. 012",
+            supplier: true,
+            customer: false
+          };
+
+          await Partner.create(props);
+          props = {
+            code: "3443asdasdd",
+            name: "Száll. 013",
+            supplier: true,
+            customer: false
+          };
+
+          await Partner.create(props);
+
+          props = {
+            code: "3443a",
+            name: "Száll. 015",
+            supplier: true,
+            customer: false
+          };
+
+          await Partner.create(props);
+
         }
       })();
       SplashScreen.preventAutoHideAsync();

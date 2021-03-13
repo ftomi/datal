@@ -4,9 +4,10 @@ import {
   ADD_SUPPLIERS
 } from "./actionTypes";
 
-export function loadSuppliers() {
+export function loadSuppliers(product) {
   return {
     type: LOAD_SUPPLIERS,
+    payload: product
   };
 }
 

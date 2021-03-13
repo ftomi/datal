@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import SvgUri from "expo-svg-uri";
 
-const IconNavButton = ({ title, icon, route, navigation, active = false }) => {
+const IconNavButton = ({ title, icon, route, navigation, active = false, routeParam = null }) => {
     return (
-        <TouchableOpacity style={styles.container} onPress={() => active && navigation.navigate(route)}>
+        <TouchableOpacity style={styles.container} onPress={() => active && navigation.navigate(route, { ...routeParam })}>
             <SvgUri
                 width="25"
                 height="25"

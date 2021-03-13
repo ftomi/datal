@@ -7,7 +7,6 @@ const getProductsFromDb = async () => {
   if (data) {
     for (let row of data) {
       const barcodes = await Barcode.query({ where: { productId_eq: row.id } });
-      console.warn(row.id, barcodes);
       row.barcodes = barcodes;
     };
   }

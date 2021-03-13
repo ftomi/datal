@@ -4,6 +4,7 @@ export default Object.freeze({
   NOTE_LIST: "NoteList",
   NOTE_ADD: "NoteAdd",
   PRICE_CHECK: "PriceCheck",
-  PRODUCT_SEARCH: "ProductSearch"
+  PRODUCT_SEARCH: "ProductSearch",
+  SUPPLIER_SEARCH: "SupplierSearch"
   // REGISTER: "Register",
 });

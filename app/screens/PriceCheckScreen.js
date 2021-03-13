@@ -141,7 +141,7 @@ const PriceCheckScreen = ({ route, navigation }) => {
 
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }} >
                 <IconNavButton title={"Termékkereső"} icon={require(`../../assets/svg/search_main.svg`)} navigation={navigation} route={"ProductSearch"} active />
-                <IconNavButton title={"Cikkszállító"} icon={require(`../../assets/svg/truck.svg`)} navigation={navigation} route={"ProductSearch"} />
+                <IconNavButton title={"Cikkszállító"} icon={require(`../../assets/svg/truck.svg`)} navigation={navigation} route={"SupplierSearch"} routeParam={{ productId: product?.id }} active={product} />
             </View>
         </View>
     </Screen>

@@ -1,20 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from "react-native";
 import { IconButton, Colors, FAB, TextInput, Icon } from "react-native-paper";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import ArticleDetailsRow from "../components/article-search/ArticleDetailsRow";
-import ArticleName from "../components/article-search/ArticleName";
-import ArticlePrice from "../components/article-search/ArticlePrice";
-import SvgUri from "expo-svg-uri";
+import { useSelector, useDispatch } from "react-redux";
 
 import { loaderSelector } from "../store/loader";
+import { loadSuppliers } from "../store/partner";
+import { suppliersSelector } from "../store/partner";
 import Screen from "../components/Screen";
-import ListDetailToggle from "../components/grid/ListDetailToggle";
 import SortHeader from "../components/grid/SortHeader";
-const SupplierSearchScreen = ({ navigation }) => {
-    const [ascending, setAscending] = useState(true)
-    const [text, setText] = useState("")
+import SupplierListRow from "../components/supplier-search/SupplierListRow";
+const SupplierSearchScreen = ({ route, navigation }) => {
+    const [suppliers, setSuppliers] = useState([]);
+    const [ascending, setAscending] = useState(true);
+    const [text, setText] = useState("");
+    const dispatch = useDispatch();
+    const loading = useSelector(loaderSelector());
+    const suppliersSelected = useSelector(suppliersSelector());
+
+    const { productId } = route.params;
+
+    useEffect(() => {
+        if (productId)
+            dispatch(loadSuppliers(productId));
+    }, [productId])
+
+    useEffect(() => {
+        console.warn("suppliersSelected: ", suppliersSelected);
+        if (suppliersSelected && Object.entries(suppliersSelected).length !== 0 && !loading) {
+
+            setSuppliers(suppliersSelected);
+        }
+    }, [loading, suppliersSelected])
+
+
+    if (loading) {
+        return <Screen style={styles.container}><Text>Loading...</Text></Screen>
+    }
 
     return <Screen styles={{
         flex: 1,
@@ -49,6 +70,15 @@ const SupplierSearchScreen = ({ navigation }) => {
         <View style={{ flexDirection: "row", marginHorizontal: 25, marginTop: 15 }}>
             <SortHeader ascending={ascending} setAscending={setAscending} col1Text="Szállítók" col2Text="Száll. cikkszám" />
         </View>
+        <ScrollView>
+            {suppliers && suppliers
+                .sort((a, b) =>
+                    ascending ? ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) : ((b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0))
+                )
+                .filter(x => x.name.toUpperCase().includes(text.toUpperCase()))
+                .map(supplier =>
+                    <SupplierListRow key={supplier.id} supplier={supplier} />)}
+        </ScrollView>
     </Screen>
 }
 

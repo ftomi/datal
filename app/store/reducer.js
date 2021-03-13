@@ -18,7 +18,7 @@ const reducer = combineReducers({
   activeStore: activeStoreReducer,
   note: noteReducer,
   product: productReducer,
-  partner: productReducer,
+  partner: partnerReducer,
 });
 
 export default function (state, action) {

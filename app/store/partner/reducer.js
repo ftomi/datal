@@ -9,6 +9,7 @@ function reducer(state = initialState, { type, payload }) {
     case GET_SUPPLIERS:
       return state.suppliers;
     case ADD_SUPPLIERS:
+      console.warn("reducer: ", payload)
       return { ...state, suppliers: [...payload] };
     default:
       return state;
