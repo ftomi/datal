@@ -8,7 +8,8 @@ import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
 import ListDetailToggle from "../components/grid/ListDetailToggle";
 import SortHeader from "../components/grid/SortHeader";
-import ProductListRow from "../components/ProductSearch/ProductListRow";
+import ProductListRow from "../components/product-search/ProductListRow";
+import LoadingScreen from "../components/LoadingScreen";
 const ProductSearchScreen = ({ navigation }) => {
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const ProductSearchScreen = ({ navigation }) => {
 
 
     if (loading) {
-        return <Screen style={styles.container}><Text>Loading...</Text></Screen>
+        return <LoadingScreen />
     }
 
 

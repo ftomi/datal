@@ -32,6 +32,8 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required($t("auth.usernameRequired")).min(4).label("Password"),
 });
 
+import LoadingScreen from "../components/LoadingScreen";
+
 const LoginScreen = (props) => {
   const auth = useAuth();
   const dispatch = useDispatch();

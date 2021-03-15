@@ -9,6 +9,7 @@ import { suppliersSelector } from "../store/partner";
 import Screen from "../components/Screen";
 import SortHeader from "../components/grid/SortHeader";
 import SupplierListRow from "../components/supplier-search/SupplierListRow";
+import LoadingScreen from "../components/LoadingScreen";
 const SupplierSearchScreen = ({ route, navigation }) => {
     const [suppliers, setSuppliers] = useState([]);
     const [ascending, setAscending] = useState(true);
@@ -26,16 +27,16 @@ const SupplierSearchScreen = ({ route, navigation }) => {
 
     useEffect(() => {
         console.warn("suppliersSelected: ", suppliersSelected);
-        if (suppliersSelected && Object.entries(suppliersSelected).length !== 0 && !loading) {
-
+        if (!loading) {
             setSuppliers(suppliersSelected);
         }
     }, [loading, suppliersSelected])
 
 
     if (loading) {
-        return <Screen style={styles.container}><Text>Loading...</Text></Screen>
+        return <LoadingScreen />
     }
+
 
     return <Screen styles={{
         flex: 1,

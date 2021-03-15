@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { IconButton, Colors, FAB, TextInput, Icon } from "react-native-paper";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import * as _ from "lodash";
 
 import ArticleDetailsRow from "../components/article-search/ArticleDetailsRow";
 import ArticleName from "../components/article-search/ArticleName";
@@ -15,6 +16,7 @@ import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
 import IconNavButton from "../components/IconNavButton";
 import BarcodeReader from "../components/BarcodeReader";
+import LoadingScreen from "../components/LoadingScreen";
 
 const PriceCheckScreen = ({ route, navigation }) => {
     const [product, setProduct] = useState(null);
@@ -42,8 +44,10 @@ const PriceCheckScreen = ({ route, navigation }) => {
     }, [loading])
 
     useEffect(() => {
-        if (text)
+        if (text) {
+            // _.debounce((dispatch, text) => searchProductByBarcode(text)), 1000);
             dispatch(searchProductByBarcode(text));
+        }
     }, [text])
 
     useEffect(() => {
@@ -51,7 +55,6 @@ const PriceCheckScreen = ({ route, navigation }) => {
             setText(params.barcode);
         }
     }, [params])
-
     /*
         if (loading) {
             return <Screen style={styles.container}><Text>Loading...</Text></Screen>
@@ -91,6 +94,11 @@ const PriceCheckScreen = ({ route, navigation }) => {
         actions: [NavigationActions.navigate({ routeName: "Dashboard" })],
     });
 
+    /*
+    if (loading) {
+        return <LoadingScreen />
+    }
+    */
     return <Screen style={styles.container}>
         <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 20 }}>
             <IconButton

@@ -13,7 +13,7 @@ function* searchProductByBarcode({ payload }) {
     yield put(setLoader(true));
     const data = yield call(getProductByBarcode, payload);
     if (data)
-      yield put(setSelectedProduct(data));
+      yield put(setSelectedProduct(data ?? {}));
   } catch (error) {
     console.warn('error', error)
     if (error.response.status === 401) {
