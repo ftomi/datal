@@ -1,7 +1,7 @@
 import * as SQLite from "expo-sqlite";
 import { BaseModel, types } from "expo-sqlite-orm";
 
-export default class Storage extends BaseModel {
+export default class Warehouse extends BaseModel {
   constructor(obj) {
     super(obj);
   }
@@ -11,7 +11,7 @@ export default class Storage extends BaseModel {
   }
 
   static get tableName() {
-    return "storages";
+    return "warehouses";
   }
 
   static get columnMapping() {
@@ -19,6 +19,10 @@ export default class Storage extends BaseModel {
       id: { type: types.INTEGER, primary_key: true },
       code: { type: types.TEXT, not_null: true },
       name: { type: types.TEXT, not_null: true },
+      storeId: { type: types.INTEGER, not_null: true },
+      defaultWarehouse: { type: types.BOOLEAN, not_null: true },
+      startDate: { type: types.DATETIME, default: () => Date.now(), not_null: true },
+      closeDate: { type: types.DATETIME }
     };
   }
 }
