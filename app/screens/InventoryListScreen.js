@@ -200,7 +200,7 @@ const InventoryListScreen = ({ navigation }) => {
         <FAB
             style={styles.fab}
             icon="plus"
-            onPress={() => console.log('Pressed')}
+            onPress={() => navigation.navigate("InventoryHeader")}
         />
     </Screen >
 }

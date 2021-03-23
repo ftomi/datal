@@ -13,6 +13,7 @@ import NoteAddScreen from "./../screens/NoteAddScreen";
 import ProductSearchScreen from "../screens/ProductSearchScreen";
 import SupplierSearchScreen from "../screens/SupplierSearchScreen";
 import InventoryListScreen from "../screens/InventoryListScreen";
+import InventoryHeaderScreen from "../screens/InventoryHeaderScreen";
 
 const Circle = () => {
   return <View style={styles.circle} />;
@@ -112,6 +113,7 @@ const AppNavigator = () => (
     <Drawer.Screen name="SupplierSearch" component={SupplierSearchScreen} />
     <Drawer.Screen name="NoteAdd" component={NoteAddScreen} />
     <Drawer.Screen name="InventoryList" component={InventoryListScreen} />
+    <Drawer.Screen name="InventoryHeader" component={InventoryHeaderScreen} />
   </Drawer.Navigator>
 );
 
