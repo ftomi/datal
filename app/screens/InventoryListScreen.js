@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, ScrollView, Text } from "react-native";
-import { IconButton, Colors, TextInput } from "react-native-paper";
+import { IconButton, Colors, TextInput, FAB } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { loadInventories } from "../store/inventory";
 import { loaderSelector } from "../store/loader";
@@ -184,26 +184,6 @@ const InventoryListScreen = ({ navigation }) => {
             </Tabs>
         </View>
         {/* 
-        <View style={[{ flexDirection: "row", marginVertical: 15, marginHorizontal: 25, justifyContent: "space-between", alignContent: "center" }]}>
-            <Text style={{ fontSize: 17, fontWeight: "700" }}>Leltárak</Text>
-        </View>
-        <View style={{ flexDirection: "row", marginHorizontal: 25 }}>
-            <TextInput
-                placeholder={'Leltár kód, név, biz. szám, dátum'}
-                style={{ width: '100%' }}
-                value={text}
-                onChangeText={text => setText(text)}
-                right={
-                    <TextInput.Icon
-                        name="magnify" // where <Icon /> is any component from vector-icons or anything else
-                        onPress={() => { }}
-                    />
-                }
-            />
-        </View>
-        <View style={{ flexDirection: "row", marginHorizontal: 25, marginTop: 15 }}>
-            <SortHeader ascending={ascending} setAscending={setAscending} col1Text="Leltárak" col2Text="Dátum" />
-        </View>
         <ScrollView>
         {products && products.sort((a, b) =>
             ascending ? ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) : ((b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0))
@@ -217,6 +197,11 @@ const InventoryListScreen = ({ navigation }) => {
                     });
                 }} key={product.id} product={product} detailedSearch={detailedSearch} />)}
         </ScrollView> */}
+        <FAB
+            style={styles.fab}
+            icon="plus"
+            onPress={() => console.log('Pressed')}
+        />
     </Screen >
 }
 
@@ -234,6 +219,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf: "center",
         textAlign: "center"
+    },
+    fab: {
+        position: 'absolute',
+        margin: 16,
+        right: 0,
+        bottom: 0,
+        color: "white",
+        backgroundColor: "#7B034D"
     },
 
 });
