@@ -7,12 +7,16 @@ import { setLoader } from "../loader";
 import { addInventories } from "../inventory";
 import { LOAD_INVENTORIES } from "./actionTypes";
 
-function* loadInventories(payload = null) {
+function* loadInventories({ payload }) {
   try {
+    console.warn("1");
     yield put(setLoader(true));
+    console.warn("2");
     const data = yield call(getInventoryHeadsFromDb, payload);
+    console.warn("3");
     if (data)
       yield put(addInventories(data));
+    console.warn("4");
     // NavigationService.navigate('AuthLoading');
   } catch (error) {
     console.error("error: ", error);
@@ -22,6 +26,7 @@ function* loadInventories(payload = null) {
       yield put(setGlobalError(true));
     }
   } finally {
+    console.warn("5");
     yield put(setLoader(false));
   }
 }

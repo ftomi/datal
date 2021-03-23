@@ -14,8 +14,9 @@ export function addInventories(entity) {
   };
 }
 
-export function loadInventories() {
+export function loadInventories(type) {
   return {
     type: LOAD_INVENTORIES,
+    payload: type
   };
 }

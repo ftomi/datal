@@ -51,7 +51,7 @@ const App = () => {
   useEffect(
     () => {
       (async () => {
-        // await Barcode.dropTable()
+        await Warehouse.dropTable()
         // await Product.dropTable();
         await Partner.dropTable();
         await Note.createTable();
@@ -313,6 +313,155 @@ const App = () => {
           await Partner.create(props);
 
         }
+
+        const firstStorage = await Storage.findBy({ code_eq: "RA-123312" });
+        if (!firstStorage) {
+          /*
+          id: { type: types.INTEGER, primary_key: true },
+          code: { type: types.TEXT, not_null: true },
+          name: { type: types.TEXT, not_null: true },
+          */
+          let props = {
+            code: "RA-123312",
+            name: "Csemege pult"
+          }
+          await Storage.create(props);
+
+          props = {
+            code: "RA-122222",
+            name: "Hús pult"
+          }
+          await Storage.create(props);
+
+          props = {
+            code: "BA-1222221322",
+            name: "Barkács osztály"
+          }
+          await Storage.create(props);
+
+          props = {
+            code: "BA-1e322",
+            name: "Barkács osztály 2"
+          }
+          await Storage.create(props);
+
+        }
+
+        const firstStore = await Store.findBy({ code_eq: "STO-1" });
+        if (!firstStore) {
+          /*
+          id: { type: types.INTEGER, primary_key: true },
+          code: { type: types.TEXT, not_null: true },
+          name: { type: types.TEXT, not_null: true },
+          */
+          let props = {
+            code: "STO-1",
+            name: "Csillag ABC"
+          }
+          await Store.create(props);
+
+          props = {
+            code: "STO-2",
+            name: "Mészáros hentes üzlet"
+          }
+          await Store.create(props);
+
+          props = {
+            code: "STO-3",
+            name: "Barkács BOB"
+          }
+          await Store.create(props);
+
+          props = {
+            code: "STO-4",
+            name: "Barkács BOB 2"
+          }
+          await Store.create(props);
+
+        }
+
+        const firstWarehouse = await Warehouse.findBy({ code_eq: "RA-1-1" });
+        if (!firstWarehouse) {
+          /*
+            id: { type: types.INTEGER, primary_key: true },
+            code: { type: types.TEXT, not_null: true },
+            name: { type: types.TEXT, not_null: true },
+            storeId: { type: types.INTEGER, not_null: true },
+            defaultWarehouse: { type: types.BOOLEAN, not_null: true },
+            startDate: { type: types.DATETIME, default: () => Date.now(), not_null: true },
+            closeDate: { type: types.DATETIME }
+          */
+          let props = {
+            code: "RA-1-1",
+            name: "Raktár 1",
+            storeId: 1,
+            defaultWarehouse: true
+          }
+          await Warehouse.create(props);
+
+          props = {
+            code: "RA-1-2",
+            name: "Raktár 2",
+            storeId: 1,
+            defaultWarehouse: false
+          }
+          await Warehouse.create(props);
+
+          props = {
+            code: "RA-1-3",
+            name: "Raktár 3",
+            storeId: 2,
+            defaultWarehouse: true
+          }
+
+          await Warehouse.create(props);
+
+          props = {
+            code: "BA-1e322",
+            name: "Raktár 4",
+            storeId: 3,
+            defaultWarehouse: true
+
+          }
+          await Warehouse.create(props);
+
+        }
+        const firstInventory = await Inventory.findBy({ code_eq: "INV-001-1" });
+        if (!firstInventory) {
+          let props = {
+            code: "INV-001-1",
+            name: "Belső raktár",
+            warehouseId: 1,
+            type: "E"
+          }
+          await Inventory.create(props);
+
+          props = {
+            code: "INV-001-2",
+            name: "Átfogó raktár",
+            warehouseId: 1,
+            type: "I"
+          }
+          await Inventory.create(props);
+
+          props = {
+            code: "INV-001-3",
+            name: "Belső raktár",
+            warehouseId: 2,
+            type: "I"
+          }
+
+          await Inventory.create(props);
+          props = {
+            code: "INV-001-3",
+            name: "Belső raktár",
+            warehouseId: 3,
+            type: "I"
+          }
+          await Inventory.create(props);
+        }
+
+
       })();
       SplashScreen.preventAutoHideAsync();
     },

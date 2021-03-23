@@ -17,19 +17,19 @@ const getInventoryByIdFromDb = async (payload) => {
   return data;
 };
 
-const getInventoryHeadsFromDb = async (payload = null) => {
-  await setTimeout(() => { }, 2000);
+const getInventoryHeadsFromDb = async (payload) => {
   let data;
-  if (payload !== null) {
+  console.warn({ payload });
+  if (payload < 2) {
     data = await InventoryHead.query({
       where: {
-        closed_eq: payload
+        closed_eq: payload === 1
       }
     });
   } else {
     data = await InventoryHead.query();
   }
-
+  console.warn({ data });
   return data;
 };
 

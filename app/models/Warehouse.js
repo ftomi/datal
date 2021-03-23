@@ -20,9 +20,7 @@ export default class Warehouse extends BaseModel {
       code: { type: types.TEXT, not_null: true },
       name: { type: types.TEXT, not_null: true },
       storeId: { type: types.INTEGER, not_null: true },
-      defaultWarehouse: { type: types.BOOLEAN, not_null: true },
-      startDate: { type: types.DATETIME, default: () => Date.now(), not_null: true },
-      closeDate: { type: types.DATETIME }
-    };
+      defaultWarehouse: { type: types.BOOLEAN, not_null: true }
+    }
   }
 }
