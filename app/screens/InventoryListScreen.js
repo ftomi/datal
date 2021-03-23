@@ -55,7 +55,7 @@ const InventoryListScreen = ({ navigation }) => {
         paddingTop: 20,
         backgroundColor: "#D9E2E9",
     }}>
-        <View style={[styles.header, { flexDirection: "row", marginTop: 26, marginBottom: 20, backgroundColor: "transparent" }]}>
+        <View style={[styles.header, { flexDirection: "row", paddingTop: 26, paddingBottom: 5, backgroundColor: "#D9E2E9" }]}>
             <IconButton
                 color={Colors.black}
                 icon="chevron-left"

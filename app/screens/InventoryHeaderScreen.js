@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View, ScrollView, Text } from "react-native";
-import { IconButton, Colors, TextInput, FAB } from "react-native-paper";
+import { IconButton, Colors, TextInput, FAB, List } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { loadInventories } from "../store/inventory";
 import { loaderSelector } from "../store/loader";
@@ -52,10 +52,9 @@ const InventoryHeaderScreen = ({ navigation }) => {
 
     return <Screen styles={{
         flex: 1,
-        paddingTop: 20,
         backgroundColor: "#D9E2E9",
     }}>
-        <View style={[styles.header, { flexDirection: "row", marginTop: 26, marginBottom: 20, backgroundColor: "transparent" }]}>
+        <View style={[styles.header, { flexDirection: "row", paddingTop: 26, paddingBottom: 5, backgroundColor: "#D9E2E9" }]}>
             <IconButton
                 color={Colors.black}
                 icon="chevron-left"
@@ -78,8 +77,16 @@ const InventoryHeaderScreen = ({ navigation }) => {
                 onLoad={_cacheResourcesAsync}
             /> */}
         </View>
-        <View style={{ flex: 1, backgroundColor: "#D9E2E9", borderRadius: 25 }}>
-
+        <View style={{ flex: 1, backgroundColor: "#D9E2E9" }}>
+            <View style={{ backgroundColor: "white", borderRadius: 25, paddingHorizontal: 10, paddingVertical: 15, marginBottom: 20 }}>
+                <List.Accordion
+                    title={<View><Text style={{ fontSize: 20, fontWeight: "600" }}>Alapadatok</Text></View>}>
+                    <List.Item title="Form here... " />
+                </List.Accordion>
+            </View>
+            <View style={{ flex: 1, backgroundColor: "white", borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 25, paddingVertical: 30 }}>
+                <Text style={{ fontSize: 20, fontWeight: "600" }}>Leltározott tételek</Text>
+            </View>
         </View>
         {/* 
         <ScrollView>
