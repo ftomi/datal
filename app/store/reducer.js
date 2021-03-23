@@ -7,6 +7,7 @@ import { reducer as activeStoreReducer } from "./store";
 import { reducer as productReducer } from "./product";
 import { reducer as partnerReducer } from "./partner";
 import { reducer as warehouseReducer } from "./warehouse";
+import { reducer as storageReducer } from "./storage";
 
 import { reducer as noteReducer } from "./note";
 
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   product: productReducer,
   partner: partnerReducer,
   warehouse: warehouseReducer,
+  storage: storageReducer,
 });
 
 export default function (state, action) {

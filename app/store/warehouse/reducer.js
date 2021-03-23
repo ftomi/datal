@@ -2,7 +2,7 @@ import { SET_WAREHOUSE, ADD_WAREHOUSES } from "./actionTypes";
 
 const initialState = {
   warehouses: [],
-  selectedWarehouse: "",
+  selectedWarehouse: {},
 };
 
 function reducer(state = initialState, { type, payload }) {
