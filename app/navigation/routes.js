@@ -5,6 +5,7 @@ export default Object.freeze({
   NOTE_ADD: "NoteAdd",
   PRICE_CHECK: "PriceCheck",
   PRODUCT_SEARCH: "ProductSearch",
-  SUPPLIER_SEARCH: "SupplierSearch"
+  SUPPLIER_SEARCH: "SupplierSearch",
+  INVENTORY_LIST: "InventoryList"
   // REGISTER: "Register",
 });

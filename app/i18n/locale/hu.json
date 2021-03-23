@@ -41,7 +41,6 @@
     "currentPasswordIsRequired": "Jelenlegi jelszó kötelező.",
     "newPasswordIsRequired": "Új jelszó kötelező.",
     "newPasswordConfirmationIsRequired": "Új jelszó megerősítése kötelező",
-
     "mustBeValidEmail": "Email formátum nem helyes.",
     "passwordsMustMatch": "A jelszavaknak egyezniük kell.",
     "passwordMinCharacters": "A jelszónak legalább 8 karakternek kell lennie",
@@ -82,7 +81,8 @@
   },
   "functions": {
     "notes": "Jegyzetek",
-    "priceCheck": "Árellenőrzés"
+    "priceCheck": "Árellenőrzés",
+    "inventory": "Leltár"
   },
   "dashboard": {
     "tab": {
@@ -94,5 +94,12 @@
   "notes": {
     "message": "Memo",
     "send": "Küldés"
+  },
+  "inventory": {
+    "tab": {
+      "open": "Nyitott",
+      "closed": "Lezárt",
+      "all": "Összes"
+    }
   }
 }

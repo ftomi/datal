@@ -182,7 +182,7 @@ const DashboardScreen = ({ navigation }) => {
             flexDirection: "column"
           }}>
             <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton>
-            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton>
+            <FunctionButton navigation={navigation} icon={require(`../../assets/svg/inventory.svg`)} title={$t("functions.inventory")} route="InventoryList" ></FunctionButton>
             <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton>
             {/* <FunctionButton navigation={navigation} icon={require(`../../assets/svg/notes.svg`)} title={$t("functions.notes")} route="NoteList" ></FunctionButton> */}
           </View>

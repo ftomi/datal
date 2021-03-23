@@ -1,4 +1,4 @@
-import { SET_INVENTORY, ADD_INVENTORYS, LOAD_INVENTORYS } from "./actionTypes";
+import { SET_INVENTORY, ADD_INVENTORIES, LOAD_INVENTORIES } from "./actionTypes";
 
 export function setInventory(entity) {
   return {
@@ -7,15 +7,15 @@ export function setInventory(entity) {
   };
 }
 
-export function addWarehouses(entity) {
+export function addInventories(entity) {
   return {
-    type: ADD_INVENTORYS,
+    type: ADD_INVENTORIES,
     payload: entity,
   };
 }
 
-export function loadWarehouses() {
+export function loadInventories() {
   return {
-    type: LOAD_INVENTORYS,
+    type: LOAD_INVENTORIES,
   };
 }

@@ -28,6 +28,10 @@ import Product from "./app/models/Product";
 import Stock from "./app/models/Stock";
 import Store from "./app/models/Store";
 import Storage from "./app/models/Storage";
+import Inventory from "./app/models/Inventory";
+import InventoryHead from "./app/models/InventoryHead";
+import InventoryItem from "./app/models/InventoryItem";
+import Warehouse from "./app/models/Warehouse";
 
 const theme = {
   ...DefaultTheme,
@@ -58,6 +62,10 @@ const App = () => {
         await Stock.createTable();
         await Store.createTable();
         await Storage.createTable();
+        await Inventory.createTable();
+        await InventoryHead.createTable();
+        await InventoryItem.createTable();
+        await Warehouse.createTable();
         // create dummy user
         const firstUser = await User.findBy({ username_eq: "1111" });
         if (!firstUser) {
