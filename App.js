@@ -52,7 +52,8 @@ const App = () => {
   useEffect(
     () => {
       (async () => {
-        await Inventory.dropTable()
+        await InventoryHead.dropTable();
+        await InventoryItem.dropTable();
         // await Product.dropTable();
         await Partner.dropTable();
         await Note.createTable();

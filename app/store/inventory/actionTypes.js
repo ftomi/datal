@@ -4,3 +4,10 @@ export const GET_INVENTORIES = "inventory/GET_INVENTORIES";
 export const LOAD_INVENTORIES = "inventory/LOAD_INVENTORIES";
 export const ADD_INVENTORIES = "inventory/ADD_INVENTORIES";
 
+// TEMP 
+export const ADD_TEMP_ITEM = "inventory/ADD_TEMP_ITEM";
+export const REMOVE_TEMP_ITEM = "inventory/REMOVE_TEMP_ITEM";
+export const SAVE_TEMP_HEAD = "inventory/SAVE_TEMP_HEAD";
+export const CLEAN_TEMP = "inventory/CLEAN_TEMP";
+
+

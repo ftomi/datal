@@ -1,4 +1,12 @@
-import { SET_INVENTORY, ADD_INVENTORIES, LOAD_INVENTORIES } from "./actionTypes";
+import {
+  SET_INVENTORY,
+  ADD_INVENTORIES,
+  LOAD_INVENTORIES,
+  ADD_TEMP_ITEM,
+  REMOVE_TEMP_ITEM,
+  SAVE_TEMP_HEAD,
+  CLEAN_TEMP
+} from "./actionTypes";
 
 export function setInventory(entity) {
   return {
@@ -18,5 +26,32 @@ export function loadInventories(type) {
   return {
     type: LOAD_INVENTORIES,
     payload: type
+  };
+}
+
+export function saveTempHead(entity) {
+  return {
+    type: SAVE_TEMP_HEAD,
+    payload: entity,
+  };
+}
+
+export function addTempItem(entity) {
+  return {
+    type: ADD_TEMP_ITEM,
+    payload: entity,
+  };
+}
+
+export function removeTempItem(entity) {
+  return {
+    type: REMOVE_TEMP_ITEM,
+    payload: entity,
+  };
+}
+
+export function cleanTemp(entity) {
+  return {
+    type: CLEAN_TEMP,
   };
 }
