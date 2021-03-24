@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, ScrollView, Text, TouchableOpacity } from "react-native";
 import { IconButton, Colors, TextInput, FAB, List, useTheme } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
-import { loadInventories } from "../store/inventory";
+import { loadInventories, saveTempHead } from "../store/inventory";
 import DropDown from "react-native-paper-dropdown";
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
@@ -71,6 +71,8 @@ const InventoryHeaderScreen = ({ navigation }) => {
         label: "Barkács osztály 2",
     }]
 
+
+
     const [inventories, setInventories] = useState([]);
     const dispatch = useDispatch();
     const [ascending, setAscending] = useState(true);
@@ -78,8 +80,8 @@ const InventoryHeaderScreen = ({ navigation }) => {
     const loading = useSelector(loaderSelector());
 
     useEffect(() => {
-
-    }, [])
+        dispatch(saveTempHead({ code, comment, inventory, storage }));
+    }, [code, comment, inventory, storage])
 
     useEffect(() => {
         // if (productsSelected && !loading) {
@@ -194,7 +196,7 @@ const InventoryHeaderScreen = ({ navigation }) => {
                                 <View style={{ flexDirection: "row" }}>
                                     {inventoryList.filter(x => x.code === inventory).map(x =>
                                         <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                            <Text style={{ marginRight: 10 }}>{x.startDate}</Text>
+                                            <Text key={x.code} style={{ marginRight: 10 }}>{x.startDate}</Text>
                                             <CircleWithLetter color={x.type && x.type === "I" ? colors.primary : colors.muted}>{x.type}</CircleWithLetter>
                                         </View>
                                     )}

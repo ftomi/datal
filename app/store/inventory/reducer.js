@@ -22,6 +22,7 @@ function reducer(state = initialState, { type, payload }) {
     case ADD_INVENTORIES:
       return { ...initialState, inventories: payload };
     case SAVE_TEMP_HEAD:
+      console.log(payload)
       return { ...initialState, tempInventoryHead: payload };
     case ADD_TEMP_ITEM:
       return { ...initialState, tempInventoryItems: [...tempInventoryItems, payload] };
