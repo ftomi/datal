@@ -10,7 +10,7 @@ import ListDetailToggle from "../components/grid/ListDetailToggle";
 import SortHeader from "../components/grid/SortHeader";
 import ProductListRow from "../components/product-search/ProductListRow";
 import LoadingScreen from "../components/LoadingScreen";
-const ProductSearchScreen = ({ navigation }) => {
+const ProductSearchScreen = ({ route, navigation }) => {
     const [products, setProducts] = useState([]);
     const dispatch = useDispatch();
     const [detailedSearch, setDetailedSearch] = useState(true);
@@ -87,7 +87,7 @@ const ProductSearchScreen = ({ navigation }) => {
                 .map(product =>
                     <ProductListRow onPress={() => {
                         cleanup();
-                        navigation.navigate("PriceCheck", {
+                        navigation.navigate((route && route.params && route.params.back) ? route.params.back : "PriceCheck", {
                             barcode: product.barcodes.filter(x => x.defaultBarcode)[0].code
                         });
                     }} key={product.id} product={product} detailedSearch={detailedSearch} />)}

@@ -18,17 +18,18 @@ const initialState = {
 function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case SET_INVENTORY:
-      return { ...initialState, selectedInventory: payload };
+      return { ...state, selectedInventory: payload };
     case ADD_INVENTORIES:
-      return { ...initialState, inventories: payload };
+      return { ...state, inventories: payload };
     case SAVE_TEMP_HEAD:
       console.log(payload)
-      return { ...initialState, tempInventoryHead: payload };
+      return { ...state, tempInventoryHead: payload };
     case ADD_TEMP_ITEM:
-      return { ...initialState, tempInventoryItems: [...tempInventoryItems, payload] };
+      console.log(state.tempInventoryItems)
+      return { ...state, tempInventoryItems: [...state.tempInventoryItems, payload] };
     case REMOVE_TEMP_ITEM:
       const actualItems = state.tempInventoryItems.filter(x => x.id !== payload.id);
-      return { ...initialState, tempInventoryItems: actualItems };
+      return { ...state, tempInventoryItems: actualItems };
     case CLEAN_TEMP:
       return {
         ...initialState,

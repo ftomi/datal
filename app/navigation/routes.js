@@ -7,6 +7,7 @@ export default Object.freeze({
   PRODUCT_SEARCH: "ProductSearch",
   SUPPLIER_SEARCH: "SupplierSearch",
   INVENTORY_LIST: "InventoryList",
-  INVENTORY_HEADER: "InventoryHeader"
+  INVENTORY_HEADER: "InventoryHeader",
+  PRODUCT_TO_INVENTORY: "ProductAddToInventory"
   // REGISTER: "Register",
 });

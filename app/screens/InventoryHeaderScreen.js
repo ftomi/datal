@@ -238,7 +238,7 @@ const InventoryHeaderScreen = ({ navigation }) => {
         <FAB
             style={styles.fab}
             icon="plus"
-            onPress={() => console.log('Pressed')}
+            onPress={() => navigation.navigate("ProductAddToInventory")}
         />
     </Screen >
 }
