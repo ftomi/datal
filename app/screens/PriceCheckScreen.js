@@ -124,40 +124,41 @@ const PriceCheckScreen = ({ route, navigation }) => {
                 }}
             />
         </View>
-        <View style={styles.searchBox}>
-            <TextInput
-                placeholder={'Vonalkód'}
-                style={{ width: '100%' }}
-                value={text}
-                onChangeText={text => setText(text)}
-                right={
-                    <TextInput.Icon
-                        name="magnify" // where <Icon /> is any component from vector-icons or anything else
-                        onPress={() => { }}
-                    />
-                }
-            />
-            {!loading && product && <View>
-                <ArticleName articleName={product.name} />
-                <ArticlePrice title={'Akciós ár'} subTitle={'régi ár'} range={'2021. 03. 10. - 2021. 12. 12.'} price={product.onSaleGrossUnitPrice} oldPrice={product.normalGrossUnitPrice} />
-                <ArticleDetailsRow title={'Cikkszám'} content={product.code} />
-                <ArticleDetailsRow title={'Áfa'} content={product.vatPercentage} />
-                <ArticleDetailsRow title={'Készlet'} content={`100 ${product.unitOfMeasure}`} />
-            </View>}
-        </View>
-        <View style={{ position: "absolute", bottom: 0, height: 50, width: "100%" }}>
+        <View style={{ flex: 1 }}>
+            <View style={[styles.searchBox, product ? styles.searchBoxFull : styles.searchBoxTextBox]}>
+                <TextInput
+                    placeholder={'Vonalkód'}
+                    style={{ width: '100%' }}
+                    value={text}
+                    onChangeText={text => setText(text)}
+                    right={
+                        <TextInput.Icon
+                            name="magnify" // where <Icon /> is any component from vector-icons or anything else
+                            onPress={() => { }}
+                        />
+                    }
+                />
+                {!loading && product && <View>
+                    <ArticleName articleName={product.name} />
+                    <ArticlePrice title={'Akciós ár'} subTitle={'régi ár'} range={'2021. 03. 10. - 2021. 12. 12.'} price={product.onSaleGrossUnitPrice} oldPrice={product.normalGrossUnitPrice} />
+                    <ArticleDetailsRow title={'Cikkszám'} content={product.code} />
+                    <ArticleDetailsRow title={'Áfa'} content={product.vatPercentage} />
+                    <ArticleDetailsRow title={'Készlet'} content={`100 ${product.unitOfMeasure}`} />
+                </View>}
+            </View>
 
+        </View>
+        <View style={{ height: 50, width: "100%" }}>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }} >
                 <IconNavButton title={"Termékkereső"} icon={require(`../../assets/svg/search_main.svg`)} navigation={navigation} route={"ProductSearch"} active />
                 <IconNavButton title={"Cikkszállító"} icon={require(`../../assets/svg/truck.svg`)} navigation={navigation} route={"SupplierSearch"} routeParam={{ productId: product?.id }} active={product} />
             </View>
         </View>
-    </Screen>
+    </Screen >
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         paddingTop: 20,
         backgroundColor: "#D9E2E9",
     },
@@ -177,6 +178,7 @@ const styles = StyleSheet.create({
     searchBox: {
         borderRadius: 15,
         padding: 20,
+        marginBottom: 20,
         backgroundColor: "white",
         shadowColor: "#000",
         shadowOffset: {
@@ -187,6 +189,11 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         flexDirection: "column"
+    },
+    searchBoxFull: {
+        flex: 1
+    },
+    searchBoxTextBox: {
     }
 });
 

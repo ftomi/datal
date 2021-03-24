@@ -40,6 +40,7 @@ const theme = {
     primary: "#7B034D",
     accent: "#F79E1B",
     statusOk: "#00CB05",
+    muted: "#c4c4c4"
   },
 };
 
@@ -51,7 +52,7 @@ const App = () => {
   useEffect(
     () => {
       (async () => {
-        await Warehouse.dropTable()
+        await Inventory.dropTable()
         // await Product.dropTable();
         await Partner.dropTable();
         await Note.createTable();

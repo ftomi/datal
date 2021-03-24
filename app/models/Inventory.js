@@ -21,6 +21,9 @@ export default class Inventory extends BaseModel {
       type: { type: types.TEXT, not_null: true },
       code: { type: types.TEXT, not_null: true },
       name: { type: types.TEXT, not_null: true },
+      startDate: { type: types.DATETIME, default: () => Date.now() },
+      closeDate: { type: types.DATETIME },
+
     };
   }
 }
