@@ -104,7 +104,7 @@ const ProductAddToInventoryScreen = ({ route, navigation }) => {
     }
     */
     return <Screen style={styles.container}>
-        <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 10, marginBottom: 20 }}>
+        <View style={styles.header, { flexDirection: "row", justifyContent: "space-between", marginTop: 0, marginBottom: 20 }}>
             <IconButton
                 color={Colors.black}
                 icon="chevron-left"
@@ -149,8 +149,9 @@ const ProductAddToInventoryScreen = ({ route, navigation }) => {
                     <ArticleDetailsRow title={'Áfa'} content={product.vatPercentage} />
                     <ArticleDetailsRow title={'Készlet'} content={`100 ${product.unitOfMeasure}`} />
                     <TextInput
+                        keyboardType={"numeric"}
                         placeholder={'Mennyiség'}
-                        style={{ width: '100%', marginVertical: 20 }}
+                        style={{ width: '100%', marginVertical: 10 }}
                         value={quantity}
                         onChangeText={quantity => setQuantity(quantity)}
 
@@ -159,7 +160,7 @@ const ProductAddToInventoryScreen = ({ route, navigation }) => {
                         dispatch(addTempItem({
                             productId: product.id,
                             name: product.name,
-                            foundQuantity: quantity
+                            foundQuantity: +quantity
                         }));
                         setQuantity(0);
                     }} style={{ marginTop: 20 }}>Mennyiség hozzáadása</Btn>

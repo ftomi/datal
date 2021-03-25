@@ -32,6 +32,7 @@ import Inventory from "./app/models/Inventory";
 import InventoryHead from "./app/models/InventoryHead";
 import InventoryItem from "./app/models/InventoryItem";
 import Warehouse from "./app/models/Warehouse";
+import moment from "moment";
 
 const theme = {
   ...DefaultTheme,
@@ -52,22 +53,30 @@ const App = () => {
   useEffect(
     () => {
       (async () => {
-        // await Inventory.dropTable();
-        // await InventoryHead.dropTable();
-        // await InventoryItem.dropTable();
-        // await Product.dropTable();
         await Storage.dropTable();
+        await Note.dropTable();
         await Note.createTable();
+        await User.dropTable();
         await User.createTable();
+        await Barcode.dropTable();
         await Barcode.createTable();
+        await Partner.dropTable();
         await Partner.createTable();
+        await Product.dropTable();
         await Product.createTable();
+        await Stock.dropTable();
         await Stock.createTable();
+        await Store.dropTable();
         await Store.createTable();
+        await Storage.dropTable();
         await Storage.createTable();
+        await Inventory.dropTable();
         await Inventory.createTable();
+        await InventoryHead.dropTable();
         await InventoryHead.createTable();
+        await InventoryItem.dropTable();
         await InventoryItem.createTable();
+        await Warehouse.dropTable();
         await Warehouse.createTable();
         // create dummy user
         const firstUser = await User.findBy({ username_eq: "1111" });
@@ -148,7 +157,6 @@ const App = () => {
           await Product.create(props);
 
           const products = await Product.query();
-          console.log({ products });
         }
 
         const firstBarcode = await Barcode.findBy({ code_eq: "1271031596" });
@@ -206,7 +214,6 @@ const App = () => {
           await Barcode.create(props);
 
           const barcodes = await Barcode.query();
-          console.log({ barcodes });
         }
 
         const firstPartner = await Partner.findBy({ code_eq: "11111111" });
@@ -433,7 +440,7 @@ const App = () => {
             name: "Belső raktár",
             warehouseId: 1,
             type: "E",
-            startDate: Date(),
+            startDate: moment(Date()).format("YYYY-MM-DD HH:mm:ss"),
           };
           await Inventory.create(props);
 
@@ -442,7 +449,7 @@ const App = () => {
             name: "Átfogó raktár",
             warehouseId: 1,
             type: "I",
-            startDate: Date(),
+            startDate: moment(Date()).format("YYYY-MM-DD HH:mm:ss"),
           };
           await Inventory.create(props);
 
@@ -451,7 +458,7 @@ const App = () => {
             name: "Belső raktár",
             warehouseId: 2,
             type: "I",
-            startDate: Date(),
+            startDate: moment(Date()).format("YYYY-MM-DD HH:mm:ss"),
           };
 
           await Inventory.create(props);
@@ -460,7 +467,7 @@ const App = () => {
             name: "Belső raktár",
             warehouseId: 3,
             type: "I",
-            startDate: Date(),
+            startDate: moment(Date()).format("YYYY-MM-DD HH:mm:ss"),
           };
           await Inventory.create(props);
         }

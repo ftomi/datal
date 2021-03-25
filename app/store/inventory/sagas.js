@@ -47,9 +47,12 @@ function* loadInventoryHeads({ payload }) {
 
 function* saveInventoryData({ payload }) {
   try {
+    console.warn('1!')
     yield put(setLoader(true));
+    console.warn('2!')
+    console.warn({ payload })
     const data = yield call(saveInventoryToDb, payload);
-    console.log(data);
+    console.warn('3!')
   } catch (error) {
     console.error("error: ", error);
     if (error.response.status === 401) {

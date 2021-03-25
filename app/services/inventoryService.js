@@ -4,14 +4,14 @@ import InventoryItem from "../models/InventoryItem";
 import Storage from "../models/Storage";
 
 const getInventoriesFromDb = async () => {
-  await setTimeout(() => {}, 2000);
+  await setTimeout(() => { }, 2000);
   const data = await Inventory.query();
 
   return data;
 };
 
 const getInventoryByIdFromDb = async (payload) => {
-  await setTimeout(() => {}, 2000);
+  await setTimeout(() => { }, 2000);
   const data = await Inventory.findBy({ id_eq: payload.id });
 
   return data;
@@ -53,7 +53,7 @@ const getInventoryHeadsFromDb = async (payload) => {
 };
 
 const getInventoryDataByIdFromDb = async (payload) => {
-  await setTimeout(() => {}, 2000);
+  await setTimeout(() => { }, 2000);
   const data = await InventoryHead.findBy({ id_eq: payload.id });
   const items = await InventoryItems.query({
     where: {
@@ -66,24 +66,28 @@ const getInventoryDataByIdFromDb = async (payload) => {
 
 const saveInventoryToDb = async ({ head, items }) => {
   // const { comment, code, inventory, storage } = head;
-  console.log({ head, items });
-  await InventoryHead.create({
-    id: head.code,
-    comment: head.comment,
-    inventoryId: head.inventory,
-    storageId: head.storage,
-    closed: true,
-  });
-  console.log("1");
-  for (item of items) {
-    const { productId, foundQuantity } = item;
-    await InventoryItem.create({
-      productId: item.productId,
-      foundQuantity: item.foundQuantity,
-      inventoryHeadId: head.code,
+  try {
+    console.log({ head, items });
+    await InventoryHead.create({
+      id: head.code,
+      comment: head.comment,
+      inventoryId: head.inventory,
+      storageId: head.storage,
+      closed: true,
     });
+    console.log("1");
+    for (item of items) {
+      const { productId, foundQuantity } = item;
+      await InventoryItem.create({
+        productId: item.productId,
+        foundQuantity: item.foundQuantity,
+        inventoryHeadId: head.code,
+      });
+    }
+  } catch (ex) {
+    console.log({ ex });
   }
-  console.log("1");
+
 };
 
 export {

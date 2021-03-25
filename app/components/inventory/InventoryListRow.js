@@ -3,10 +3,11 @@ import { Text, View, TouchableOpacity } from "react-native";
 import CircleWithLetter from "./../CircleWithLetter";
 import { useTheme } from "react-native-paper";
 import Moment from "react-moment";
+import moment from "moment";
 const InventoryListRow = ({ row }) => {
   const { colors } = useTheme();
   return (
-    <TouchableOpacity
+    <View
       style={{
         marginVertical: 15,
         flex: 1,
@@ -32,7 +33,7 @@ const InventoryListRow = ({ row }) => {
           {row.inventory.type}
         </CircleWithLetter>
       </View>
-      <View>
+      <View style={{ flex: 1, }}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text
             style={{
@@ -46,7 +47,7 @@ const InventoryListRow = ({ row }) => {
             {row.inventory.code} | {row.inventory.name}
           </Text>
         </View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-between" }}>
           <Text
             style={{
               fontSize: 16,
@@ -57,22 +58,18 @@ const InventoryListRow = ({ row }) => {
           >
             {row.storage.code}
           </Text>
-
-          <Moment format="YYYY. MM. DD.">
-            <Text
-              style={{
-                fontSize: 16,
-                color: "#243443",
-                marginBottom: 5,
-                paddingLeft: 10,
-              }}
-            >
-              {row.inventory.startDate}
-            </Text>
-          </Moment>
+          <Text
+            style={{
+              fontSize: 16,
+              color: "#243443",
+              marginBottom: 5,
+              paddingLeft: 10,
+            }}
+          >
+            {moment(row.inventory.startDate).format('YYYY.MM.DD.')}  </Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

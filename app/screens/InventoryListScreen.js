@@ -42,6 +42,7 @@ const InventoryListScreen = ({ navigation }) => {
     dispatch(loadInventories());
   }, []);
 
+
   useEffect(() => {
     // if (productsSelected && !loading) {
     //     setProducts(productsSelected);
@@ -131,7 +132,7 @@ const InventoryListScreen = ({ navigation }) => {
             setSelectedTab(newIndex);
           }}
 
-          // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
+        // showLeadingSpace={true} //  (default=true) show leading space in scrollable tabs inside the header
         >
           <TabScreen label={$t("inventory.tab.open")}>
             <View
@@ -144,7 +145,9 @@ const InventoryListScreen = ({ navigation }) => {
               }}
             >
               {selectedTab === 0 && (
-                <View>
+                <View style={{
+                  flex: 1
+                }}>
                   <View
                     style={[
                       {
@@ -171,7 +174,7 @@ const InventoryListScreen = ({ navigation }) => {
                       right={
                         <TextInput.Icon
                           name="magnify" // where <Icon /> is any component from vector-icons or anything else
-                          onPress={() => {}}
+                          onPress={() => { }}
                         />
                       }
                     />
@@ -192,6 +195,7 @@ const InventoryListScreen = ({ navigation }) => {
                   </View>
                   <ScrollView
                     style={{
+                      flex: 1,
                       width: "100%",
                       height: "100%",
                       paddingHorizontal: 25,
@@ -205,7 +209,9 @@ const InventoryListScreen = ({ navigation }) => {
                     }
                   >
                     {inventoryHeads &&
-                      inventoryHeads
+                      inventoryHeads.sort((a, b) =>
+                        ascending ? ((a.inventory.code > b.inventory.code) ? 1 : ((b.inventory.code > a.inventory.code) ? -1 : 0)) : ((b.inventory.code > a.inventory.code) ? 1 : ((a.inventory.code > b.inventory.code) ? -1 : 0))
+                      )
                         .filter(
                           (x) => x.inventoryId !== "" && x.closed === false
                         )
@@ -226,7 +232,9 @@ const InventoryListScreen = ({ navigation }) => {
               }}
             >
               {selectedTab === 1 && (
-                <View>
+                <View style={{
+                  flex: 1
+                }}>
                   <View
                     style={[
                       {
@@ -253,7 +261,7 @@ const InventoryListScreen = ({ navigation }) => {
                       right={
                         <TextInput.Icon
                           name="magnify" // where <Icon /> is any component from vector-icons or anything else
-                          onPress={() => {}}
+                          onPress={() => { }}
                         />
                       }
                     />
@@ -275,6 +283,7 @@ const InventoryListScreen = ({ navigation }) => {
 
                   <ScrollView
                     style={{
+                      flex: 1,
                       width: "100%",
                       height: "100%",
                       paddingHorizontal: 25,
@@ -288,9 +297,11 @@ const InventoryListScreen = ({ navigation }) => {
                     }
                   >
                     {inventoryHeads &&
-                      inventoryHeads
+                      inventoryHeads.sort((a, b) =>
+                        ascending ? ((a.inventory.code > b.inventory.code) ? 1 : ((b.inventory.code > a.inventory.code) ? -1 : 0)) : ((b.inventory.code > a.inventory.code) ? 1 : ((a.inventory.code > b.inventory.code) ? -1 : 0))
+                      )
                         .filter(
-                          (x) => x.inventoryId !== "" && x.closed === true
+                          (x) => x.inventoryId !== "" && x.closed === true && x.inventory.code.toUpperCase().includes(text.toUpperCase())
                         )
                         .map((x) => <InventoryListRow row={x} />)}
                   </ScrollView>
@@ -309,7 +320,9 @@ const InventoryListScreen = ({ navigation }) => {
               }}
             >
               {selectedTab === 2 && (
-                <View>
+                <View style={{
+                  flex: 1
+                }}>
                   <View
                     style={[
                       {
@@ -336,7 +349,7 @@ const InventoryListScreen = ({ navigation }) => {
                       right={
                         <TextInput.Icon
                           name="magnify" // where <Icon /> is any component from vector-icons or anything else
-                          onPress={() => {}}
+                          onPress={() => { }}
                         />
                       }
                     />
@@ -358,6 +371,7 @@ const InventoryListScreen = ({ navigation }) => {
 
                   <ScrollView
                     style={{
+                      flex: 1,
                       width: "100%",
                       height: "100%",
                       paddingHorizontal: 25,
@@ -370,10 +384,11 @@ const InventoryListScreen = ({ navigation }) => {
                       />
                     }
                   >
-                    {inventoryHeads &&
-                      inventoryHeads
-                        .filter((x) => x.inventoryId !== "")
-                        .map((x) => <InventoryListRow row={x} />)}
+                    {inventoryHeads && inventoryHeads.sort((a, b) =>
+                      ascending ? ((a.inventory.code > b.inventory.code) ? 1 : ((b.inventory.code > a.inventory.code) ? -1 : 0)) : ((b.inventory.code > a.inventory.code) ? 1 : ((a.inventory.code > b.inventory.code) ? -1 : 0))
+                    )
+                      .filter((x) => x.inventoryId !== "")
+                      .map((x) => <InventoryListRow row={x} />)}
                   </ScrollView>
                 </View>
               )}

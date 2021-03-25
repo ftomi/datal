@@ -133,6 +133,10 @@ const InventoryHeaderScreen = ({ navigation }) => {
     setInventories([]);
     setAscending(true);
     setText("");
+    setStorage("");
+    setCode("");
+    setComment("");
+    setInventory("");
   };
 
   return (
@@ -160,6 +164,7 @@ const InventoryHeaderScreen = ({ navigation }) => {
           size={30}
           onPress={() => {
             dispatch(cleanTemp());
+            cleanup();
             navigation.goBack();
           }}
         />
@@ -182,6 +187,7 @@ const InventoryHeaderScreen = ({ navigation }) => {
               saveInventoryHeads({ head: tempHead, items: tempInvenroryItems })
             );
             dispatch(cleanTemp());
+            cleanup();
             navigation.goBack();
           }}
         >
@@ -340,7 +346,7 @@ const InventoryHeaderScreen = ({ navigation }) => {
               alignSelf: "center",
             }}
           >
-            Termékek száma: {itemsCount} db
+            Termékek száma: {tempInvenroryItems.length} db
           </Text>
         </View>
         <View
