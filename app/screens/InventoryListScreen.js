@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, Text } from "react-native";
+import { StyleSheet, View, ScrollView, Text, RefreshControl } from "react-native";
 import { IconButton, Colors, TextInput, FAB } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
-import { loadInventories } from "../store/inventory";
+import { inventoryHeadsSelector, loadInventories, loadInventoryHeads } from "../store/inventory";
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
 import ListDetailToggle from "../components/grid/ListDetailToggle";
@@ -24,6 +24,8 @@ const InventoryListScreen = ({ navigation }) => {
     const [ascending, setAscending] = useState(true);
     const [text, setText] = useState("");
     const loading = useSelector(loaderSelector());
+    const [refreshing, setRefreshing] = useState(false);
+    const inventoryHeads = useSelector(inventoryHeadsSelector());
 
     useEffect(() => {
         dispatch(loadInventories());
@@ -34,6 +36,10 @@ const InventoryListScreen = ({ navigation }) => {
         //     setProducts(productsSelected);
         //     console.warn({ products });
         // }
+        // if (loading)
+        //     setRefreshing(true);
+        // else
+        //     setRefreshing(false);
     }, [loading])
 
 
@@ -42,6 +48,9 @@ const InventoryListScreen = ({ navigation }) => {
         return <LoadingScreen />
     }
 
+    const onRefresh = () => {
+        dispatch(loadInventoryHeads());
+    };
 
     const cleanup = () => {
         setInventories([]);
@@ -124,7 +133,13 @@ const InventoryListScreen = ({ navigation }) => {
                             <View style={{ flexDirection: "row", marginHorizontal: 25, marginTop: 15 }}>
                                 <SortHeader ascending={ascending} setAscending={setAscending} col1Text="Leltárak" col2Text="Dátum" />
                             </View>
-
+                            <ScrollView style={{ width: "100%", height: "100%", paddingHorizontal: 25, marginTop: 10 }} refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />}>
+                                {inventoryHeads && inventoryHeads.filter(x => x.inventoryId !== "" && x.closed === false).map(x => <Text>{x.inventoryId}</Text>)}
+                            </ScrollView>
                         </View>}</View>
                 </TabScreen>
                 <TabScreen label={$t("inventory.tab.closed")}>
@@ -152,6 +167,13 @@ const InventoryListScreen = ({ navigation }) => {
                                 <SortHeader ascending={ascending} setAscending={setAscending} col1Text="Leltárak" col2Text="Dátum" />
                             </View>
 
+                            <ScrollView style={{ width: "100%", height: "100%", paddingHorizontal: 25, marginTop: 10 }} refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />}>
+                                {inventoryHeads && inventoryHeads.filter(x => x.inventoryId !== "" && x.closed === true).map(x => <Text>{x.inventoryId}</Text>)}
+                            </ScrollView>
                         </View>}</View>
                 </TabScreen>
                 <TabScreen label={$t("inventory.tab.all")}>
@@ -179,6 +201,13 @@ const InventoryListScreen = ({ navigation }) => {
                                 <SortHeader ascending={ascending} setAscending={setAscending} col1Text="Leltárak" col2Text="Dátum" />
                             </View>
 
+                            <ScrollView style={{ width: "100%", height: "100%", paddingHorizontal: 25, marginTop: 10 }} refreshControl={
+                                <RefreshControl
+                                    refreshing={refreshing}
+                                    onRefresh={onRefresh}
+                                />}>
+                                {inventoryHeads && inventoryHeads.filter(x => x.inventoryId !== "").map(x => <Text>{x.inventoryId}</Text>)}
+                            </ScrollView>
                         </View>}</View>
                 </TabScreen>
             </Tabs>

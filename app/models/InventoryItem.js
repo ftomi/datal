@@ -17,7 +17,7 @@ export default class InventoryItem extends BaseModel {
   static get columnMapping() {
     return {
       id: { type: types.INTEGER, primary_key: true },
-      inventoryHeadId: { type: types.INTEGER },
+      inventoryHeadId: { type: types.TEXT },
       productId: { type: types.INTEGER },
       foundQuantity: { type: types.FLOAT },
     };

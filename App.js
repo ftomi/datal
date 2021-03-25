@@ -52,10 +52,10 @@ const App = () => {
   useEffect(
     () => {
       (async () => {
-        await InventoryHead.dropTable();
-        await InventoryItem.dropTable();
+        // await InventoryHead.dropTable();
+        // await InventoryItem.dropTable();
         // await Product.dropTable();
-        await Partner.dropTable();
+        await Storage.dropTable();
         await Note.createTable();
         await User.createTable();
         await Barcode.createTable();
@@ -428,8 +428,10 @@ const App = () => {
           await Warehouse.create(props);
 
         }
+        console.warn("OUT")
         const firstInventory = await Inventory.findBy({ code_eq: "INV-001-1" });
         if (!firstInventory) {
+          console.warn("IN")
           let props = {
             code: "INV-001-1",
             name: "Belső raktár",

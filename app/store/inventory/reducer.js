@@ -5,6 +5,7 @@ import {
   ADD_TEMP_ITEM,
   REMOVE_TEMP_ITEM,
   CLEAN_TEMP,
+  ADD_INVENTORYHEADS
 } from "./actionTypes";
 
 const initialState = {
@@ -21,6 +22,8 @@ function reducer(state = initialState, { type, payload }) {
       return { ...state, selectedInventory: payload };
     case ADD_INVENTORIES:
       return { ...state, inventories: payload };
+    case ADD_INVENTORYHEADS:
+      return { ...state, inventoryHeads: payload };
     case SAVE_TEMP_HEAD:
       console.log(payload)
       return { ...state, tempInventoryHead: payload };
@@ -29,6 +32,7 @@ function reducer(state = initialState, { type, payload }) {
       return { ...state, tempInventoryItems: [...state.tempInventoryItems, payload] };
     case REMOVE_TEMP_ITEM:
       const actualItems = state.tempInventoryItems.filter(x => x.id !== payload.id);
+      console.log(actualItems)
       return { ...state, tempInventoryItems: actualItems };
     case CLEAN_TEMP:
       return {

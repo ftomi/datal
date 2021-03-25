@@ -158,6 +158,7 @@ const ProductAddToInventoryScreen = ({ route, navigation }) => {
                     <Btn onPress={() => {
                         dispatch(addTempItem({
                             productId: product.id,
+                            name: product.name,
                             foundQuantity: quantity
                         }));
                         setQuantity(0);

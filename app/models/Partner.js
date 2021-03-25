@@ -21,7 +21,7 @@ export default class Partner extends BaseModel {
             name: { type: types.TEXT, not_null: true },
             supplier: { type: types.BOOLEAN, not_null: true },
             customer: { type: types.BOOLEAN, not_null: true },
-            productId: { type: types.INTEGER, not_null: true }
+            productId: { type: types.INTEGER }
         }
     }
 }

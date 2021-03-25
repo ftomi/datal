@@ -16,7 +16,7 @@ export default class InventoryHead extends BaseModel {
 
   static get columnMapping() {
     return {
-      id: { type: types.INTEGER, primary_key: true },
+      id: { type: types.TEXT },
       inventoryId: { type: types.INTEGER },
       storageId: { type: types.INTEGER },
       comment: { type: types.TEXT, not_null: true },

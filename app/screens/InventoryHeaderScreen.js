@@ -2,24 +2,17 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, ScrollView, Text, TouchableOpacity } from "react-native";
 import { IconButton, Colors, TextInput, FAB, List, useTheme } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
-import { loadInventories, saveTempHead } from "../store/inventory";
+import { inventoryHeadSelector, inventoryItemsSelector, removeTempItem, saveInventoryHeads, saveTempHead } from "../store/inventory";
 import DropDown from "react-native-paper-dropdown";
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
-import IconNavButton from "../components/IconNavButton";
-import ListDetailToggle from "../components/grid/ListDetailToggle";
 import SortHeader from "../components/grid/SortHeader";
-import ProductListRow from "../components/product-search/ProductListRow";
+import { SwipeListView } from "react-native-swipe-list-view";
 import $t from "../i18n";
-import {
-    Tabs,
-    TabScreen,
-    useTabIndex,
-    useTabNavigation,
-} from 'react-native-paper-tabs';
 import LoadingScreen from "../components/LoadingScreen";
 import SvgUri from "expo-svg-uri";
 import CircleWithLetter from "../components/CircleWithLetter";
+import InventoryProductRow from "../components/inventory/InventoryProductRow";
 const InventoryHeaderScreen = ({ navigation }) => {
     const { colors } = useTheme();
     const [itemsCount, setItemsCount] = useState(0);
@@ -74,14 +67,24 @@ const InventoryHeaderScreen = ({ navigation }) => {
 
 
     const [inventories, setInventories] = useState([]);
+    const [tempInvenroryItems, setTempInvenroryItems] = useState([]);
     const dispatch = useDispatch();
     const [ascending, setAscending] = useState(true);
     const [text, setText] = useState("");
+    const tempItems = useSelector(inventoryItemsSelector());
+    const tempHead = useSelector(inventoryHeadSelector());
     const loading = useSelector(loaderSelector());
 
     useEffect(() => {
         dispatch(saveTempHead({ code, comment, inventory, storage }));
     }, [code, comment, inventory, storage])
+
+    useEffect(() => {
+        console.warn({ tempItems });
+        if (tempItems) {
+            setTempInvenroryItems(tempItems);
+        }
+    }, [tempItems])
 
     useEffect(() => {
         // if (productsSelected && !loading) {
@@ -95,7 +98,6 @@ const InventoryHeaderScreen = ({ navigation }) => {
     if (loading) {
         return <LoadingScreen />
     }
-
 
     const cleanup = () => {
         setInventories([]);
@@ -119,7 +121,7 @@ const InventoryHeaderScreen = ({ navigation }) => {
                 fontSize: 20,
                 alignSelf: "center"
             }}>Új leltár</Text>
-            <TouchableOpacity style={{ alignSelf: "center", justifyContent: "center", marginRight: 20 }} onPress={() => console.log("Pressed")}>
+            <TouchableOpacity style={{ alignSelf: "center", justifyContent: "center", marginRight: 20 }} onPress={() => dispatch(saveInventoryHeads({ head: tempHead, items: tempInvenroryItems }))}>
                 <View style={{ flexDirection: "row", backgroundColor: "rgba(31, 82, 152, 0.1)", paddingHorizontal: 15, paddingVertical: 5, borderRadius: 25 }}>
                     <SvgUri
                         width="25"
@@ -212,6 +214,39 @@ const InventoryHeaderScreen = ({ navigation }) => {
             </View>
             <View style={[styles.box, { flex: 1, backgroundColor: "white", borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 20, paddingVertical: 20 }]}>
                 <Text style={{ fontSize: 20, fontWeight: "600" }}>Leltározott tételek</Text>
+                <View style={{ flexDirection: "row", marginTop: 15, marginBottom: 10 }}>
+                    <SortHeader ascending={ascending} setAscending={setAscending} col1Text="Tételek" col2Text="Mennyiség" />
+                </View>
+                <ScrollView>
+                    {tempInvenroryItems && <SwipeListView
+                        data={tempInvenroryItems}
+                        renderItem={(data, rowMap) => (
+                            <View style={{ backgroundColor: "white", justifyContent: "center" }}>
+                                <InventoryProductRow product={data.item} />
+                            </View>
+                        )}
+                        renderHiddenItem={(data, rowMap) => (
+                            <View style={{ flex: 1, justifyContent: "center", backgroundColor: "red", paddingLeft: 20 }}>
+                                <TouchableOpacity
+                                    onPress={() => dispatch(removeTempItem(data.item))}>
+                                    <SvgUri
+                                        width="20"
+                                        height="20"
+                                        source={require("../../assets/svg/trash.svg")}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        )}
+                        disableLeftSwipe
+                        previewOpenDelay={3000}
+                        friction={1000}
+                        tension={40}
+                        leftOpenValue={75}
+                        stopLeftSwipe={75}
+                        rightOpenValue={-75}
+                    />}
+                    {/* {tempInvenroryItems && tempInvenroryItems.map(tempItem => <InventoryProductRow product={tempItem} />)} */}
+                </ScrollView>
             </View>
         </View>
         {/* 
