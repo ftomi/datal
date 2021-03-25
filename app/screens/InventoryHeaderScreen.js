@@ -1,8 +1,28 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, ScrollView, Text, TouchableOpacity } from "react-native";
-import { IconButton, Colors, TextInput, FAB, List, useTheme } from "react-native-paper";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import {
+  IconButton,
+  Colors,
+  TextInput,
+  FAB,
+  List,
+  useTheme,
+} from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
-import { inventoryHeadSelector, inventoryItemsSelector, removeTempItem, saveInventoryHeads, saveTempHead } from "../store/inventory";
+import {
+  cleanTemp,
+  inventoryHeadSelector,
+  inventoryItemsSelector,
+  removeTempItem,
+  saveInventoryHeads,
+  saveTempHead,
+} from "../store/inventory";
 import DropDown from "react-native-paper-dropdown";
 import { loaderSelector } from "../store/loader";
 import Screen from "../components/Screen";
@@ -14,126 +34,184 @@ import SvgUri from "expo-svg-uri";
 import CircleWithLetter from "../components/CircleWithLetter";
 import InventoryProductRow from "../components/inventory/InventoryProductRow";
 const InventoryHeaderScreen = ({ navigation }) => {
-    const { colors } = useTheme();
-    const [itemsCount, setItemsCount] = useState(0);
-    const [code, setCode] = useState("");
-    const [comment, setComment] = useState("");
+  const { colors } = useTheme();
+  const [itemsCount, setItemsCount] = useState(0);
+  const [code, setCode] = useState("");
+  const [comment, setComment] = useState("");
 
-    const [inventory, setInventory] = useState("");
-    const [showInventoryDropdown, setShowInventoryDropdown] = useState(false);
-    const inventoryList = [{
-        code: "INV-001-1",
-        name: "Belső raktár",
-        warehouseId: 1,
-        type: "E",
-        value: "INV-001-1",
-        label: "Belső raktár",
-        startDate: "2021.05.11."
-    }, {
-        code: "INV-001-2",
-        name: "Átfogó raktár",
-        warehouseId: 1,
-        type: "I",
-        value: "INV-001-2",
-        label: "Átfogó raktár",
-        startDate: "2021.09.11."
-    }]
+  const [inventory, setInventory] = useState("");
+  const [showInventoryDropdown, setShowInventoryDropdown] = useState(false);
+  const inventoryList = [
+    {
+      code: "INV-001-1",
+      name: "Belső raktár",
+      warehouseId: 1,
+      type: "E",
+      value: "INV-001-1",
+      label: "Belső raktár",
+      startDate: "2021.05.11.",
+    },
+    {
+      code: "INV-001-2",
+      name: "Átfogó raktár",
+      warehouseId: 1,
+      type: "I",
+      value: "INV-001-2",
+      label: "Átfogó raktár",
+      startDate: "2021.09.11.",
+    },
+  ];
 
-    const [storage, setStorage] = useState("");
-    const [showStorageDropdown, setShowStorageDropdown] = useState(false);
-    const storageList = [{
-        code: "RA-123312",
-        name: "Csemege pult",
-        value: "RA-123312",
-        label: "Csemege pult",
-    }, {
-        code: "RA-122222",
-        name: "Hús pult",
-        value: "RA-122222",
-        label: "Hús pult",
-    }, {
+  const [storage, setStorage] = useState("");
+  const [showStorageDropdown, setShowStorageDropdown] = useState(false);
+  const storageList = [
+    {
+      code: "RA-123312",
+      name: "Csemege pult",
+      value: "RA-123312",
+      label: "Csemege pult",
+    },
+    {
+      code: "RA-122222",
+      name: "Hús pult",
+      value: "RA-122222",
+      label: "Hús pult",
+    },
+    {
+      code: "BA-1222221322",
+      name: "Barkács osztály",
+      value: "BA-1222221322",
+      label: "Barkács osztály",
+    },
+    {
+      code: "BA-1e322",
+      name: "Barkács osztály 2",
+      value: "BA-1e322",
+      label: "Barkács osztály 2",
+    },
+  ];
 
-        code: "BA-1222221322",
-        name: "Barkács osztály",
-        value: "BA-1222221322",
-        label: "Barkács osztály",
-    }, {
-        code: "BA-1e322",
-        name: "Barkács osztály 2",
-        value: "BA-1e322",
-        label: "Barkács osztály 2",
-    }]
+  const [inventories, setInventories] = useState([]);
+  const [tempInvenroryItems, setTempInvenroryItems] = useState([]);
+  const dispatch = useDispatch();
+  const [ascending, setAscending] = useState(true);
+  const [text, setText] = useState("");
+  const tempItems = useSelector(inventoryItemsSelector());
+  const tempHead = useSelector(inventoryHeadSelector());
+  const loading = useSelector(loaderSelector());
 
+  useEffect(
+    () => {
+      dispatch(saveTempHead({ code, comment, inventory, storage }));
+    },
+    [code, comment, inventory, storage]
+  );
 
+  useEffect(
+    () => {
+      console.warn({ tempItems });
+      if (tempItems) {
+        setTempInvenroryItems(tempItems);
+      }
+    },
+    [tempItems]
+  );
 
-    const [inventories, setInventories] = useState([]);
-    const [tempInvenroryItems, setTempInvenroryItems] = useState([]);
-    const dispatch = useDispatch();
-    const [ascending, setAscending] = useState(true);
-    const [text, setText] = useState("");
-    const tempItems = useSelector(inventoryItemsSelector());
-    const tempHead = useSelector(inventoryHeadSelector());
-    const loading = useSelector(loaderSelector());
+  useEffect(
+    () => {
+      // if (productsSelected && !loading) {
+      //     setProducts(productsSelected);
+      //     console.warn({ products });
+      // }
+    },
+    [loading]
+  );
 
-    useEffect(() => {
-        dispatch(saveTempHead({ code, comment, inventory, storage }));
-    }, [code, comment, inventory, storage])
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
-    useEffect(() => {
-        console.warn({ tempItems });
-        if (tempItems) {
-            setTempInvenroryItems(tempItems);
-        }
-    }, [tempItems])
+  const cleanup = () => {
+    setInventories([]);
+    setAscending(true);
+    setText("");
+  };
 
-    useEffect(() => {
-        // if (productsSelected && !loading) {
-        //     setProducts(productsSelected);
-        //     console.warn({ products });
-        // }
-    }, [loading])
-
-
-
-    if (loading) {
-        return <LoadingScreen />
-    }
-
-    const cleanup = () => {
-        setInventories([]);
-        setAscending(true);
-        setText("");
-    }
-
-
-    return <Screen styles={{
+  return (
+    <Screen
+      styles={{
         flex: 1,
         backgroundColor: "#D9E2E9",
-    }}>
-        <View style={[styles.header, { flexDirection: "row", paddingTop: 26, paddingBottom: 5, backgroundColor: "#D9E2E9", justifyContent: "space-between" }]}>
-            <IconButton
-                color={Colors.black}
-                icon="chevron-left"
-                size={30}
-                onPress={() => navigation.goBack()}
+      }}
+    >
+      <View
+        style={[
+          styles.header,
+          {
+            flexDirection: "row",
+            paddingTop: 26,
+            paddingBottom: 5,
+            backgroundColor: "#D9E2E9",
+            justifyContent: "space-between",
+          },
+        ]}
+      >
+        <IconButton
+          color={Colors.black}
+          icon="chevron-left"
+          size={30}
+          onPress={() => {
+            dispatch(cleanTemp());
+            navigation.goBack();
+          }}
+        />
+        <Text
+          style={{
+            fontSize: 20,
+            alignSelf: "center",
+          }}
+        >
+          Új leltár
+        </Text>
+        <TouchableOpacity
+          style={{
+            alignSelf: "center",
+            justifyContent: "center",
+            marginRight: 20,
+          }}
+          onPress={() => {
+            dispatch(
+              saveInventoryHeads({ head: tempHead, items: tempInvenroryItems })
+            );
+            dispatch(cleanTemp());
+            navigation.goBack();
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              backgroundColor: "rgba(31, 82, 152, 0.1)",
+              paddingHorizontal: 15,
+              paddingVertical: 5,
+              borderRadius: 25,
+            }}
+          >
+            <SvgUri
+              width="25"
+              height="25"
+              source={require("../../assets/svg/check-circle.svg")}
             />
-            <Text style={{
-                fontSize: 20,
-                alignSelf: "center"
-            }}>Új leltár</Text>
-            <TouchableOpacity style={{ alignSelf: "center", justifyContent: "center", marginRight: 20 }} onPress={() => dispatch(saveInventoryHeads({ head: tempHead, items: tempInvenroryItems }))}>
-                <View style={{ flexDirection: "row", backgroundColor: "rgba(31, 82, 152, 0.1)", paddingHorizontal: 15, paddingVertical: 5, borderRadius: 25 }}>
-                    <SvgUri
-                        width="25"
-                        height="25"
-                        source={require("../../assets/svg/check-circle.svg")}
-                    />
-                    <Text style={{
-                        marginLeft: 10, fontSize: 16
-                    }}>Lezár</Text>
-                </View>
-            </TouchableOpacity>
-            {/* <SvgUri
+            <Text
+              style={{
+                marginLeft: 10,
+                fontSize: 16,
+              }}
+            >
+              Lezár
+            </Text>
+          </View>
+        </TouchableOpacity>
+        {/* <SvgUri
                 width="100"
                 height="60"
                 style={{
@@ -143,113 +221,204 @@ const InventoryHeaderScreen = ({ navigation }) => {
                 source={require("../../assets/svg/logo-dark.svg")}
                 onLoad={_cacheResourcesAsync}
             /> */}
-        </View>
-        <View style={{ flex: 1, backgroundColor: "#D9E2E9" }}>
-            <View style={[styles.box, { backgroundColor: "white", borderRadius: 25, marginBottom: 20 }]}>
-                <List.Accordion
-                    title={<View><Text style={{ fontSize: 20, fontWeight: "600" }}>Alapadatok</Text></View>}>
-                    <List.Item title={
-                        <View >
-                            <TextInput
-                                placeholder={'Azonosító'}
-                                style={{ flex: 1, width: 340, marginBottom: 10 }}
-                                value={code}
-                                onChangeText={code => setCode(code)}
-                            />
-                            <View
-                                style={{ marginBottom: 10 }}>
-                                <DropDown
-                                    label={"Leltár"}
-                                    value={inventory}
-                                    setValue={setInventory}
-                                    list={inventoryList}
-                                    visible={showInventoryDropdown}
-                                    showDropDown={() => setShowInventoryDropdown(true)}
-                                    onDismiss={() => setShowInventoryDropdown(false)}
-                                    inputProps={{
-                                        right: <TextInput.Icon name={"menu-down"} />,
-                                    }}
-                                />
-                            </View>
-                            <View
-                                style={{ marginBottom: 10 }}>
-                                <DropDown
-                                    label={"Tárhely"}
-                                    value={storage}
-                                    setValue={setStorage}
-                                    list={storageList}
-                                    visible={showStorageDropdown}
-                                    showDropDown={() => setShowStorageDropdown(true)}
-                                    onDismiss={() => setShowStorageDropdown(false)}
-                                    inputProps={{
-                                        right: <TextInput.Icon name={"menu-down"} />,
-                                    }}
-                                />
-                            </View>
-                            <TextInput
-                                placeholder={'Megjegyzés'}
-                                style={{ flex: 1, width: 340, marginBottom: 15 }}
-                                value={comment}
-                                onChangeText={comment => setComment(comment)}
-                            />
-                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                <Text style={{ alignSelf: "center" }} > {storage}</Text>
+      </View>
+      <View style={{ flex: 1, backgroundColor: "#D9E2E9" }}>
+        <View
+          style={[
+            styles.box,
+            { backgroundColor: "white", borderRadius: 25, marginBottom: 20 },
+          ]}
+        >
+          <List.Accordion
+            title={
+              <View>
+                <Text style={{ fontSize: 20, fontWeight: "600" }}>
+                  Alapadatok
+                </Text>
+              </View>
+            }
+          >
+            <List.Item
+              title={
+                <View>
+                  <TextInput
+                    placeholder={"Azonosító"}
+                    style={{ flex: 1, width: 340, marginBottom: 10 }}
+                    value={code}
+                    onChangeText={(code) => setCode(code)}
+                  />
+                  <View style={{ marginBottom: 10 }}>
+                    <DropDown
+                      label={"Leltár"}
+                      value={inventory}
+                      setValue={setInventory}
+                      list={inventoryList}
+                      visible={showInventoryDropdown}
+                      showDropDown={() => setShowInventoryDropdown(true)}
+                      onDismiss={() => setShowInventoryDropdown(false)}
+                      inputProps={{
+                        right: <TextInput.Icon name={"menu-down"} />,
+                      }}
+                    />
+                  </View>
+                  <View style={{ marginBottom: 10 }}>
+                    <DropDown
+                      label={"Tárhely"}
+                      value={storage}
+                      setValue={setStorage}
+                      list={storageList}
+                      visible={showStorageDropdown}
+                      showDropDown={() => setShowStorageDropdown(true)}
+                      onDismiss={() => setShowStorageDropdown(false)}
+                      inputProps={{
+                        right: <TextInput.Icon name={"menu-down"} />,
+                      }}
+                    />
+                  </View>
+                  <TextInput
+                    placeholder={"Megjegyzés"}
+                    style={{ flex: 1, width: 340, marginBottom: 15 }}
+                    value={comment}
+                    onChangeText={(comment) => setComment(comment)}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={{ alignSelf: "center" }}> {storage}</Text>
 
-                                <View style={{ flexDirection: "row" }}>
-                                    {inventoryList.filter(x => x.code === inventory).map(x =>
-                                        <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                            <Text key={x.code} style={{ marginRight: 10 }}>{x.startDate}</Text>
-                                            <CircleWithLetter color={x.type && x.type === "I" ? colors.primary : colors.muted}>{x.type}</CircleWithLetter>
-                                        </View>
-                                    )}
-                                </View>
-                            </View>
-                        </View>
-                    } />
-                </List.Accordion>
-            </View>
-
-            <View style={[{ height: 80, marginBottom: -15, backgroundColor: "#E4D9DE", borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 20, paddingVertical: 20 }]}>
-                <Text style={{ color: colors.primary, fontSize: 16, fontWeight: "bold", alignSelf: "center" }}>Termékek száma: {itemsCount} db</Text>
-            </View>
-            <View style={[styles.box, { flex: 1, backgroundColor: "white", borderTopLeftRadius: 25, borderTopRightRadius: 25, paddingHorizontal: 20, paddingVertical: 20 }]}>
-                <Text style={{ fontSize: 20, fontWeight: "600" }}>Leltározott tételek</Text>
-                <View style={{ flexDirection: "row", marginTop: 15, marginBottom: 10 }}>
-                    <SortHeader ascending={ascending} setAscending={setAscending} col1Text="Tételek" col2Text="Mennyiség" />
+                    <View style={{ flexDirection: "row" }}>
+                      {inventoryList
+                        .filter((x) => x.code === inventory)
+                        .map((x) => (
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Text key={x.code} style={{ marginRight: 10 }}>
+                              {x.startDate}
+                            </Text>
+                            <CircleWithLetter
+                              color={
+                                x.type && x.type === "I"
+                                  ? colors.primary
+                                  : colors.muted
+                              }
+                            >
+                              {x.type}
+                            </CircleWithLetter>
+                          </View>
+                        ))}
+                    </View>
+                  </View>
                 </View>
-                <ScrollView>
-                    {tempInvenroryItems && <SwipeListView
-                        data={tempInvenroryItems}
-                        renderItem={(data, rowMap) => (
-                            <View style={{ backgroundColor: "white", justifyContent: "center" }}>
-                                <InventoryProductRow product={data.item} />
-                            </View>
-                        )}
-                        renderHiddenItem={(data, rowMap) => (
-                            <View style={{ flex: 1, justifyContent: "center", backgroundColor: "red", paddingLeft: 20 }}>
-                                <TouchableOpacity
-                                    onPress={() => dispatch(removeTempItem(data.item))}>
-                                    <SvgUri
-                                        width="20"
-                                        height="20"
-                                        source={require("../../assets/svg/trash.svg")}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                        )}
-                        disableLeftSwipe
-                        previewOpenDelay={3000}
-                        friction={1000}
-                        tension={40}
-                        leftOpenValue={75}
-                        stopLeftSwipe={75}
-                        rightOpenValue={-75}
-                    />}
-                    {/* {tempInvenroryItems && tempInvenroryItems.map(tempItem => <InventoryProductRow product={tempItem} />)} */}
-                </ScrollView>
-            </View>
+              }
+            />
+          </List.Accordion>
         </View>
-        {/* 
+
+        <View
+          style={[
+            {
+              height: 80,
+              marginBottom: -15,
+              backgroundColor: "#E4D9DE",
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+              paddingHorizontal: 20,
+              paddingVertical: 20,
+            },
+          ]}
+        >
+          <Text
+            style={{
+              color: colors.primary,
+              fontSize: 16,
+              fontWeight: "bold",
+              alignSelf: "center",
+            }}
+          >
+            Termékek száma: {itemsCount} db
+          </Text>
+        </View>
+        <View
+          style={[
+            styles.box,
+            {
+              flex: 1,
+              backgroundColor: "white",
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+              paddingHorizontal: 20,
+              paddingVertical: 20,
+            },
+          ]}
+        >
+          <Text style={{ fontSize: 20, fontWeight: "600" }}>
+            Leltározott tételek
+          </Text>
+          <View
+            style={{ flexDirection: "row", marginTop: 15, marginBottom: 10 }}
+          >
+            <SortHeader
+              ascending={ascending}
+              setAscending={setAscending}
+              col1Text="Tételek"
+              col2Text="Mennyiség"
+            />
+          </View>
+          <ScrollView>
+            {tempInvenroryItems && (
+              <SwipeListView
+                data={tempInvenroryItems}
+                renderItem={(data, rowMap) => (
+                  <View
+                    style={{
+                      backgroundColor: "white",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <InventoryProductRow product={data.item} />
+                  </View>
+                )}
+                renderHiddenItem={(data, rowMap) => (
+                  <View
+                    style={{
+                      flex: 1,
+                      justifyContent: "center",
+                      backgroundColor: "red",
+                      paddingLeft: 20,
+                    }}
+                  >
+                    <TouchableOpacity
+                      onPress={() => dispatch(removeTempItem(data.item))}
+                    >
+                      <SvgUri
+                        width="20"
+                        height="20"
+                        source={require("../../assets/svg/trash.svg")}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                )}
+                disableLeftSwipe
+                previewOpenDelay={3000}
+                friction={1000}
+                tension={40}
+                leftOpenValue={75}
+                stopLeftSwipe={75}
+                rightOpenValue={-75}
+              />
+            )}
+            {/* {tempInvenroryItems && tempInvenroryItems.map(tempItem => <InventoryProductRow product={tempItem} />)} */}
+          </ScrollView>
+        </View>
+      </View>
+      {/* 
         <ScrollView>
         {products && products.sort((a, b) =>
             ascending ? ((a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)) : ((b.name > a.name) ? 1 : ((a.name > b.name) ? -1 : 0))
@@ -264,56 +433,55 @@ const InventoryHeaderScreen = ({ navigation }) => {
                 }} key={product.id} product={product} detailedSearch={detailedSearch} />)}
         </ScrollView> */}
 
-        {/* <View style={{ height: 50, width: "100%", backgroundColor: "#D9E2E9" }}>
+      {/* <View style={{ height: 50, width: "100%", backgroundColor: "#D9E2E9" }}>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around" }} >
                 <IconNavButton title={"Termékkereső"} icon={require(`../../assets/svg/search_main.svg`)} navigation={navigation} route={"ProductSearch"} active />
                 <IconNavButton title={"Termékkereső"} icon={require(`../../assets/svg/search_main.svg`)} navigation={navigation} route={"ProductSearch"} active />
             </View>
         </View> */}
-        <FAB
-            style={styles.fab}
-            icon="plus"
-            onPress={() => navigation.navigate("ProductAddToInventory")}
-        />
-    </Screen >
-}
+      <FAB
+        style={styles.fab}
+        icon="plus"
+        onPress={() => navigation.navigate("ProductAddToInventory")}
+      />
+    </Screen>
+  );
+};
 
 export default InventoryHeaderScreen;
 
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 20,
-        backgroundColor: "#D9E2E9",
+  container: {
+    flex: 1,
+    paddingTop: 20,
+    backgroundColor: "#D9E2E9",
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    alignSelf: "center",
+    textAlign: "center",
+  },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    color: "white",
+    backgroundColor: "#7B034D",
+  },
+  box: {
+    borderRadius: 15,
+    paddingHorizontal: 5,
+    paddingVertical: 10,
+    backgroundColor: "white",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
-    headerText: {
-        fontSize: 20,
-        fontWeight: "bold",
-        alignSelf: "center",
-        textAlign: "center"
-    },
-    fab: {
-        position: 'absolute',
-        margin: 16,
-        right: 0,
-        bottom: 0,
-        color: "white",
-        backgroundColor: "#7B034D"
-    },
-    box: {
-        borderRadius: 15,
-        paddingHorizontal: 5,
-        paddingVertical: 10,
-        backgroundColor: "white",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-    }
-
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
 });

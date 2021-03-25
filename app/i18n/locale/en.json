@@ -1,86 +1,105 @@
 {
   "helloWorld": "Hello World",
   "common": {
-    "ok": "OK",
-    "success": "success",
-    "send": "Send",
-    "cancel": "Cancel",
-    "offline": "Please check your Internet connection"
+    "ok": "Ok",
+    "success": "siker",
+    "send": "Küldés",
+    "cancel": "Mégsem",
+    "offline": "Nincs internet kapcsolat"
   },
   "auth": {
-    "signUp": "Sign up",
-    "signIn": "Sign in",
-    "enterFirstName": "Enter your first name",
-    "enterLastName": "Enter your last name",
-    "enterEmail": "Enter your email",
-    "userName": "Username",
-    "password": "Password",
-    "enterPassword": "Enter your password",
-    "confirmPassword": "Confirm your password",
-    "passwordsMustMatch": "Passwords must match",
-    "changePass": "Change password",
-    "haveAccountLogIn": "Already have an account? Log in!",
-    "enterNewPass": "Enter new password",
-    "confirmPass": "Confirm password",
-    "passwordSuccessfullyChanged": "Password successfully changed",
-    "invalidCredentials": "Email/password combination is incorrect.",
-    "emailDoesNotExist": "Email does not exist",
-    "sendEmail": "Send email",
-    "forgotPasswordSuccess": "Email with reset password link has been sent to you",
-    "resetPassword": "Reset password",
-    "invalidToken": "Invalid or expired token",
-    "passwordResetSucces": "Your password has been successfully reseted",
-    "storeSelector": "Select store"
+    "signUp": "Regisztráció",
+    "signIn": "Belépés",
+    "enterFirstName": "Keresztnév",
+    "enterLastName": "Vezetéknév",
+    "enterEmail": "Email",
+    "userName": "Felhasználónév",
+    "password": "Jelszó",
+    "enterPassword": "Jelszó",
+    "confirmPassword": "Jelszó újra",
+    "passwordsMustMatch": "A jelszavaknak egyezniük kell",
+    "changePass": "Jelszó váltóztatás",
+    "haveAccountLogIn": "Van fiókód? Belépés!",
+    "enterNewPass": "Új jelszó",
+    "confirmPass": "Jelszó megerősítés",
+    "passwordSuccessfullyChanged": "Jelszó váltás sikeres",
+    "invalidCredentials": "Email/jelszó nem helyes.",
+    "emailDoesNotExist": "Nem létező email cím",
+    "sendEmail": "Email küldés",
+    "forgotPasswordSuccess": "Jelszó emlékeztető linket kiküldtük!",
+    "resetPassword": "Jelszó emlékeztető",
+    "invalidToken": "Helytelen vagy lejárt token",
+    "passwordResetSucces": "A jelszó sikeresen megváltozott",
+    "storeSelector": "Boltválasztás"
   },
   "validation": {
-    "firstNameIsRequired": "First name is required.",
-    "lastNameIsRequired": "Last name is required.",
-    "emailIsRequired": "Email is required.",
-    "passwordIsRequired": "Password is required.",
-    "confirmPasswordIsRequired": "Confirm password is required.",
-    "currentPasswordIsRequired": "Current password is required.",
-    "newPasswordIsRequired": "New password is required.",
-    "newPasswordConfirmationIsRequired": "New password confirmation is required",
-
-    "mustBeValidEmail": "Email must be a valid email format.",
-    "passwordsMustMatch": "Passwords must match.",
-    "passwordMinCharacters": "Password must be at least 8 characters.",
-    "confirmPasswordMinCharacters": "Password confirmation must be at least 8 characters.",
-    "currentPasswordMinCharacters": "Current password must be at least 8 characters.",
-    "newPasswordMinCharacters": "New assword must be at least 8 characters.",
-    "newPasswordConfirmationMinCharacters": "New password confirmation must be at least 8 characters."
+    "firstNameIsRequired": "Keresztnév kötelező.",
+    "lastNameIsRequired": "Vezetéknév kötelező.",
+    "emailIsRequired": "Email kötelező.",
+    "passwordIsRequired": "Jelszó kötelező.",
+    "confirmPasswordIsRequired": "Jelszó megerősítés kötelező.",
+    "currentPasswordIsRequired": "Jelenlegi jelszó kötelező.",
+    "newPasswordIsRequired": "Új jelszó kötelező.",
+    "newPasswordConfirmationIsRequired": "Új jelszó megerősítése kötelező",
+    "mustBeValidEmail": "Email formátum nem helyes.",
+    "passwordsMustMatch": "A jelszavaknak egyezniük kell.",
+    "passwordMinCharacters": "A jelszónak legalább 8 karakternek kell lennie",
+    "confirmPasswordMinCharacters": "A jelszónak megerősítésnek legalább 8 karakternek kell lennie",
+    "currentPasswordMinCharacters": "A jelenlegi jelszónak legalább 8 karakternek kell lennie",
+    "newPasswordMinCharacters": "Az új jelszónak legalább 8 karakternek kell lennie",
+    "newPasswordConfirmationMinCharacters": "Az új jelszó megerősítésnek legalább 8 karakternek kell lennie"
   },
   "error": {
-    "somethingWrong": "Something went wrong",
-    "doYouWantToRestart": "Do you want to restart application",
-    "restart": "Restart",
-    "cancel": "Cancel",
-    "socialLoginError": "Social login error",
-    "close": "Close"
+    "somethingWrong": "Valami NOK",
+    "doYouWantToRestart": "Szeretnéd újraindítani az alkalmazást?",
+    "restart": "Újraindítás",
+    "cancel": "Mégsem",
+    "socialLoginError": "Social login hiba",
+    "close": "Bezárás"
   },
   "profile": {
     "changePassword": {
-      "changePassword": "Change password",
-      "currentPassword": "Current password",
-      "newPassword": "New password",
-      "confirmNewPassword": "Confirm new password",
-      "change": "Change",
-      "invalidOldPassword": "Old password is incorrect.",
-      "passwordChanged": "Password Changed",
-      "passwordChangedSuccess": "Password has been changed"
+      "changePassword": "Jelszó váltóztatás",
+      "currentPassword": "Jelenlegi jelszó",
+      "newPassword": "Új jelszó",
+      "confirmNewPassword": "Új jelszó megerősítése",
+      "change": "Váltóztatás",
+      "invalidOldPassword": "A régi jelszó nem helyes.",
+      "passwordChanged": "Jelszó megváltozott!",
+      "passwordChangedSuccess": "Jelszó váltás sikeres!"
     },
     "updateUser": {
-      "updateProfile": "Update profile",
-      "firstName": "First name",
-      "lastName": "Last name",
-      "update": "Update",
-      "importImage": "Import image",
-      "importFromGallery": "Import from gallery",
-      "takePicture": "Take picture",
-      "noPermissions": "No permissions"
+      "updateProfile": "Profil frissítése",
+      "firstName": "Keresztnév",
+      "lastName": "Vezetéknév",
+      "update": "Mentés",
+      "importImage": "Kép választása",
+      "importFromGallery": "Kép választása galériából",
+      "takePicture": "Fotó készítése",
+      "noPermissions": "Nincs jogosultság"
     }
   },
   "functions": {
-    "notes": "Notes"
+    "notes": "Jegyzetek",
+    "priceCheck": "Árellenőrzés",
+    "inventory": "Leltár"
+  },
+  "dashboard": {
+    "tab": {
+      "lastFunction": "Utolsó funkció",
+      "actualWarehouse": "Aktuális raktár",
+      "error": "Hiba"
+    }
+  },
+  "notes": {
+    "message": "Memo",
+    "send": "Küldés"
+  },
+  "inventory": {
+    "tab": {
+      "open": "Nyitott",
+      "closed": "Lezárt",
+      "all": "Összes"
+    }
   }
 }
