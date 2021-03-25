@@ -19,6 +19,7 @@ import {
   cleanTemp,
   inventoryHeadSelector,
   inventoryItemsSelector,
+  loadInventoryHeads,
   removeTempItem,
   saveInventoryHeads,
   saveTempHead,
@@ -117,15 +118,12 @@ const InventoryHeaderScreen = ({ navigation }) => {
     [tempItems]
   );
 
-  useEffect(
-    () => {
-      // if (productsSelected && !loading) {
-      //     setProducts(productsSelected);
-      //     console.warn({ products });
-      // }
-    },
-    [loading]
-  );
+  useEffect(() => {
+    // if (productsSelected && !loading) {
+    //     setProducts(productsSelected);
+    //     console.warn({ products });
+    // }
+  }, []);
 
   if (loading) {
     return <LoadingScreen />;

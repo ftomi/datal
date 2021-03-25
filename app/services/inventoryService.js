@@ -1,18 +1,17 @@
-
 import Inventory from "../models/Inventory";
 import InventoryHead from "../models/InventoryHead";
 import InventoryItem from "../models/InventoryItem";
 import Storage from "../models/Storage";
 
 const getInventoriesFromDb = async () => {
-  await setTimeout(() => { }, 2000);
+  await setTimeout(() => {}, 2000);
   const data = await Inventory.query();
 
   return data;
 };
 
 const getInventoryByIdFromDb = async (payload) => {
-  await setTimeout(() => { }, 2000);
+  await setTimeout(() => {}, 2000);
   const data = await Inventory.findBy({ id_eq: payload.id });
 
   return data;
@@ -24,8 +23,8 @@ const getInventoryHeadsFromDb = async (payload) => {
   if (payload < 2) {
     data = await InventoryHead.query({
       where: {
-        closed_eq: payload === 1
-      }
+        closed_eq: payload === 1,
+      },
     });
   } else {
     data = await InventoryHead.query();
@@ -37,8 +36,6 @@ const getInventoryHeadsFromDb = async (payload) => {
       comment: { type: types.TEXT, not_null: true },
       closed: { type: types.BOOLEAN, default: false },
   */
-  const st = await Inventory.query();
-  console.log({ st })
   for (let row of data) {
     console.log("row", row);
     if (row && row.inventoryId) {
@@ -56,12 +53,12 @@ const getInventoryHeadsFromDb = async (payload) => {
 };
 
 const getInventoryDataByIdFromDb = async (payload) => {
-  await setTimeout(() => { }, 2000);
+  await setTimeout(() => {}, 2000);
   const data = await InventoryHead.findBy({ id_eq: payload.id });
   const items = await InventoryItems.query({
     where: {
-      inventoryHeadId_eq: payload.id
-    }
+      inventoryHeadId_eq: payload.id,
+    },
   });
   data.items = items;
   return data;
@@ -69,14 +66,30 @@ const getInventoryDataByIdFromDb = async (payload) => {
 
 const saveInventoryToDb = async ({ head, items }) => {
   // const { comment, code, inventory, storage } = head;
-  console.log({ head, items })
-  await InventoryHead.create({ id: head.code, comment: head.comment, inventoryId: head.inventory, storageId: head.storage, closed: true });
-  console.log("1")
+  console.log({ head, items });
+  await InventoryHead.create({
+    id: head.code,
+    comment: head.comment,
+    inventoryId: head.inventory,
+    storageId: head.storage,
+    closed: true,
+  });
+  console.log("1");
   for (item of items) {
     const { productId, foundQuantity } = item;
-    await InventoryItem.create({ productId: item.productId, foundQuantity: item.foundQuantity, inventoryHeadId: head.code })
+    await InventoryItem.create({
+      productId: item.productId,
+      foundQuantity: item.foundQuantity,
+      inventoryHeadId: head.code,
+    });
   }
-  console.log("1")
-}
+  console.log("1");
+};
 
-export { getInventoriesFromDb, getInventoryByIdFromDb, getInventoryHeadsFromDb, getInventoryDataByIdFromDb, saveInventoryToDb };
+export {
+  getInventoriesFromDb,
+  getInventoryByIdFromDb,
+  getInventoryHeadsFromDb,
+  getInventoryDataByIdFromDb,
+  saveInventoryToDb,
+};

@@ -1,10 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-const CircleWithLetter = ({ children, color = "#c4c4c4" }) => {
-  return <View style={[styles.circle, { backgroundColor: color }]} >
-    <Text style={styles.text}>{children}</Text>
-  </View>;
+const CircleWithLetter = ({ children, color = "#c4c4c4", styleParam = {} }) => {
+  return (
+    <View style={[styles.circle, styleParam, { backgroundColor: color }]}>
+      <Text style={styles.text}>{children}</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -13,14 +15,13 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     width: 40,
     height: 40,
-    justifyContent: "center"
-
+    justifyContent: "center",
   },
   text: {
     alignSelf: "center",
     color: "white",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });
 
 export default CircleWithLetter;

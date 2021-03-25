@@ -40,7 +40,7 @@ const theme = {
     primary: "#7B034D",
     accent: "#F79E1B",
     statusOk: "#00CB05",
-    muted: "#c4c4c4"
+    muted: "#c4c4c4",
   },
 };
 
@@ -52,6 +52,7 @@ const App = () => {
   useEffect(
     () => {
       (async () => {
+        // await Inventory.dropTable();
         // await InventoryHead.dropTable();
         // await InventoryItem.dropTable();
         // await Product.dropTable();
@@ -152,7 +153,7 @@ const App = () => {
 
         const firstBarcode = await Barcode.findBy({ code_eq: "1271031596" });
         if (!firstBarcode) {
-          console.warn("OK")
+          console.warn("OK");
           let product = await Product.findBy({ code_eq: "TEST00001" });
           let props = {
             code: "1271031596",
@@ -216,7 +217,7 @@ const App = () => {
             productId: product.id,
             name: "Coca cola Hungary",
             supplier: true,
-            customer: false
+            customer: false,
           };
 
           await Partner.create(props);
@@ -226,7 +227,7 @@ const App = () => {
             productId: product.id,
             name: "Coca cola Hungary",
             supplier: true,
-            customer: false
+            customer: false,
           };
 
           await Partner.create(props);
@@ -237,7 +238,7 @@ const App = () => {
             productId: product.id,
             name: "Száll. 001",
             supplier: true,
-            customer: false
+            customer: false,
           };
           await Partner.create(props);
 
@@ -246,7 +247,7 @@ const App = () => {
             productId: product.id,
             name: "Száll. 005",
             supplier: true,
-            customer: false
+            customer: false,
           };
           await Partner.create(props);
 
@@ -255,7 +256,7 @@ const App = () => {
             productId: product.id,
             name: "Száll. 006",
             supplier: true,
-            customer: false
+            customer: false,
           };
 
           await Partner.create(props);
@@ -264,7 +265,7 @@ const App = () => {
             productId: product.id,
             name: "Száll. 007",
             supplier: false,
-            customer: true
+            customer: true,
           };
 
           await Partner.create(props);
@@ -274,7 +275,7 @@ const App = () => {
             code: "3333",
             name: "Száll. 002",
             supplier: true,
-            customer: false
+            customer: false,
           };
 
           await Partner.create(props);
@@ -283,7 +284,7 @@ const App = () => {
             code: "3443",
             name: "Száll. 003",
             supplier: true,
-            customer: false
+            customer: false,
           };
 
           await Partner.create(props);
@@ -292,7 +293,7 @@ const App = () => {
             code: "3443dd",
             name: "Száll. 012",
             supplier: true,
-            customer: false
+            customer: false,
           };
 
           await Partner.create(props);
@@ -300,7 +301,7 @@ const App = () => {
             code: "3443asdasdd",
             name: "Száll. 013",
             supplier: true,
-            customer: false
+            customer: false,
           };
 
           await Partner.create(props);
@@ -309,11 +310,10 @@ const App = () => {
             code: "3443a",
             name: "Száll. 015",
             supplier: true,
-            customer: false
+            customer: false,
           };
 
           await Partner.create(props);
-
         }
 
         const firstStorage = await Storage.findBy({ code_eq: "RA-123312" });
@@ -325,28 +325,27 @@ const App = () => {
           */
           let props = {
             code: "RA-123312",
-            name: "Csemege pult"
-          }
+            name: "Csemege pult",
+          };
           await Storage.create(props);
 
           props = {
             code: "RA-122222",
-            name: "Hús pult"
-          }
+            name: "Hús pult",
+          };
           await Storage.create(props);
 
           props = {
             code: "BA-1222221322",
-            name: "Barkács osztály"
-          }
+            name: "Barkács osztály",
+          };
           await Storage.create(props);
 
           props = {
             code: "BA-1e322",
-            name: "Barkács osztály 2"
-          }
+            name: "Barkács osztály 2",
+          };
           await Storage.create(props);
-
         }
 
         const firstStore = await Store.findBy({ code_eq: "STO-1" });
@@ -358,28 +357,27 @@ const App = () => {
           */
           let props = {
             code: "STO-1",
-            name: "Csillag ABC"
-          }
+            name: "Csillag ABC",
+          };
           await Store.create(props);
 
           props = {
             code: "STO-2",
-            name: "Mészáros hentes üzlet"
-          }
+            name: "Mészáros hentes üzlet",
+          };
           await Store.create(props);
 
           props = {
             code: "STO-3",
-            name: "Barkács BOB"
-          }
+            name: "Barkács BOB",
+          };
           await Store.create(props);
 
           props = {
             code: "STO-4",
-            name: "Barkács BOB 2"
-          }
+            name: "Barkács BOB 2",
+          };
           await Store.create(props);
-
         }
 
         const firstWarehouse = await Warehouse.findBy({ code_eq: "RA-1-1" });
@@ -397,24 +395,24 @@ const App = () => {
             code: "RA-1-1",
             name: "Raktár 1",
             storeId: 1,
-            defaultWarehouse: true
-          }
+            defaultWarehouse: true,
+          };
           await Warehouse.create(props);
 
           props = {
             code: "RA-1-2",
             name: "Raktár 2",
             storeId: 1,
-            defaultWarehouse: false
-          }
+            defaultWarehouse: false,
+          };
           await Warehouse.create(props);
 
           props = {
             code: "RA-1-3",
             name: "Raktár 3",
             storeId: 2,
-            defaultWarehouse: true
-          }
+            defaultWarehouse: true,
+          };
 
           await Warehouse.create(props);
 
@@ -422,50 +420,50 @@ const App = () => {
             code: "BA-1e322",
             name: "Raktár 4",
             storeId: 3,
-            defaultWarehouse: true
-
-          }
+            defaultWarehouse: true,
+          };
           await Warehouse.create(props);
-
         }
-        console.warn("OUT")
+        console.warn("OUT");
         const firstInventory = await Inventory.findBy({ code_eq: "INV-001-1" });
         if (!firstInventory) {
-          console.warn("IN")
+          console.warn("IN");
           let props = {
             code: "INV-001-1",
             name: "Belső raktár",
             warehouseId: 1,
-            type: "E"
-          }
+            type: "E",
+            startDate: Date(),
+          };
           await Inventory.create(props);
 
           props = {
             code: "INV-001-2",
             name: "Átfogó raktár",
             warehouseId: 1,
-            type: "I"
-          }
+            type: "I",
+            startDate: Date(),
+          };
           await Inventory.create(props);
 
           props = {
             code: "INV-001-3",
             name: "Belső raktár",
             warehouseId: 2,
-            type: "I"
-          }
+            type: "I",
+            startDate: Date(),
+          };
 
           await Inventory.create(props);
           props = {
             code: "INV-001-3",
             name: "Belső raktár",
             warehouseId: 3,
-            type: "I"
-          }
+            type: "I",
+            startDate: Date(),
+          };
           await Inventory.create(props);
         }
-
-
       })();
       SplashScreen.preventAutoHideAsync();
     },
