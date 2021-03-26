@@ -89,7 +89,7 @@ const App = () => {
         await Warehouse.createTable();
 
         try {
-          Sentry.Native.captureException(new Error("..."))
+          // Sentry.Native.captureException(new Error("..."))
         }
         catch (x) {
           console.warn("ERROR", x)
