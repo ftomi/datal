@@ -26,7 +26,6 @@ const SupplierSearchScreen = ({ route, navigation }) => {
     }, [productId])
 
     useEffect(() => {
-        console.warn("suppliersSelected: ", suppliersSelected);
         if (!loading) {
             setSuppliers(suppliersSelected);
         }

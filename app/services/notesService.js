@@ -3,7 +3,6 @@ import Note from "../models/Note";
 const getNotesFromDb = async () => {
 
     const data = await Note.query()
-    console.log(data);
     return data;
 
 };

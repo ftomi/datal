@@ -19,7 +19,6 @@ const getInventoryByIdFromDb = async (payload) => {
 
 const getInventoryHeadsFromDb = async (payload) => {
   let data;
-  console.warn({ payload });
   if (payload < 2) {
     data = await InventoryHead.query({
       where: {
@@ -37,7 +36,6 @@ const getInventoryHeadsFromDb = async (payload) => {
       closed: { type: types.BOOLEAN, default: false },
   */
   for (let row of data) {
-    console.log("row", row);
     if (row && row.inventoryId) {
       const inv = await Inventory.findBy({ code_eq: row.inventoryId });
       row.inventory = inv;
@@ -48,7 +46,6 @@ const getInventoryHeadsFromDb = async (payload) => {
       row.storage = stg;
     }
   }
-  console.log(data);
   return data;
 };
 
@@ -67,7 +64,6 @@ const getInventoryDataByIdFromDb = async (payload) => {
 const saveInventoryToDb = async ({ head, items }) => {
   // const { comment, code, inventory, storage } = head;
   try {
-    console.log({ head, items });
     await InventoryHead.create({
       id: head.code,
       comment: head.comment,
@@ -75,7 +71,6 @@ const saveInventoryToDb = async ({ head, items }) => {
       storageId: head.storage,
       closed: true,
     });
-    console.log("1");
     for (item of items) {
       const { productId, foundQuantity } = item;
       await InventoryItem.create({

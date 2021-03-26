@@ -26,7 +26,6 @@ const ProductSearchScreen = ({ route, navigation }) => {
     useEffect(() => {
         if (productsSelected && !loading) {
             setProducts(productsSelected);
-            console.warn({ products });
         }
     }, [loading])
 

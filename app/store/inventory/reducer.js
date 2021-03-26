@@ -25,14 +25,11 @@ function reducer(state = initialState, { type, payload }) {
     case ADD_INVENTORYHEADS:
       return { ...state, inventoryHeads: payload };
     case SAVE_TEMP_HEAD:
-      console.log(payload)
       return { ...state, tempInventoryHead: payload };
     case ADD_TEMP_ITEM:
-      console.log(state.tempInventoryItems)
       return { ...state, tempInventoryItems: [...state.tempInventoryItems, payload] };
     case REMOVE_TEMP_ITEM:
       const actualItems = state.tempInventoryItems.filter(x => x.id !== payload.id);
-      console.log(actualItems)
       return { ...state, tempInventoryItems: actualItems };
     case CLEAN_TEMP:
       return {

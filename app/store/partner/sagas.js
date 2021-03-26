@@ -11,7 +11,6 @@ function* loadSuppliers({ payload }) {
   try {
     yield put(setLoader(true));
     const data = yield call(getSuppliersFromDb, payload);
-    console.warn("suppliers: ", data);
     if (data)
       yield put(addSuppliers(data));
     // NavigationService.navigate('AuthLoading');

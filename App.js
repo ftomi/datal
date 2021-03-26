@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, ToastAndroid } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import SvgUri from "expo-svg-uri";
 import * as SplashScreen from "expo-splash-screen";
@@ -33,6 +33,14 @@ import InventoryHead from "./app/models/InventoryHead";
 import InventoryItem from "./app/models/InventoryItem";
 import Warehouse from "./app/models/Warehouse";
 import moment from "moment";
+import * as Sentry from "sentry-expo";
+import { SENTRY_DSN } from "react-native-dotenv";
+
+Sentry.init({
+  dsn: SENTRY_DSN,
+  enableInExpoDevelopment: true,
+  debug: true
+});
 
 const theme = {
   ...DefaultTheme,
@@ -52,6 +60,7 @@ const App = () => {
 
   useEffect(
     () => {
+      // ToastAndroid.show("EXPO VARIABLE: " + SENTRY_DSN, ToastAndroid.SHORT);
       (async () => {
         await Storage.dropTable();
         await Note.dropTable();
@@ -78,7 +87,16 @@ const App = () => {
         await InventoryItem.createTable();
         await Warehouse.dropTable();
         await Warehouse.createTable();
+
+        try {
+          Sentry.Native.captureException(new Error("..."))
+        }
+        catch (x) {
+          console.warn("ERROR", x)
+        }
+        /**/
         // create dummy user
+
         const firstUser = await User.findBy({ username_eq: "1111" });
         if (!firstUser) {
           const props = {
@@ -88,6 +106,7 @@ const App = () => {
             lastname: "Farkas",
           };
           await User.create(props);
+
         }
 
         const firstProduct = await Product.findBy({ code_eq: "TEST00001" });
@@ -156,12 +175,10 @@ const App = () => {
 
           await Product.create(props);
 
-          const products = await Product.query();
         }
 
         const firstBarcode = await Barcode.findBy({ code_eq: "1271031596" });
         if (!firstBarcode) {
-          console.warn("OK");
           let product = await Product.findBy({ code_eq: "TEST00001" });
           let props = {
             code: "1271031596",
@@ -431,10 +448,9 @@ const App = () => {
           };
           await Warehouse.create(props);
         }
-        console.warn("OUT");
+
         const firstInventory = await Inventory.findBy({ code_eq: "INV-001-1" });
         if (!firstInventory) {
-          console.warn("IN");
           let props = {
             code: "INV-001-1",
             name: "Belső raktár",

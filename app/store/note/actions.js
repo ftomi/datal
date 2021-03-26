@@ -22,7 +22,6 @@ export function saveNote(note) {
 }
 
 export function addNotes(notes) {
-  console.log({ notes });
   return {
     type: ADD_NOTES,
     payload: notes
@@ -30,7 +29,6 @@ export function addNotes(notes) {
 }
 
 export function addNote(note) {
-  console.log({ note });
   return {
     type: ADD_NOTE,
     payload: note
